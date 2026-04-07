@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DankeFlow — Shërbime</title>
+<style>/* ── DANKEFLOW STUDIO — SHARED STYLES ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#22c55e;--gd:#16a34a;
+  --dark:#060806;--dark2:#090c09;--dark3:#0d110d;--dark4:#111811;
+  --border:rgba(255,255,255,0.06);--borderg:rgba(34,197,94,0.18);
+  --muted:rgba(255,255,255,0.42);--muted2:rgba(255,255,255,0.22);
+}
+
+html,body{font-family:'DM Sans','Segoe UI',sans-serif;background:var(--dark);color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:22px 52px;transition:all .4s}
+nav.sc{background:rgba(6,8,6,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(24px);padding:15px 52px}
+.logo{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:21px;font-weight:700;color:#fff;text-decoration:none;z-index:601;position:relative}
+.logo em{color:var(--g);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:100px;padding:5px}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;padding:7px 18px;border-radius:100px;transition:all .2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-links a.act{color:#000;background:var(--g)}
+.nav-right{display:flex;align-items:center;gap:10px;position:relative;z-index:601}
+.lang-tog{display:flex;gap:2px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:100px;padding:4px}
+.lb{font-size:11px;font-weight:600;color:var(--muted);padding:5px 12px;border-radius:100px;border:none;background:none;font-family:inherit;transition:all .2s}
+.lb.act{background:var(--g);color:#000}
+.sb{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all .2s}
+.sb:hover{border-color:var(--g);color:var(--g)}
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;z-index:601;position:relative}
+.hbg span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s cubic-bezier(.16,1,.3,1)}
+.hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hbg.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-menu{position:fixed;inset:0;z-index:600;background:rgba(6,8,6,.98);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;pointer-events:none;transition:opacity .3s}
+.mob-menu.open{opacity:1;pointer-events:all}
+.mob-menu a{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,7vw,46px);font-weight:700;font-style:italic;color:rgba(255,255,255,.6);text-decoration:none;letter-spacing:-1px;opacity:0;transform:translateY(16px);transition:all .3s}
+.mob-menu.open a{opacity:1;transform:translateY(0)}
+.mob-menu.open a:nth-child(1){transition-delay:.05s}.mob-menu.open a:nth-child(2){transition-delay:.1s}
+.mob-menu.open a:nth-child(3){transition-delay:.15s}.mob-menu.open a:nth-child(4){transition-delay:.2s}
+.mob-menu a:hover{color:var(--g)}.mob-menu a span{color:var(--g)}
+.mob-lang{display:flex;gap:10px;margin-top:28px;opacity:0;transform:translateY(12px);transition:all .35s .22s}
+.mob-menu.open .mob-lang{opacity:1;transform:translateY(0)}
+.mob-lb{font-size:13px;font-weight:600;color:var(--muted);padding:8px 22px;border-radius:100px;border:1px solid var(--border);background:none;font-family:inherit;transition:all .2s}
+.mob-lb.act{background:var(--g);color:#000;border-color:transparent}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.05s}.d2{transition-delay:.15s}.d3{transition-delay:.25s}
+.d4{transition-delay:.35s}.d5{transition-delay:.45s}.d6{transition-delay:.55s}
+
+/* PAGE HEADER (for inner pages) */
+.page-header{padding:140px 52px 80px;background:var(--dark);position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.page-header::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(34,197,94,0.06) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.ph-tag{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.ph-tag::before{content:'';width:20px;height:1px;background:var(--g)}
+.ph-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,68px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:16px}
+.ph-title em{font-style:italic;color:var(--g)}
+.ph-sub{font-size:15px;color:var(--muted);line-height:1.75;max-width:500px}
+
+/* SECTION */
+.sec{padding:80px 52px}
+
+/* BUTTONS */
+.bp{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--g);color:#000;font-size:14px;font-weight:700;font-family:inherit;border-radius:10px;text-decoration:none;transition:all .2s}
+.bp:hover{background:var(--gd);transform:translateY(-1px)}
+.bo{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:transparent;color:rgba(255,255,255,.65);font-size:14px;font-weight:500;font-family:inherit;border-radius:10px;border:1px solid var(--border);text-decoration:none;transition:all .2s}
+.bo:hover{border-color:rgba(255,255,255,.18);color:#fff}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--border);padding:28px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-logo{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:18px;font-weight:700;color:#fff;text-decoration:none}
+.foot-logo em{color:var(--g);font-style:normal}
+.foot-copy{font-size:12px;color:var(--muted2)}
+.foot-links{display:flex;gap:20px}
+.foot-links a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--g)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:16px 22px}nav.sc{padding:12px 22px}
+  .nav-links,.lang-tog,.sb{display:none}.hbg{display:flex}
+  .page-header{padding:110px 24px 60px}
+  .sec{padding:56px 24px}
+  footer{padding:24px;flex-direction:column;text-align:center}
+  .foot-links{justify-content:center}
+}
+@media(min-width:901px){.mob-menu,.hbg{display:none!important}}
+
+/* PAGE TRANSITION */
+.page-transition-overlay{
+  position:fixed;inset:0;z-index:9999;
+  pointer-events:none;
+  background:var(--dark);
+  transform:scaleY(0);
+  transform-origin:bottom;
+}
+.page-transition-overlay.leaving{
+  pointer-events:all;
+  animation:pageLeave 0.55s cubic-bezier(0.76,0,0.24,1) forwards;
+}
+.page-transition-overlay.entering{
+  animation:pageEnter 0.55s cubic-bezier(0.76,0,0.24,1) forwards;
+}
+@keyframes pageLeave{
+  0%{transform:scaleY(0);transform-origin:bottom}
+  50%{transform:scaleY(1);transform-origin:bottom}
+  50.01%{transform:scaleY(1);transform-origin:top}
+  100%{transform:scaleY(1);transform-origin:top}
+}
+@keyframes pageEnter{
+  0%{transform:scaleY(1);transform-origin:top}
+  100%{transform:scaleY(0);transform-origin:top}
+}
+body{opacity:1;transition:none}
+
+/* HOME BUTTON */
+.home-btn{
+  position:fixed;
+  bottom:32px;left:32px;
+  z-index:400;
+  display:flex;align-items:center;gap:8px;
+  padding:10px 18px 10px 14px;
+  background:rgba(6,8,6,0.85);
+  border:1px solid rgba(34,197,94,0.25);
+  border-radius:100px;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  color:rgba(255,255,255,0.7);
+  font-size:13px;font-weight:500;
+  font-family:'DM Sans','Segoe UI',sans-serif;
+  text-decoration:none;
+  transition:all 0.25s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+.home-btn:hover{
+  background:rgba(34,197,94,0.12);
+  border-color:rgba(34,197,94,0.5);
+  color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(0,0,0,0.5),0 0 20px rgba(34,197,94,0.1);
+}
+.home-btn svg{
+  width:16px;height:16px;
+  color:var(--g);
+  flex-shrink:0;
+}
+
+
+/* ── BOTTOM NAVBAR ── */
+.home-btn{display:none!important}
+.bottom-nav{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:450;
+  background:#fff;
+  border-radius:32px;
+  padding:0 16px;
+  height:70px;
+  display:flex;
+  align-items:center;
+  box-shadow:0 8px 40px rgba(0,0,0,0.4),0 2px 8px rgba(0,0,0,0.2);
+}
+.bn-item{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;position:relative;
+  width:68px;height:70px;
+  text-decoration:none;
+  border:none;background:none;padding:0;
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+}
+.bn-bubble{
+  position:absolute;
+  top:0;
+  width:52px;height:52px;
+  border-radius:50%;
+  background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  transform:translateY(0) scale(0.5);
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+  pointer-events:none;
+}
+.bn-item.act .bn-bubble{
+  transform:translateY(-26px) scale(1);
+  background:var(--g);
+  box-shadow:0 4px 20px rgba(34,197,94,0.45);
+}
+.bn-bubble-icon{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  opacity:0;
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+}
+.bn-bubble-icon svg{width:22px;height:22px;stroke:#000;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bn-item.act .bn-bubble-icon{transform:translate(-50%,-50%) scale(1);opacity:1}
+.bn-icon{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-60%);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+  opacity:1;
+}
+.bn-icon svg{width:22px;height:22px;stroke:#999;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.bn-item.act .bn-icon{opacity:0;transform:translate(-50%,-60%) scale(0.4)}
+.bn-item:hover:not(.act) .bn-icon svg{stroke:#444}
+.bn-label{
+  position:absolute;bottom:5px;
+  font-size:10px;font-weight:500;
+  color:#aaa;
+  font-family:'DM Sans','Segoe UI',sans-serif;
+  white-space:nowrap;
+  transition:all .3s;
+}
+.bn-item.act .bn-label{color:#111;font-weight:700}
+.bn-item.act::before{
+  content:'';
+  position:absolute;top:-6px;left:50%;
+  transform:translateX(-50%);
+  width:56px;height:20px;
+  background:#fff;
+  border-radius:0 0 28px 28px;
+}
+
+</style>
+<style>
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:60px}
+.svc-card{background:var(--dark3);border:1px solid var(--border);border-radius:18px;padding:36px;transition:all .3s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(34,197,94,0.06) 0%,transparent 70%);border-radius:50%;transform:translate(30px,-30px)}
+.svc-card:hover{border-color:var(--borderg);transform:translateY(-4px)}
+.svc-ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:22px}
+.ic1{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)}
+.ic2{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2)}
+.ic3{background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.2)}
+.ic4{background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.2)}
+.svc-name{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;margin-bottom:10px}
+.svc-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px}
+.svc-feats{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.sf{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.6)}
+.sf::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--g);flex-shrink:0}
+.svc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--border)}
+.svc-price{font-size:12px;color:var(--muted2)}
+.svc-price strong{color:var(--g);font-size:14px}
+.svc-link{font-size:12px;color:var(--g);font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .2s}
+.svc-link:hover{gap:10px}
+
+/* WHY US */
+.why{background:var(--dark2);border-top:1px solid var(--border);padding:80px 52px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.why-item{padding:28px;border-radius:14px;border:1px solid var(--border);background:var(--dark3);transition:border-color .2s}
+.why-item:hover{border-color:var(--borderg)}
+.why-num{font-family:'Playfair Display',Georgia,serif;font-size:48px;font-weight:900;color:rgba(34,197,94,.12);line-height:1;margin-bottom:14px}
+.why-title{font-size:15px;font-weight:600;margin-bottom:8px}
+.why-desc{font-size:13px;color:var(--muted);line-height:1.65}
+
+@media(max-width:900px){
+  .svc-grid{grid-template-columns:1fr}
+  .why{padding:56px 24px}
+  .why-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html" onclick="closeMob()"><span>00.</span> Home</a>
+  <a href="portfolio.html" onclick="closeMob()"><span>01.</span> Punët</a>
+  <a href="services.html" onclick="closeMob()"><span>02.</span> Shërbime</a>
+  <a href="pricing.html" onclick="closeMob()"><span>03.</span> Çmimet</a>
+  <a href="contact.html" onclick="closeMob()"><span>04.</span> Kontakt</a>
+  <div class="mob-lang"><button class="mob-lb act" onclick="setLang('sq');closeMob()">SQ</button><button class="mob-lb" onclick="setLang('en');closeMob()">EN</button>
+    <button class="mob-lb" onclick="setLang('de');closeMob()">DE</button>
+  </div>
+</div>
+
+<nav id="nav">
+  <a href="index.html" class="logo">Danke<em>Flow</em></a>
+  <div class="nav-links">
+    <a href="portfolio.html" data-sq="Punët" data-de="Arbeiten" data-en="Work">Punët</a>
+    <a href="services.html" class="act" data-sq="Shërbime" data-de="Leistungen" data-en="Services">Shërbime</a>
+    <a href="pricing.html" data-sq="Çmimet" data-de="Preise" data-en="Pricing">Çmimet</a>
+    <a href="contact.html" data-sq="Kontakt" data-de="Kontakt" data-en="Contact">Kontakt</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-tog"><button class="lb act" onclick="setLang('sq')">SQ</button><button class="lb" onclick="setLang('en')">EN</button>
+      <button class="lb" onclick="setLang('de')">DE</button>
+    </div>
+    <a href="#" class="sb"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+    <button class="hbg" id="hbg" onclick="toggleMob()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="bottom-nav" id="bottomNav">
+  <a href="index.html" class="bn-item">
+    <div class="bn-bubble">
+      <div class="bn-bubble-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    </div>
+    <div class="bn-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <span class="bn-label" data-sq="Kryefaqja" data-en="Kryefaqja" data-de="Kryefaqja">Kryefaqja</span>
+  </a>
+  <a href="portfolio.html" class="bn-item">
+    <div class="bn-bubble">
+      <div class="bn-bubble-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+    </div>
+    <div class="bn-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+    <span class="bn-label" data-sq="Punët" data-en="Punët" data-de="Punët">Punët</span>
+  </a>
+  <a href="services.html" class="bn-item act">
+    <div class="bn-bubble">
+      <div class="bn-bubble-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    </div>
+    <div class="bn-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <span class="bn-label" data-sq="Shërbime" data-en="Shërbime" data-de="Shërbime">Shërbime</span>
+  </a>
+  <a href="pricing.html" class="bn-item">
+    <div class="bn-bubble">
+      <div class="bn-bubble-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9h1a2 2 0 1 1 0 4H9m3 4h-3m1.5-4v4"/></svg></div>
+    </div>
+    <div class="bn-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9h1a2 2 0 1 1 0 4H9m3 4h-3m1.5-4v4"/></svg></div>
+    <span class="bn-label" data-sq="Çmimet" data-en="Çmimet" data-de="Çmimet">Çmimet</span>
+  </a>
+  <a href="contact.html" class="bn-item">
+    <div class="bn-bubble">
+      <div class="bn-bubble-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    </div>
+    <div class="bn-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <span class="bn-label" data-sq="Kontakt" data-en="Kontakt" data-de="Kontakt">Kontakt</span>
+  </a>
+</div>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="page-transition-overlay"></div>
+
+<div class="page-header">
+  <div class="ph-tag rv" data-sq="Shërbime" data-de="Leistungen" data-en="Services">Shërbime</div>
+  <h1 class="ph-title rv d2">Çfarë <em>ofrojmë</em></h1>
+  <p class="ph-sub rv d3" data-sq="Nga dizajni deri tek lansimi — ne menaxhojmë gjithçka që biznesi juaj ka nevojë për të rritur online." data-en="From design to launch — we handle everything your business needs to grow online.">Nga dizajni deri tek lansimi — ne menaxhojmë gjithçka që biznesi juaj ka nevojë për të rritur online.</p>
+</div>
+
+<section class="sec">
+  <div class="svc-grid">
+    <div class="svc-card rv d1">
+      <div class="svc-ic ic1">🌐</div>
+      <div class="svc-name" data-sq="Website Profesional" data-en="Professional Website">Website Profesional</div>
+      <p class="svc-desc" data-sq="Dizajn unik dhe responsive, ndërtuar nga zero sipas nevojave të biznesit tuaj. I shpejtë, i sigurt dhe i optimizuar." data-en="Unique and responsive design, built from scratch to your business needs. Fast, secure and optimized.">Dizajn unik dhe responsive, ndërtuar nga zero sipas nevojave të biznesit tuaj. I shpejtë, i sigurt dhe i optimizuar.</p>
+      <div class="svc-feats">
+        <div class="sf" data-sq="Dizajn i personalizuar nga zero (Figma)" data-en="Custom design from scratch (Figma)">Dizajn i personalizuar nga zero (Figma)</div>
+        <div class="sf" data-sq="Mobile, tablet dhe desktop responsive" data-en="Mobile, tablet and desktop responsive">Mobile, tablet dhe desktop responsive</div>
+        <div class="sf" data-sq="Optimizim shpejtësie (Core Web Vitals)" data-en="Speed optimization (Core Web Vitals)">Optimizim shpejtësie (Core Web Vitals)</div>
+        <div class="sf" data-sq="SSL, hosting setup dhe domain" data-en="SSL, hosting setup and domain">SSL, hosting setup dhe domain</div>
+        <div class="sf" data-sq="Formular kontakti i integruar" data-en="Integrated contact form">Formular kontakti i integruar</div>
+      </div>
+      <div class="svc-footer">
+        <div class="svc-price" data-sq="Duke filluar nga" data-en="Starting from">Duke filluar nga <strong>€199</strong></div>
+        <a href="pricing.html" class="svc-link" data-sq="Shiko çmimet →" data-en="View pricing →">Shiko çmimet →</a>
+      </div>
+    </div>
+    <div class="svc-card rv d2">
+      <div class="svc-ic ic2">📅</div>
+      <div class="svc-name" data-sq="Sistem Rezervimi" data-en="Booking System">Sistem Rezervimi</div>
+      <p class="svc-desc" data-sq="Klientët tuaj rezervojnë direkt online — pa telefonata, pa konfuzion. Sistemi punon 24/7 automatikisht." data-en="Your clients book directly online — no calls, no confusion. The system works 24/7 automatically.">Klientët tuaj rezervojnë direkt online — pa telefonata, pa konfuzion. Sistemi punon 24/7 automatikisht.</p>
+      <div class="svc-feats">
+        <div class="sf" data-sq="Kalendar rezervimesh live" data-en="Live booking calendar">Kalendar rezervimesh live</div>
+        <div class="sf" data-sq="Njoftime automatike email & SMS" data-en="Automatic email & SMS notifications">Njoftime automatike email & SMS</div>
+        <div class="sf" data-sq="Integrim me Google Calendar" data-en="Google Calendar integration">Integrim me Google Calendar</div>
+        <div class="sf" data-sq="Menaxhim i plotë i orareve" data-en="Full schedule management">Menaxhim i plotë i orareve</div>
+        <div class="sf" data-sq="Pagesa online (opsionale)" data-en="Online payments (optional)">Pagesa online (opsionale)</div>
+      </div>
+      <div class="svc-footer">
+        <div class="svc-price" data-sq="Të përfshirë në" data-en="Included in">Të përfshirë në <strong>Pro & Premium</strong></div>
+        <a href="pricing.html" class="svc-link" data-sq="Shiko çmimet →" data-en="View pricing →">Shiko çmimet →</a>
+      </div>
+    </div>
+    <div class="svc-card rv d3">
+      <div class="svc-ic ic3">⚙️</div>
+      <div class="svc-name" data-sq="Admin Panel" data-en="Admin Panel">Admin Panel</div>
+      <p class="svc-desc" data-sq="Kontrolloni gjithçka të biznesit tuaj nga një panel i thjeshtë dhe intuitiv. Pa nevojë për njohuri teknike." data-en="Control everything in your business from a simple and intuitive panel. No technical knowledge needed.">Kontrolloni gjithçka të biznesit tuaj nga një panel i thjeshtë dhe intuitiv. Pa nevojë për njohuri teknike.</p>
+      <div class="svc-feats">
+        <div class="sf" data-sq="Dashboard me statistika live" data-en="Dashboard with live statistics">Dashboard me statistika live</div>
+        <div class="sf" data-sq="Menaxhim produktesh & shërbimesh" data-en="Products & services management">Menaxhim produktesh & shërbimesh</div>
+        <div class="sf" data-sq="Regjistër i plotë klientësh" data-en="Complete client records">Regjistër i plotë klientësh</div>
+        <div class="sf" data-sq="Eksport raportesh PDF & Excel" data-en="PDF & Excel report export">Eksport raportesh PDF & Excel</div>
+        <div class="sf" data-sq="Akses multi-user" data-en="Multi-user access">Akses multi-user</div>
+      </div>
+      <div class="svc-footer">
+        <div class="svc-price" data-sq="Të përfshirë në" data-en="Included in">Të përfshirë në <strong>Pro & Premium</strong></div>
+        <a href="pricing.html" class="svc-link" data-sq="Shiko çmimet →" data-en="View pricing →">Shiko çmimet →</a>
+      </div>
+    </div>
+    <div class="svc-card rv d4">
+      <div class="svc-ic ic4">📈</div>
+      <div class="svc-name" data-sq="SEO & Performancë" data-en="SEO & Performance">SEO & Performancë</div>
+      <p class="svc-desc" data-sq="Website-i juaj shfaqet kur klientët potencialë kërkojnë shërbimet tuaja në Google." data-en="Your website appears when potential clients search for your services on Google.">Website-i juaj shfaqet kur klientët potencialë kërkojnë shërbimet tuaja në Google.</p>
+      <div class="svc-feats">
+        <div class="sf" data-sq="SEO on-page i plotë" data-en="Full on-page SEO">SEO on-page i plotë</div>
+        <div class="sf" data-sq="Meta tags, schema markup & sitemap" data-en="Meta tags, schema markup & sitemap">Meta tags, schema markup & sitemap</div>
+        <div class="sf" data-sq="Google Analytics & Search Console" data-en="Google Analytics & Search Console">Google Analytics & Search Console</div>
+        <div class="sf" data-sq="Raport mujor performancë" data-en="Monthly performance report">Raport mujor performancë</div>
+        <div class="sf" data-sq="Optimizim i vazhdueshëm" data-en="Continuous optimization">Optimizim i vazhdueshëm</div>
+      </div>
+      <div class="svc-footer">
+        <div class="svc-price" data-sq="Të përfshirë në të gjitha paketat" data-en="Included in all packages">Të përfshirë në <strong>të gjitha</strong></div>
+        <a href="pricing.html" class="svc-link" data-sq="Shiko çmimet →" data-en="View pricing →">Shiko çmimet →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<div class="why">
+  <div class="ph-tag rv" data-sq="Pse ne?" data-en="Why us?">Pse ne?</div>
+  <h2 class="ph-title rv d2" style="font-size:clamp(28px,3.5vw,44px)">Pse të zgjidhni <em>DankeFlow?</em></h2>
+  <div class="why-grid">
+    <div class="why-item rv d1"><div class="why-num">01</div><div class="why-title" data-sq="Dizajn i personalizuar" data-en="Custom design">Dizajn i personalizuar</div><p class="why-desc" data-sq="Çdo website është unik — nuk përdorim template. Dizajnojmë gjithçka sipas biznesit tuaj." data-en="Every website is unique — we don't use templates. We design everything according to your business.">Çdo website është unik — nuk përdorim template. Dizajnojmë gjithçka sipas biznesit tuaj.</p></div>
+    <div class="why-item rv d2"><div class="why-num">02</div><div class="why-title" data-sq="Rezultate reale" data-en="Real results">Rezultate reale</div><p class="why-desc" data-sq="Website-i juaj nuk është thjesht vizual — është mjet biznesi. E ndërtojmë për të sjellë klientë." data-en="Your website isn't just visual — it's a business tool. We build it to bring clients.">Website-i juaj nuk është thjesht vizual — është mjet biznesi. E ndërtojmë për të sjellë klientë.</p></div>
+    <div class="why-item rv d3"><div class="why-num">03</div><div class="why-title" data-sq="Mbështetje pas lansimit" data-en="Post-launch support">Mbështetje pas lansimit</div><p class="why-desc" data-sq="Nuk ju lëmë vetëm pas lansimit. Ju mbështesim me çdo problem apo ndryshim." data-en="We don't leave you alone after launch. We support you with any issue or change.">Nuk ju lëmë vetëm pas lansimit. Ju mbështesim me çdo problem apo ndryshim.</p></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="sec" style="text-align:center;border-top:1px solid var(--border)">
+  <h2 class="ph-title rv" style="font-size:clamp(28px,4vw,52px);margin-bottom:16px">Gati të fillojmë <em>projektin tuaj?</em></h2>
+  <p class="ph-sub rv d2" style="margin:0 auto 36px" data-sq="Na kontaktoni sot për propozim falas." data-en="Contact us today for a free proposal.">Na kontaktoni sot për propozim falas.</p>
+  <div class="rv d3" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+    <a href="contact.html" class="bp" data-sq="Fillo projektin" data-en="Start project">Fillo projektin →</a>
+    <a href="pricing.html" class="bo" data-sq="Shiko çmimet" data-en="View pricing">Shiko çmimet</a>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="foot-logo">Danke<em>Flow</em></a>
+  <div class="foot-copy">© 2025 DankeFlow</div>
+  <div class="foot-links">
+    <a href="portfolio.html">Punët</a><a href="services.html">Shërbime</a>
+    <a href="pricing.html">Çmimet</a><a href="contact.html">Kontakt</a>
+  </div>
+</footer>
+<script>/* ── DANKEFLOW STUDIO — SHARED JS ── */
+
+// Cursor
+
+
+// Nav scroll
+const nav=document.getElementById('nav');
+if(nav)window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>20));
+
+// Hamburger
+let mOpen=false;
+function toggleMob(){mOpen=!mOpen;document.getElementById('hbg').classList.toggle('open',mOpen);document.getElementById('mobMenu').classList.toggle('open',mOpen);document.body.style.overflow=mOpen?'hidden':'';}
+function closeMob(){mOpen=false;document.getElementById('hbg').classList.remove('open');document.getElementById('mobMenu').classList.remove('open');document.body.style.overflow='';}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Language
+const DE_TRANS = {
+  'Kryefaqja': 'Startseite',
+  'Duke pranuar projekte të reja': 'Nimmt neue Projekte an',
+  'Mirë se vini te': 'Willkommen bei',
+  'Ndërtojmë website profesionale, booking sisteme dhe admin panele — çdo gjë që biznesi juaj ka nevojë.': 'Wir erstellen professionelle Websites, Buchungssysteme und Admin-Panels — alles, was Ihr Unternehmen braucht.',
+  'Fillo projektin': 'Projekt starten',
+  'Shiko punët': 'Portfolio ansehen',
+  'Teknologjitë që përdorim': 'Unsere Technologien',
+  'Projekte': 'Projekte',
+  'Klientë të kënaqur': 'Zufriedene Kunden',
+  'Eksperiencë': 'Erfahrung',
+  'Zbulo më shumë': 'Mehr entdecken',
+  'Shiko punët tona': 'Unsere Arbeit ansehen',
+  '4 projekte të realizuara — shiko çfarë kemi ndërtuar.': '4 abgeschlossene Projekte — sehen Sie unsere Arbeit.',
+  'Shërbime tona': 'Unsere Leistungen',
+  'Website, booking, admin panel dhe SEO — gjithçka.': 'Website, Buchung, Admin-Panel und SEO — alles.',
+  'Na kontaktoni': 'Kontaktieren Sie uns',
+  'Brenda 24 orësh keni propozim falas.': 'Innerhalb von 24 Stunden erhalten Sie ein kostenloses Angebot.',
+  'Fillo sot →': 'Heute starten →',
+  'Punët': 'Arbeiten',
+  'Shërbime': 'Leistungen',
+  'Çmimet': 'Preise',
+  'Kontakt': 'Kontakt',
+  'Portfolio': 'Portfolio',
+  'Çdo projekt është ndërtuar me kujdes, dedikacion dhe teknologji moderne — për rezultate reale.': 'Jedes Projekt wird mit Sorgfalt und moderner Technologie erstellt.',
+  'Shiko projektin ↗': 'Projekt ansehen ↗',
+  'Restaurant Booking': 'Restaurant-Buchung',
+  'Website i plotë për restorant me sistem rezervimi online, menu dinamike dhe panel administrimi. Klienti menaxhon rezervimet direkt nga paneli.': 'Vollständige Restaurant-Website mit Online-Buchungssystem und Admin-Panel.',
+  'Dyqan Online — E-commerce': 'Online-Shop — E-Commerce',
+  'Platformë e-commerce me katalog produktesh, shportë blerjesh, sistem pagese Stripe dhe dashboard statistikash për pronarin.': 'E-Commerce-Plattform mit Produktkatalog, Warenkorb und Stripe-Zahlungssystem.',
+  'Salon Beauty — Booking': 'Beauty-Salon — Buchung',
+  'Website për salon bukurie me sistem rezervimi automatik, galeri shërbimesh dhe menaxhim i plotë i orareve nga paneli.': 'Beauty-Salon-Website mit automatischem Buchungssystem.',
+  'Agjensi Udhëtimesh': 'Reisebüro',
+  'Website modern për agjensi udhëtimesh me paketa turistike, sistem rezervimi dhe panel menaxhimi i plotë për agjentin.': 'Moderne Reisebüro-Website mit Reisepaketen und Buchungssystem.',
+  'Si punojmë': 'Wie wir arbeiten',
+  'Na kontaktoni dhe brenda 24 orësh do të keni propozim falas.': 'Kontaktieren Sie uns und erhalten Sie innerhalb von 24 Stunden ein kostenloses Angebot.',
+  'Shiko çmimet': 'Preise ansehen',
+  'Konsultim': 'Beratung',
+  'Takohemi, kuptojmë nevojat tuaja dhe planifikojmë projektin bashkë.': 'Wir treffen uns, verstehen Ihre Bedürfnisse und planen das Projekt gemeinsam.',
+  'Dizajn': 'Design',
+  'Krijojmë dizajnin në Figma dhe e aprovoni para se të fillojmë kodimin.': 'Wir erstellen das Design in Figma und Sie genehmigen es vor Entwicklungsbeginn.',
+  'Zhvillim': 'Entwicklung',
+  'Kodojmë website-in me teknologji moderne, responsive dhe të shpejtë.': 'Wir entwickeln die Website mit modernen und schnellen Technologien.',
+  'Lansim': 'Launch',
+  'Testojmë gjithçka dhe lansojmë website-in tuaj live në internet.': 'Wir testen alles und starten Ihre Website live im Internet.',
+  'Gati për projektin tuaj?': 'Bereit für Ihr Projekt?',
+  'Çfarë ofrojmë': 'Was wir anbieten',
+  'Nga dizajni deri tek lansimi — ne menaxhojmë gjithçka që biznesi juaj ka nevojë për të rritur online.': 'Vom Design bis zum Launch — wir kümmern uns um alles.',
+  'Website Profesional': 'Professionelle Website',
+  'Dizajn unik dhe responsive, ndërtuar nga zero sipas nevojave të biznesit tuaj. I shpejtë, i sigurt dhe i optimizuar.': 'Einzigartiges Design, von Grund auf erstellt. Schnell, sicher und optimiert.',
+  'Dizajn i personalizuar nga zero (Figma)': 'Individuelles Design (Figma)',
+  'Mobile, tablet dhe desktop responsive': 'Mobile, Tablet und Desktop responsiv',
+  'Optimizim shpejtësie (Core Web Vitals)': 'Geschwindigkeitsoptimierung',
+  'SSL, hosting setup dhe domain': 'SSL, Hosting-Setup und Domain',
+  'Formular kontakti i integruar': 'Integriertes Kontaktformular',
+  'Duke filluar nga': 'Ab',
+  'Shiko çmimet →': 'Preise ansehen →',
+  'Sistem Rezervimi': 'Buchungssystem',
+  'Klientët tuaj rezervojnë direkt online — pa telefonata, pa konfuzion. Sistemi punon 24/7 automatikisht.': 'Ihre Kunden buchen direkt online — 24/7 automatisch.',
+  'Kalendar rezervimesh live': 'Live-Buchungskalender',
+  'Njoftime automatike email & SMS': 'Automatische E-Mail- & SMS-Benachrichtigungen',
+  'Integrim me Google Calendar': 'Google Calendar Integration',
+  'Menaxhim i plotë i orareve': 'Vollständige Terminverwaltung',
+  'Pagesa online (opsionale)': 'Online-Zahlungen (optional)',
+  'Të përfshirë në': 'Enthalten in',
+  'Admin Panel': 'Admin-Panel',
+  'Kontrolloni gjithçka të biznesit tuaj nga një panel i thjeshtë dhe intuitiv. Pa nevojë për njohuri teknike.': 'Verwalten Sie alles über ein einfaches und intuitives Panel.',
+  'Dashboard me statistika live': 'Dashboard mit Live-Statistiken',
+  'Menaxhim produktesh & shërbimesh': 'Produkt- & Dienstverwaltung',
+  'Regjistër i plotë klientësh': 'Vollständige Kundendatei',
+  'Eksport raportesh PDF & Excel': 'PDF- & Excel-Export',
+  'Akses multi-user': 'Multi-Benutzer-Zugang',
+  'Të përfshirë në të gjitha paketat': 'In allen Paketen enthalten',
+  'SEO & Performancë': 'SEO & Leistung',
+  'Website-i juaj shfaqet kur klientët potencialë kërkojnë shërbimet tuaja në Google.': 'Ihre Website erscheint bei Google-Suchen nach Ihren Dienstleistungen.',
+  'SEO on-page i plotë': 'Vollständige On-Page-SEO',
+  'Raport mujor performancë': 'Monatlicher Leistungsbericht',
+  'Optimizim i vazhdueshëm': 'Kontinuierliche Optimierung',
+  'Pse ne?': 'Warum wir?',
+  'Dizajn i personalizuar': 'Individuelles Design',
+  'Çdo website është unik — nuk përdorim template. Dizajnojmë gjithçka sipas biznesit tuaj.': 'Jede Website ist einzigartig — keine Templates. Alles nach Ihrem Unternehmen.',
+  'Rezultate reale': 'Echte Ergebnisse',
+  'Website-i juaj nuk është thjesht vizual — është mjet biznesi. E ndërtojmë për të sjellë klientë.': 'Ihre Website ist ein Geschäftswerkzeug. Wir bauen sie, um Kunden zu gewinnen.',
+  'Mbështetje pas lansimit': 'Support nach dem Launch',
+  'Nuk ju lëmë vetëm pas lansimit. Ju mbështesim me çdo problem apo ndryshim.': 'Wir lassen Sie nach dem Launch nicht allein.',
+  'Na kontaktoni sot për propozim falas.': 'Kontaktieren Sie uns heute für ein kostenloses Angebot.',
+  'Kontaktoni tani': 'Jetzt kontaktieren',
+  'Shiko shërbime': 'Leistungen ansehen',
+  'Çmime transparente, pa kosto të fshehura. Paguani një herë, fitoni gjithmonë.': 'Transparente Preise, keine versteckten Kosten.',
+  'Pagesë e njëhershme': 'Einmalige Zahlung',
+  'Deri 5 faqe': 'Bis zu 5 Seiten',
+  'Formular kontakti': 'Kontaktformular',
+  'SEO bazë': 'Basis-SEO',
+  '1 muaj mbështetje': '1 Monat Support',
+  'Sistem rezervimi': 'Buchungssystem',
+  'Integrime API': 'API-Integrationen',
+  'Fillo me Basic': 'Mit Basic starten',
+  '⭐ Më i popullarit': '⭐ Beliebteste',
+  'Deri 10 faqe': 'Bis zu 10 Seiten',
+  'Sistem rezervimi online': 'Online-Buchungssystem',
+  'Admin panel bazë': 'Basis-Admin-Panel',
+  'SEO i plotë + Analytics': 'Vollständige SEO + Analytics',
+  'Njoftime automatike email/SMS': 'Automatische E-Mail/SMS-Benachrichtigungen',
+  '2 muaj mbështetje': '2 Monate Support',
+  'API të avancuara (Stripe…)': 'Erweiterte APIs (Stripe…)',
+  'Fillo me Pro': 'Mit Pro starten',
+  'Faqe të pakufizuara': 'Unbegrenzte Seiten',
+  'Dizajn custom nga zero': 'Individuelles Design',
+  'Booking i avancuar': 'Erweitertes Buchungssystem',
+  'Admin panel i plotë': 'Vollständiges Admin-Panel',
+  'SEO + Analytics + Raporte': 'SEO + Analytics + Berichte',
+  '3 muaj mbështetje prioritare': '3 Monate Prioritäts-Support',
+  'Fillo me Premium': 'Mit Premium starten',
+  'Krahasim': 'Vergleich',
+  'Veçoria': 'Funktion',
+  'Numri i faqeve': 'Anzahl der Seiten',
+  'Pa limit': 'Unbegrenzt',
+  'Bazë': 'Basis',
+  'I plotë': 'Vollständig',
+  'I plotë + Raporte': 'Vollständig + Berichte',
+  'I avancuar': 'Erweitert',
+  'Mbështetje': 'Support',
+  '1 muaj': '1 Monat',
+  '2 muaj': '2 Monate',
+  '3 muaj prioritare': '3 Monate Priorität',
+  'Çmimi': 'Preis',
+  'FAQ': 'FAQ',
+  'Sa kohë zgjat ndërtimi i website-it?': 'Wie lange dauert die Website-Erstellung?',
+  'Varet nga paketa. Basic: 5-7 ditë. Pro: 10-14 ditë. Premium: 3-4 javë. Gjithmonë ju informojmë për progresin.': 'Hängt vom Paket ab. Basic: 5-7 Tage. Pro: 10-14 Tage. Premium: 3-4 Wochen.',
+  'A mund të ndryshoj paketën pas blerjes?': 'Kann ich das Paket nach dem Kauf wechseln?',
+  'Po, gjithmonë mund të upgradoni nga Basic në Pro ose Premium. Paguani vetëm diferencën e çmimit.': 'Ja, jederzeit upgraden. Sie zahlen nur die Preisdifferenz.',
+  'A përfshihet hosting-u në çmim?': 'Ist das Hosting inbegriffen?',
+  'Setup-i i hosting-ut përfshihet. Hosting-u vjetor paguhet nga ju direkt te provideri (afërsisht €50-100/vit).': 'Hosting-Setup ist inbegriffen. Jährliches Hosting ca. €50-100/Jahr.',
+  'Si bëhet pagesa?': 'Wie wird bezahlt?',
+  '50% para fillimit, 50% pas aprovimit të dizajnit. Pranojmë transfertë bankare dhe pagesa online.': '50% vor Beginn, 50% nach Design-Genehmigung. Bank oder Online.',
+  'Konsultim falas 30 minuta — pa asnjë detyrim.': '30 Minuten kostenlose Beratung — ohne Verpflichtung.',
+  'Brenda 24 orësh do të keni përgjigje dhe propozim falas për projektin tuaj.': 'Innerhalb von 24 Stunden erhalten Sie eine Antwort und ein kostenloses Angebot.',
+  'Gati të fillojmë projektin tuaj?': 'Bereit, Ihr Projekt zu starten?',
+  'Na kontaktoni nëpërmjet formularit, WhatsApp ose email. Jemi gjithmonë të gatshëm t\'ju ndihmojmë.': 'Kontaktieren Sie uns per Formular, WhatsApp oder E-Mail.',
+  'Na shkruani direkt — përgjigjemi shpejt': 'Schreiben Sie uns direkt — wir antworten schnell',
+  'Koha e përgjigjes': 'Antwortzeit',
+  'Maksimumi': 'Maximal',
+  'Falas': 'Kostenlos',
+  'Pa detyrim': 'Ohne Verpflichtung',
+  'Propozimi': 'Angebot',
+  'I personalizuar': 'Personalisiert',
+  'Disponueshmëria': 'Verfügbarkeit',
+  'Duke pranuar projekte': 'Nimmt Projekte an',
+  'Dërgoni një mesazh': 'Senden Sie eine Nachricht',
+  'Plotësoni formularin dhe do t\'ju kontaktojmë brenda 24 orësh.': 'Füllen Sie das Formular aus und wir melden uns innerhalb von 24 Stunden.',
+  'Emri juaj': 'Ihr Name',
+  'Numri i telefonit': 'Telefonnummer',
+  'Çfarë shërbimi ju intereson?': 'Welche Leistung interessiert Sie?',
+  'Zgjidhni...': 'Auswählen...',
+  'Tregoni për projektin tuaj': 'Erzählen Sie uns von Ihrem Projekt',
+  'Dërgo mesazhin': 'Nachricht senden',
+  'Mesazhi u dërgua!': 'Nachricht gesendet!',
+  'Faleminderit! Do t\'ju kontaktojmë brenda 24 orësh me propozimin tuaj falas.': 'Danke! Wir melden uns innerhalb von 24 Stunden.',
+  'Dizajn responsive (mobile)': 'Responsives Design',
+  'Shiko portfolio →': 'Portfolio ansehen →',
+  'Shiko shërbime →': 'Leistungen ansehen →',
+};
+function setLang(lang){
+  document.querySelectorAll('.lb,.mob-lb').forEach(b=>b.classList.remove('act'));
+  document.querySelectorAll('.lb,.mob-lb').forEach(b=>{
+    const oc=b.getAttribute('onclick')||'';
+    if(oc.includes("'"+lang+"'"))b.classList.add('act');
+  });
+  document.querySelectorAll('[data-sq]').forEach(el=>{
+    if(lang==='sq'){el.textContent=el.getAttribute('data-sq');}
+    else if(lang==='en'){const v=el.getAttribute('data-en');if(v)el.textContent=v;}
+    else if(lang==='de'){
+      const sq=el.getAttribute('data-sq');
+      const v=DE_TRANS[sq];
+      if(v)el.textContent=v;
+      else{const en=el.getAttribute('data-en');if(en)el.textContent=en;}
+    }
+  });
+  const tp=document.querySelector('.spr textPath');
+  if(tp){
+    if(lang==='en')tp.textContent='CONTACT • DANKEFLOW • STUDIO •';
+    else if(lang==='de')tp.textContent='KONTAKT • DANKEFLOW • STUDIO •';
+    else tp.textContent='KONTAKTO • DANKEFLOW • STUDIO •';
+  }
+  localStorage.setItem('lang',lang);
+}
+
+// Restore language on every page load
+window.addEventListener('DOMContentLoaded',()=>{
+  const saved=localStorage.getItem('lang')||'sq';
+  setLang(saved);
+});
+
+// ── SMOOTH PAGE TRANSITIONS ──
+const overlay = document.querySelector('.page-transition-overlay');
+
+// Animate in on load
+window.addEventListener('DOMContentLoaded', ()=>{
+  overlay.classList.add('entering');
+  overlay.addEventListener('animationend', ()=>{
+    overlay.classList.remove('entering');
+  }, {once:true});
+});
+
+// Intercept all internal nav links
+document.querySelectorAll('a[href]').forEach(link=>{
+  const href = link.getAttribute('href');
+  // Only internal html pages, not anchors or external
+  if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || !href.endsWith('.html')) return;
+  
+  link.addEventListener('click', e=>{
+    e.preventDefault();
+    const dest = href;
+    overlay.classList.add('leaving');
+    overlay.addEventListener('animationend', ()=>{
+      window.location.href = dest;
+    }, {once:true});
+  });
+});
+
+</script>
+</body>
+</html>
