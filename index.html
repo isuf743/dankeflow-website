@@ -1087,9 +1087,15 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 0 20px; gap: 10px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
+      nav { padding: 0 16px; gap: 8px; height: 64px; }
+      .nav-links { display: flex; gap: 16px; }
+      .nav-links a { font-size: 0.78rem; }
+      .nav-cta { padding: 8px 14px; font-size: 0.78rem; }
+      .hamburger { display: none !important; }
+      .mobile-nav { display: none !important; }
+      .mobile-nav-overlay { display: none !important; }
+      .lang-btn { padding: 6px 8px; font-size: 0.72rem; }
+      .lang-code { display: none; }
 
       .services-grid { grid-template-columns: 1fr 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
@@ -1101,6 +1107,9 @@
     }
 
     @media (max-width: 600px) {
+      nav { padding: 0 12px; }
+      .nav-links { gap: 10px; }
+      .nav-links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
       .services-grid { grid-template-columns: 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .footer-main { grid-template-columns: 1fr; }
@@ -1213,9 +1222,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">🚀 Web Solutions that Convert</div>
-  <h1>We Design &amp; Develop <span class="blue">Digital Products</span> That Grow Your Business</h1>
-  <p>Unleash the potential of your brand with our services. Through a synthesis of design brilliance and technical prowess, we engineer digital experiences that align with your identity and goals.</p>
+  <div class="hero-badge">🚀 Duke pranuar projekte të reja</div>
+  <h1>Zgjidhje Dixhitale që <span class="blue">Rrisin dhe Automatizojnë</span> Biznesin Tuaj</h1>
+  <p>Çlironi potencialin e biznesit tuaj me shërbimet tona. Nga ide në Klientë — Ne ndërtojmë gjithçka që ju duhet.</p>
   <div class="hero-btns">
     <a href="#why" class="btn-primary">About Us →</a>
     <a href="#contact" class="btn-secondary">Book A Call</a>
@@ -1772,27 +1781,27 @@
     en: {
       'nav.services':'Services','nav.projects':'Projects','nav.why':'Why Us',
       'nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
-      'hero.badge':'🚀 Web Solutions that Convert',
-      'hero.h1':'We Design & Develop <span class="blue">Digital Products</span> That Grow Your Business',
-      'hero.p':'Unleash the potential of your brand with our services. Through a synthesis of design brilliance and technical prowess, we engineer digital experiences that align with your identity and goals.',
+      'hero.badge':'🚀 Accepting New Projects',
+      'hero.h1':'Digital Solutions that <span class="blue">Grow and Automate</span> Your Business',
+      'hero.p':'Unlock the potential of your business with our services. From idea to clients — we build everything you need.',
       'hero.btn1':'About Us →','hero.btn2':'Book A Call',
       'trusted.label':'Trusted By +50 Companies and Businesses',
     },
     sq: {
       'nav.services':'Shërbime','nav.projects':'Projekte','nav.why':'Pse Ne',
       'nav.testimonials':'Recensione','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
-      'hero.badge':'🚀 Zgjidhje Web që Konvertojnë',
-      'hero.h1':'Ne Dizajnojmë dhe Zhvillojmë <span class="blue">Produkte Dixhitale</span> që Rrisin Biznesin Tuaj',
-      'hero.p':'Çlironi potencialin e markës suaj me shërbimet tona. Nëpërmjet dizajnit dhe aftësive teknike, ne krijojmë eksperienca dixhitale të lidhura me identitetin dhe qëllimet tuaja.',
+      'hero.badge':'🚀 Duke pranuar projekte të reja',
+      'hero.h1':'Zgjidhje Dixhitale që <span class="blue">Rrisin dhe Automatizojnë</span> Biznesin Tuaj',
+      'hero.p':'Çlironi potencialin e biznesit tuaj me shërbimet tona. Nga ide në Klientë — Ne ndërtojmë gjithçka që ju duhet.',
       'hero.btn1':'Rreth Nesh →','hero.btn2':'Rezervo Takim',
       'trusted.label':'Besuar nga +50 Kompani dhe Biznese',
     },
     de: {
       'nav.services':'Leistungen','nav.projects':'Projekte','nav.why':'Warum Wir',
       'nav.testimonials':'Bewertungen','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
-      'hero.badge':'🚀 Web-Lösungen die konvertieren',
-      'hero.h1':'Wir Gestalten und Entwickeln <span class="blue">Digitale Produkte</span> die Ihr Business wachsen lassen',
-      'hero.p':'Entfesseln Sie das Potenzial Ihrer Marke mit unseren Dienstleistungen. Durch eine Synthese aus Design-Brillanz und technischem Know-how entwickeln wir digitale Erlebnisse.',
+      'hero.badge':'🚀 Neue Projekte werden angenommen',
+      'hero.h1':'Digitale Lösungen die Ihr Business <span class="blue">wachsen und automatisieren</span>',
+      'hero.p':'Entfesseln Sie das Potenzial Ihres Unternehmens. Von der Idee zu Kunden — Wir bauen alles, was Sie brauchen.',
       'hero.btn1':'Über Uns →','hero.btn2':'Gespräch Buchen',
       'trusted.label':'Vertraut von +50 Unternehmen',
     }
