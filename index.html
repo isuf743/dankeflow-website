@@ -7,7 +7,1113 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:  #3b82f6;
+      --accent:   #60a5fa;
+      --bg:       #020617;
+      --card:     #0f172a;
+      --border:   rgba(59,130,246,0.15);
+      --text:     #e2e8f0;
+      --muted:    #64748b;
+      --grad:     linear-gradient(135deg, #2563eb, #3b82f6);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      background: rgba(2,6,23,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .logo-text span { color: var(--primary); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      background: var(--grad);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 500 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.85; color: #fff !important; }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      cursor: pointer;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { border-color: var(--primary); background: rgba(59,130,246,0.08); }
+    .lang-flag { font-size: 1rem; line-height: 1; }
+    .lang-code { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; }
+    .lang-arrow { font-size: 0.6rem; color: var(--muted); transition: transform 0.25s; }
+    .lang-switcher.open .lang-arrow { transform: rotate(180deg); }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: #0d1829;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 165px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 200;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .lang-switcher.open .lang-dropdown {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+    }
+    .lang-option:hover { background: rgba(59,130,246,0.12); }
+    .lang-option.active { background: rgba(59,130,246,0.15); color: var(--accent); }
+    .lang-option .flag { font-size: 1.1rem; }
+    .lang-option .lname { font-weight: 500; flex: 1; }
+    .lang-option .native { font-size: 0.72rem; color: var(--muted); }
+    .lang-option .check { color: var(--primary); font-size: 0.75rem; margin-left: auto; }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+    .hamburger:hover { border-color: var(--primary); background: rgba(59,130,246,0.08); }
+    .ham-box {
+      width: 20px; height: 14px;
+      position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .ham-box span {
+      display: block; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s, width 0.3s;
+      transform-origin: center;
+    }
+    .ham-box span:nth-child(1) { width: 20px; }
+    .ham-box span:nth-child(2) { width: 14px; }
+    .ham-box span:nth-child(3) { width: 20px; }
+    .hamburger.is-open .ham-box span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 20px; }
+    .hamburger.is-open .ham-box span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.is-open .ham-box span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 20px; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+
+    /* glow orbs */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(37,99,235,0.3) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      50%      { opacity: 1;   transform: translateX(-50%) scale(1.08); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 5vw, 5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #fff;
+      max-width: 820px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.75rem; line-height: 1.2; }
+    }
+
+    .hero h1 .blue { 
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 24px auto 0;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--grad);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(59,130,246,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(59,130,246,0.5); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 400;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--primary); background: rgba(59,130,246,0.08); }
+
+    /* hero image */
+    .hero-image-wrap {
+      position: relative;
+      margin-top: 64px;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      animation: fadeUp 0.8s 0.4s ease both;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+    .hero-img-bg {
+      width: 100%;
+      height: 420px;
+      background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 50%, #0a1628 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .hero-img-bg { height: 260px; }
+    }
+    /* gradient fade bottom of image */
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, var(--bg), transparent);
+    }
+
+    /* ── TRUSTED BY ── */
+    .trusted {
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .trusted p {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .logo-pill {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(148,163,184,0.45);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .logo-pill:hover { color: rgba(148,163,184,0.9); }
+
+    /* ── SECTION HELPERS ── */
+    section { position: relative; z-index: 1; }
+
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.25);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ── SERVICES ── */
+    .services-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .view-all {
+      font-size: 0.85rem;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .view-all:hover { gap: 10px; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-color: rgba(59,130,246,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(59,130,246,0.1);
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .service-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .service-list li::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.4);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%233b82f6' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 10px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+    .project-card:hover {
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-4px);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+      transition: filter 0.3s;
+    }
+    .project-card:hover .project-img { filter: brightness(1); }
+
+    .project-info {
+      padding: 22px;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(59,130,246,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+
+    .project-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--primary);
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+    .project-card:hover .project-link { gap: 10px; }
+
+    /* ── WHY US ── */
+    .why-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .why-left .section-badge { margin-bottom: 20px; }
+    .why-left .section-title { margin-bottom: 20px; }
+    .why-left p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .stat-item {
+      text-align: left;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .why-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .why-feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: border-color 0.3s;
+    }
+    .why-feature:hover { border-color: rgba(59,130,246,0.4); }
+
+    .why-feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(59,130,246,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .why-feature h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .why-feature p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-bg {
+      background: linear-gradient(180deg, transparent 0%, rgba(37,99,235,0.04) 50%, transparent 100%);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testi-card:hover {
+      border-color: rgba(59,130,246,0.35);
+      transform: translateY(-3px);
+    }
+
+    .stars {
+      color: #f59e0b;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .testi-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testi-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .testi-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .testi-role {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── BLOG ── */
+    .blog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .blog-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      text-decoration: none;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .blog-card:hover {
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-4px);
+    }
+
+    .blog-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      filter: brightness(0.8);
+      transition: filter 0.3s;
+    }
+    .blog-img-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      transition: opacity 0.3s;
+    }
+    .blog-card:hover .blog-img-wrap { opacity: 0.9; }
+    .blog-card:hover .blog-img { filter: brightness(1); }
+
+    .blog-info {
+      padding: 24px;
+    }
+
+    .blog-cat {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .blog-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .read-more {
+      font-size: 0.82rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+    .blog-card:hover .read-more { gap: 10px; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 0 24px 100px;
+    }
+
+    .cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 72px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-text h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-text p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px; height: 80px;
+      background: var(--grad);
+      border-radius: 50%;
+      flex-shrink: 0;
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 40px rgba(59,130,246,0.4);
+    }
+    .cta-btn:hover { transform: scale(1.1) rotate(12deg); box-shadow: 0 0 60px rgba(59,130,246,0.6); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 240px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .footer-col ul li a {
+      font-size: 0.83rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: #fff; }
+
+    .footer-contact li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-link {
+      width: 34px;
+      height: 34px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-link:hover { border-color: var(--primary); color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE MENU ── */
+    .mobile-nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(2,6,23,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 199;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.35s, visibility 0.35s;
+    }
+    .mobile-nav-overlay.open { opacity: 1; visibility: visible; }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(320px, 88vw);
+      height: 100vh;
+      background: #060f1e;
+      border-left: 1px solid var(--border);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+
+    .mobile-nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mob-close {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--muted); font-size: 0.95rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .mob-close:hover { border-color: var(--primary); color: #fff; }
+
+    .mobile-nav-links {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 12px 12px; gap: 3px; overflow-y: auto;
+    }
+    .mobile-nav-links a {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--muted); text-decoration: none;
+      padding: 13px 14px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.2s, color 0.2s;
+      border: 1px solid transparent;
+    }
+    .mobile-nav-links a:hover {
+      background: rgba(59,130,246,0.08);
+      border-color: var(--border); color: #fff;
+    }
+    .mobile-nav-links a .arrow { font-size: 0.7rem; opacity: 0.45; }
+    .mob-cta {
+      background: var(--grad) !important;
+      color: #fff !important; border-color: transparent !important;
+      justify-content: center !important;
+      margin-top: 6px;
+      box-shadow: 0 0 20px rgba(59,130,246,0.25);
+    }
+
+    .mobile-nav-footer {
+      padding: 18px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .mob-lang-label {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .mob-lang-btns { display: flex; gap: 8px; }
+    .mob-lang-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 5px; padding: 9px 6px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem; font-weight: 600; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .mob-lang-btn:hover { border-color: var(--primary); color: #fff; background: rgba(59,130,246,0.08); }
+    .mob-lang-btn.active { border-color: var(--primary); color: var(--accent); background: rgba(59,130,246,0.12); }
+    .mob-lang-btn .flag { font-size: 0.95rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; gap: 10px; height: 66px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .why-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .cta-inner { flex-direction: column; text-align: center; padding: 48px 32px; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 14px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .footer-main { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -44,6 +1150,8 @@
       <button class="mob-lang-btn active" data-lang="en" onclick="setLang('en')"><span class="flag">🇬🇧</span> EN</button>
       <button class="mob-lang-btn" data-lang="sq" onclick="setLang('sq')"><span class="flag">🇦🇱</span> SQ</button>
       <button class="mob-lang-btn" data-lang="de" onclick="setLang('de')"><span class="flag">🇩🇪</span> DE</button>
+      <button class="mob-lang-btn" data-lang="it" onclick="setLang('it')"><span class="flag">🇮🇹</span> IT</button>
+      <button class="mob-lang-btn" data-lang="el" onclick="setLang('el')"><span class="flag">🇬🇷</span> EL</button>
     </div>
   </div>
 </div>
@@ -101,6 +1209,18 @@
           <span class="native">Deutsch</span>
           <span class="check" style="display:none">✓</span>
         </button>
+        <button class="lang-option" data-lang="it" onclick="setLang('it')">
+          <span class="flag">🇮🇹</span>
+          <span class="lname">Italian</span>
+          <span class="native">Italiano</span>
+          <span class="check" style="display:none">✓</span>
+        </button>
+        <button class="lang-option" data-lang="el" onclick="setLang('el')">
+          <span class="flag">🇬🇷</span>
+          <span class="lname">Greek</span>
+          <span class="native">Ελληνικά</span>
+          <span class="check" style="display:none">✓</span>
+        </button>
       </div>
     </div>
 
@@ -119,8 +1239,8 @@
   <h1>Digital Solutions that <span class="blue">Grow and Automate</span> Your Business</h1>
   <p>Unlock the potential of your business with our services. From idea to clients — we build everything you need.</p>
   <div class="hero-btns">
-    <a href="#why" class="btn-primary">About Us →</a>
-    <a href="#contact" class="btn-secondary">Book A Call</a>
+    <a href="#why" class="btn-primary" data-i18n="hero.btn1">About Us →</a>
+    <a href="#contact" class="btn-secondary" data-i18n="hero.btn2">Book A Call</a>
   </div>
   <div class="hero-image-wrap">
     <div class="hero-img-bg">
@@ -131,7 +1251,7 @@
 
 <!-- TRUSTED BY -->
 <div class="trusted">
-  <p>Trusted By +50 Companies and Businesses</p>
+  <p data-i18n="trusted.label">Trusted By +50 Companies and Businesses</p>
   <div class="logos-row">
     <span class="logo-pill">▲ Artim</span>
     <span class="logo-pill">DC Studio</span>
@@ -148,71 +1268,71 @@
   <div class="section-wrap">
     <div class="services-header reveal">
       <div>
-        <div class="section-badge">Our Services</div>
-        <h2 class="section-title">Services We Provide<br>To Our Clients</h2>
+        <div class="section-badge" data-i18n="services.badge">Our Services</div>
+        <h2 class="section-title" data-i18n="services.title">Services We Provide<br>To Our Clients</h2>
       </div>
-      <a href="#" class="view-all">View All Services →</a>
+      <a href="#" class="view-all" data-i18n="services.viewall">View All Services →</a>
     </div>
 
     <div class="services-grid">
       <div class="service-card reveal">
         <div class="service-icon">🎨</div>
-        <h3>UI/UX Design</h3>
+        <h3 data-i18n="s1.title">UI/UX Design</h3>
         <ul class="service-list">
-          <li>Custom Website Design</li>
-          <li>User Experience Optimization</li>
-          <li>Brand Visual Identity</li>
-          <li>Design Systems & Style Guides</li>
+          <li data-i18n="s1.l1">Custom Website Design</li>
+          <li data-i18n="s1.l2">User Experience Optimization</li>
+          <li data-i18n="s1.l3">Brand Visual Identity</li>
+          <li data-i18n="s1.l4">Design Systems & Style Guides</li>
         </ul>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">💻</div>
-        <h3>Website Development</h3>
+        <h3 data-i18n="s2.title">Website Development</h3>
         <ul class="service-list">
-          <li>Responsive Web Design</li>
-          <li>Full-Stack Development</li>
-          <li>E-Commerce Solutions</li>
-          <li>Custom CMS Integration</li>
+          <li data-i18n="s2.l1">Responsive Web Design</li>
+          <li data-i18n="s2.l2">Full-Stack Development</li>
+          <li data-i18n="s2.l3">E-Commerce Solutions</li>
+          <li data-i18n="s2.l4">Custom CMS Integration</li>
         </ul>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">📈</div>
-        <h3>SEO & Growth</h3>
+        <h3 data-i18n="s3.title">SEO & Growth</h3>
         <ul class="service-list">
-          <li>Search Engine Optimization</li>
-          <li>Content Strategy & Creation</li>
-          <li>Performance Analytics</li>
-          <li>Conversion Rate Optimization</li>
+          <li data-i18n="s3.l1">Search Engine Optimization</li>
+          <li data-i18n="s3.l2">Content Strategy & Creation</li>
+          <li data-i18n="s3.l3">Performance Analytics</li>
+          <li data-i18n="s3.l4">Conversion Rate Optimization</li>
         </ul>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">🛒</div>
-        <h3>E-Commerce</h3>
+        <h3 data-i18n="s4.title">E-Commerce</h3>
         <ul class="service-list">
-          <li>Shopify & WooCommerce</li>
-          <li>Product Page Design</li>
-          <li>Payment Integration</li>
-          <li>Inventory Management</li>
+          <li data-i18n="s4.l1">Shopify & WooCommerce</li>
+          <li data-i18n="s4.l2">Product Page Design</li>
+          <li data-i18n="s4.l3">Payment Integration</li>
+          <li data-i18n="s4.l4">Inventory Management</li>
         </ul>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">⚡</div>
-        <h3>Web Performance</h3>
+        <h3 data-i18n="s5.title">Web Performance</h3>
         <ul class="service-list">
-          <li>Speed Optimization</li>
-          <li>Core Web Vitals</li>
-          <li>CDN & Hosting Setup</li>
-          <li>Security & SSL</li>
+          <li data-i18n="s5.l1">Speed Optimization</li>
+          <li data-i18n="s5.l2">Core Web Vitals</li>
+          <li data-i18n="s5.l3">CDN & Hosting Setup</li>
+          <li data-i18n="s5.l4">Security & SSL</li>
         </ul>
       </div>
       <div class="service-card reveal">
         <div class="service-icon">🤝</div>
-        <h3>Maintenance & Support</h3>
+        <h3 data-i18n="s6.title">Maintenance & Support</h3>
         <ul class="service-list">
-          <li>Ongoing Website Updates</li>
-          <li>Bug Fixes & Monitoring</li>
-          <li>Backup & Recovery</li>
-          <li>Monthly Reports</li>
+          <li data-i18n="s6.l1">Ongoing Website Updates</li>
+          <li data-i18n="s6.l2">Bug Fixes & Monitoring</li>
+          <li data-i18n="s6.l3">Backup & Recovery</li>
+          <li data-i18n="s6.l4">Monthly Reports</li>
         </ul>
       </div>
     </div>
@@ -226,10 +1346,10 @@
   <div class="section-wrap">
     <div class="projects-header reveal">
       <div>
-        <div class="section-badge">Our Projects</div>
-        <h2 class="section-title">What We Did For<br>Our Past Clients</h2>
+        <div class="section-badge" data-i18n="projects.badge">Our Projects</div>
+        <h2 class="section-title" data-i18n="projects.title">What We Did For<br>Our Past Clients</h2>
       </div>
-      <a href="#" class="view-all">View All Projects →</a>
+      <a href="#" class="view-all" data-i18n="projects.viewall">View All Projects →</a>
     </div>
 
     <div class="projects-grid">
@@ -240,8 +1360,8 @@
             <span class="tag">Branding</span>
             <span class="tag">Web Design</span>
           </div>
-          <h3>EventSpark — Conference Website</h3>
-          <span class="project-link">View Project Details →</span>
+          <h3 data-i18n="proj1.title">EventSpark — Conference Website</h3>
+          <span class="project-link" data-i18n="proj.link">View Project Details →</span>
         </div>
       </a>
       <a href="#" class="project-card reveal">
@@ -251,7 +1371,7 @@
             <span class="tag">Branding</span>
             <span class="tag">Web Design</span>
           </div>
-          <h3>FitFlow — Fitness Training App</h3>
+          <h3 data-i18n="proj2.title">FitFlow — Fitness Training App</h3>
           <span class="project-link">View Project Details →</span>
         </div>
       </a>
@@ -266,25 +1386,25 @@
   <div class="section-wrap">
     <div class="why-wrap">
       <div class="why-left reveal">
-        <div class="section-badge">Why Us?</div>
-        <h2 class="section-title">Why You Should Choose Us To Help Your Business?</h2>
-        <p style="margin-top:20px">At DankeFlow, we stand as more than just a service provider — we're your dedicated partners in success. Choosing us means entrusting your digital journey to a team that is not only passionate about what we do but is committed to seeing your business flourish.</p>
+        <div class="section-badge" data-i18n="why.badge">Why Us?</div>
+        <h2 class="section-title" data-i18n="why.title">Why You Should Choose Us To Help Your Business?</h2>
+        <p style="margin-top:20px" data-i18n="why.p">At DankeFlow, we stand as more than just a service provider — we're your dedicated partners in success. Choosing us means entrusting your digital journey to a team that is not only passionate about what we do but is committed to seeing your business flourish.</p>
         <div class="stats-grid">
           <div class="stat-item">
             <div class="stat-num">+3</div>
-            <div class="stat-label">Years Of Experience</div>
+            <div class="stat-label" data-i18n="stat1">Years Of Experience</div>
           </div>
           <div class="stat-item">
             <div class="stat-num">+50</div>
-            <div class="stat-label">Satisfied Clients</div>
+            <div class="stat-label" data-i18n="stat2">Satisfied Clients</div>
           </div>
           <div class="stat-item">
             <div class="stat-num">+80</div>
-            <div class="stat-label">Projects Delivered</div>
+            <div class="stat-label" data-i18n="stat3">Projects Delivered</div>
           </div>
           <div class="stat-item">
             <div class="stat-num">4.9</div>
-            <div class="stat-label">Positive Reviews</div>
+            <div class="stat-label" data-i18n="stat4">Positive Reviews</div>
           </div>
         </div>
       </div>
@@ -293,29 +1413,29 @@
         <div class="why-feature">
           <div class="why-feature-icon">🎯</div>
           <div>
-            <h4>Results-Driven Approach</h4>
-            <p>Every decision we make is backed by data and focused on measurable outcomes for your business growth.</p>
+            <h4 data-i18n="f1.title">Results-Driven Approach</h4>
+            <p data-i18n="f1.p">Every decision we make is backed by data and focused on measurable outcomes for your business growth.</p>
           </div>
         </div>
         <div class="why-feature">
           <div class="why-feature-icon">⚡</div>
           <div>
-            <h4>Fast Delivery</h4>
-            <p>We respect your deadlines. Most projects are delivered on time without compromising on quality.</p>
+            <h4 data-i18n="f2.title">Fast Delivery</h4>
+            <p data-i18n="f2.p">We respect your deadlines. Most projects are delivered on time without compromising on quality.</p>
           </div>
         </div>
         <div class="why-feature">
           <div class="why-feature-icon">🔒</div>
           <div>
-            <h4>Transparent Communication</h4>
-            <p>You always know what's happening. Regular updates, clear timelines, and open collaboration at every step.</p>
+            <h4 data-i18n="f3.title">Transparent Communication</h4>
+            <p data-i18n="f3.p">You always know what's happening. Regular updates, clear timelines, and open collaboration at every step.</p>
           </div>
         </div>
         <div class="why-feature">
           <div class="why-feature-icon">🚀</div>
           <div>
-            <h4>Scalable Solutions</h4>
-            <p>We build with growth in mind. Your website grows with your business, not against it.</p>
+            <h4 data-i18n="f4.title">Scalable Solutions</h4>
+            <p data-i18n="f4.p">We build with growth in mind. Your website grows with your business, not against it.</p>
           </div>
         </div>
       </div>
@@ -329,13 +1449,13 @@
 <section id="testimonials" class="testimonials-bg">
   <div class="section-wrap">
     <div class="reveal">
-      <div class="section-badge">Testimonials</div>
-      <h2 class="section-title">What Our Customers Are<br>Saying About Us?</h2>
+      <div class="section-badge" data-i18n="testi.badge">Testimonials</div>
+      <h2 class="section-title" data-i18n="testi.title">What Our Customers Are<br>Saying About Us?</h2>
     </div>
     <div class="testimonials-grid">
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
-        <p>Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.</p>
+        <p data-i18n="t1.p">Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.</p>
         <div class="testi-author">
           <div class="testi-avatar">JS</div>
           <div>
@@ -346,7 +1466,7 @@
       </div>
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
-        <p>The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.</p>
+        <p data-i18n="t2.p">The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.</p>
         <div class="testi-author">
           <div class="testi-avatar">JA</div>
           <div>
@@ -357,7 +1477,7 @@
       </div>
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
-        <p>Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.</p>
+        <p data-i18n="t3.p">Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.</p>
         <div class="testi-author">
           <div class="testi-avatar">ST</div>
           <div>
@@ -377,27 +1497,27 @@
   <div class="section-wrap">
     <div class="blog-header reveal">
       <div>
-        <div class="section-badge">Blog</div>
-        <h2 class="section-title">Our Latest Blog Posts</h2>
+        <div class="section-badge" data-i18n="blog.badge">Blog</div>
+        <h2 class="section-title" data-i18n="blog.title">Our Latest Blog Posts</h2>
       </div>
-      <a href="#" class="view-all">View All Posts →</a>
+      <a href="#" class="view-all" data-i18n="blog.viewall">View All Posts →</a>
     </div>
 
     <div class="blog-grid">
       <a href="#" class="blog-card reveal">
         <img src="desing.png" alt="Design & Marketing" style="width:100%;height:200px;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.3s;"/>
         <div class="blog-info">
-          <div class="blog-cat">Design & Marketing</div>
-          <h3>The Art Of Storytelling In Digital Marketing</h3>
-          <span class="read-more">Read More →</span>
+          <div class="blog-cat" data-i18n="blog1.cat">Design & Marketing</div>
+          <h3 data-i18n="blog1.title">The Art Of Storytelling In Digital Marketing</h3>
+          <span class="read-more" data-i18n="readmore">Read More →</span>
         </div>
       </a>
 
       <a href="#" class="blog-card reveal">
         <img src="uiux.png" alt="UI/UX Design" style="width:100%;height:200px;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.3s;"/>
         <div class="blog-info">
-          <div class="blog-cat">UI/UX Design</div>
-          <h3>The Psychology Of Color In UI/UX Design</h3>
+          <div class="blog-cat" data-i18n="blog2.cat">UI/UX Design</div>
+          <h3 data-i18n="blog2.title">The Psychology Of Color In UI/UX Design</h3>
           <span class="read-more">Read More →</span>
         </div>
       </a>
@@ -409,10 +1529,10 @@
 <section id="contact" class="cta-section">
   <div class="cta-inner reveal">
     <div class="cta-text">
-      <h2>Ready To Transform Your Digital Presence?</h2>
-      <p>Let's embark on a journey of innovation and creativity together.</p>
+      <h2 data-i18n="cta.title">Ready To Transform Your Digital Presence?</h2>
+      <p data-i18n="cta.p">Let's embark on a journey of innovation and creativity together.</p>
     </div>
-    <a href="/cdn-cgi/l/email-protection#e088858c8c8fa084818e8b85868c8f97ce838f8d" class="cta-btn" title="Get In Touch">↗</a>
+    <a href="mailto:hello@dankeflow.com" class="cta-btn" title="Get In Touch">↗</a>
   </div>
 </section>
 
@@ -429,11 +1549,11 @@
         </svg>
         <span class="logo-text">Danke<span>Flow</span></span>
       </a>
-      <p>We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.</p>
+      <p data-i18n="footer.brand">We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.</p>
     </div>
 
     <div class="footer-col">
-      <h4>About Us</h4>
+      <h4 data-i18n="footer.col1">About Us</h4>
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">About Us</a></li>
@@ -443,16 +1563,16 @@
     </div>
 
     <div class="footer-col footer-contact">
-      <h4>Contact Us</h4>
+      <h4 data-i18n="footer.col2">Contact Us</h4>
       <ul>
-        <li>✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a1c9c4cdcdcee1c5c0cfcac4c7cdced68fc2cecc">[email&#160;protected]</a></li>
+        <li>✉ hello@dankeflow.com</li>
         <li>📞 +355693873740</li>
         <li>📍 Tirane</li>
       </ul>
     </div>
 
     <div class="footer-col">
-      <h4>Privacy</h4>
+      <h4 data-i18n="footer.col3">Privacy</h4>
       <ul>
         <li><a href="#">FAQ</a></li>
         <li><a href="#">Terms of Service</a></li>
@@ -462,9 +1582,12 @@
   </div>
 
   <div class="footer-bottom">
-    <p>© 2025 DankeFlow. All Rights Reserved.</p>
+    <p data-i18n="footer.copy">© 2025 DankeFlow. All Rights Reserved.</p>
     <div class="socials">
-      <a href="#" class="soc   <a href="#" class="social-link" title="Behance">be</a>
+      <a href="#" class="social-link" title="Instagram">ig</a>
+      <a href="#" class="social-link" title="Twitter">tw</a>
+      <a href="#" class="social-link" title="LinkedIn">in</a>
+      <a href="#" class="social-link" title="Behance">be</a>
     </div>
   </div>
 </footer>
@@ -472,49 +1595,194 @@
 <script>
   const i18n = {
     en: {
-      'nav.services':'Services','nav.projects':'Projects','nav.why':'Why Us',
-      'nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
+      'nav.services':'Services','nav.projects':'Projects','nav.why':'Why Us','nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
       'hero.badge':'🚀 Accepting New Projects',
       'hero.h1':'Digital Solutions that <span class="blue">Grow and Automate</span> Your Business',
       'hero.p':'Unlock the potential of your business with our services. From idea to clients — we build everything you need.',
       'hero.btn1':'About Us →','hero.btn2':'Book A Call',
       'trusted.label':'Trusted By +50 Companies and Businesses',
+      'services.badge':'Our Services','services.title':'Services We Provide<br>To Our Clients','services.viewall':'View All Services →',
+      's1.title':'UI/UX Design','s1.l1':'Custom Website Design','s1.l2':'User Experience Optimization','s1.l3':'Brand Visual Identity','s1.l4':'Design Systems & Style Guides',
+      's2.title':'Website Development','s2.l1':'Responsive Web Design','s2.l2':'Full-Stack Development','s2.l3':'E-Commerce Solutions','s2.l4':'Custom CMS Integration',
+      's3.title':'SEO & Growth','s3.l1':'Search Engine Optimization','s3.l2':'Content Strategy & Creation','s3.l3':'Performance Analytics','s3.l4':'Conversion Rate Optimization',
+      's4.title':'E-Commerce','s4.l1':'Shopify & WooCommerce','s4.l2':'Product Page Design','s4.l3':'Payment Integration','s4.l4':'Inventory Management',
+      's5.title':'Web Performance','s5.l1':'Speed Optimization','s5.l2':'Core Web Vitals','s5.l3':'CDN & Hosting Setup','s5.l4':'Security & SSL',
+      's6.title':'Maintenance & Support','s6.l1':'Ongoing Website Updates','s6.l2':'Bug Fixes & Monitoring','s6.l3':'Backup & Recovery','s6.l4':'Monthly Reports',
+      'projects.badge':'Our Projects','projects.title':'What We Did For<br>Our Past Clients','projects.viewall':'View All Projects →',
+      'proj1.title':'EventSpark — Conference Website','proj2.title':'FitFlow — Fitness Training App','proj.link':'View Project Details →',
+      'why.badge':'Why Us?','why.title':'Why You Should Choose Us To Help Your Business?',
+      'why.p':"At DankeFlow, we stand as more than just a service provider — we're your dedicated partners in success. Choosing us means entrusting your digital journey to a team passionate about seeing your business flourish.",
+      'stat1':'Years Of Experience','stat2':'Satisfied Clients','stat3':'Projects Delivered','stat4':'Positive Reviews',
+      'f1.title':'Results-Driven Approach','f1.p':'Every decision we make is backed by data and focused on measurable outcomes for your business growth.',
+      'f2.title':'Fast Delivery','f2.p':'We respect your deadlines. Most projects are delivered on time without compromising on quality.',
+      'f3.title':'Transparent Communication','f3.p':"You always know what's happening. Regular updates, clear timelines, and open collaboration at every step.",
+      'f4.title':'Scalable Solutions','f4.p':'We build with growth in mind. Your website grows with your business, not against it.',
+      'testi.badge':'Testimonials','testi.title':'What Our Customers Are<br>Saying About Us?',
+      't1.p':'Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.',
+      't2.p':'The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.',
+      't3.p':'Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.',
+      'blog.badge':'Blog','blog.title':'Our Latest Blog Posts','blog.viewall':'View All Posts →',
+      'blog1.cat':'Design & Marketing','blog1.title':'The Art Of Storytelling In Digital Marketing',
+      'blog2.cat':'UI/UX Design','blog2.title':'The Psychology Of Color In UI/UX Design','readmore':'Read More →',
+      'cta.title':'Ready To Transform Your Digital Presence?','cta.p':"Let's embark on a journey of innovation and creativity together.",
+      'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.",
+      'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
     },
     sq: {
-      'nav.services':'Shërbime','nav.projects':'Projekte','nav.why':'Pse Ne',
-      'nav.testimonials':'Recensione','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
+      'nav.services':'Shërbime','nav.projects':'Projekte','nav.why':'Pse Ne','nav.testimonials':'Recensione','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
       'hero.badge':'🚀 Duke pranuar projekte të reja',
       'hero.h1':'Zgjidhje Dixhitale që <span class="blue">Rrisin dhe Automatizojnë</span> Biznesin Tuaj',
       'hero.p':'Çlironi potencialin e biznesit tuaj me shërbimet tona. Nga ide në Klientë — Ne ndërtojmë gjithçka që ju duhet.',
       'hero.btn1':'Rreth Nesh →','hero.btn2':'Rezervo Takim',
       'trusted.label':'Besuar nga +50 Kompani dhe Biznese',
+      'services.badge':'Shërbimet Tona','services.title':'Shërbimet që Ofrojmë<br>për Klientët Tanë','services.viewall':'Shiko të Gjitha →',
+      's1.title':'Dizajn UI/UX','s1.l1':'Dizajn i Personalizuar','s1.l2':'Optimizim i Përvojës','s1.l3':'Identiteti Vizual i Markës','s1.l4':'Sisteme Dizajni',
+      's2.title':'Zhvillim Webi','s2.l1':'Dizajn Responsive','s2.l2':'Zhvillim Full-Stack','s2.l3':'Zgjidhje E-Commerce','s2.l4':'Integrimi CMS',
+      's3.title':'SEO & Rritje','s3.l1':'Optimizim për Motorët Kërkues','s3.l2':'Strategji & Krijim Përmbajtjeje','s3.l3':'Analitikë Performancës','s3.l4':'Optimizim Konvertimi',
+      's4.title':'E-Commerce','s4.l1':'Shopify & WooCommerce','s4.l2':'Dizajn Faqesh Produkti','s4.l3':'Integrimi Pagesave','s4.l4':'Menaxhim Inventari',
+      's5.title':'Performancë Web','s5.l1':'Optimizim Shpejtësie','s5.l2':'Core Web Vitals','s5.l3':'CDN & Hosting','s5.l4':'Siguri & SSL',
+      's6.title':'Mirëmbajtje & Mbështetje','s6.l1':'Përditësime të Rregullta','s6.l2':'Rregullim Gabimesh','s6.l3':'Backup & Rikuperim','s6.l4':'Raporte Mujore',
+      'projects.badge':'Projektet Tona','projects.title':'Çfarë Kemi Bërë për<br>Klientët e Kaluar','projects.viewall':'Shiko të Gjitha Projektet →',
+      'proj1.title':'EventSpark — Faqe Konferencash','proj2.title':'FitFlow — App Stërvitjeje','proj.link':'Shiko Projektin →',
+      'why.badge':'Pse Ne?','why.title':'Pse Duhet të Na Zgjidhni Ne për Biznesin Tuaj?',
+      'why.p':"Tek DankeFlow, jemi më shumë se një ofrues shërbimesh — jemi partnerët tuaj të dedikuar në sukses. Zgjedhja jonë do të thotë t'i besoni rrugëtimin tuaj dixhital një ekipi të apasionuar.",
+      'stat1':'Vite Eksperience','stat2':'Klientë të Kënaqur','stat3':'Projekte të Dorëzuara','stat4':'Recensione Pozitive',
+      'f1.title':'Qasje e Orientuar nga Rezultatet','f1.p':'Çdo vendim bazohet në të dhëna dhe fokusohet në rezultate të matshme për rritjen e biznesit tuaj.',
+      'f2.title':'Dorëzim i Shpejtë','f2.p':'Respektojmë afatet tuaja. Shumica e projekteve dorëzohen në kohë pa kompromentuar cilësinë.',
+      'f3.title':'Komunikim Transparent','f3.p':'Gjithmonë e dini çfarë po ndodh. Përditësime të rregullta, afate të qarta dhe bashkëpunim i hapur.',
+      'f4.title':'Zgjidhje të Shkallëzueshme','f4.p':'Ndërtojmë me rritje në mendje. Faqja juaj rritet me biznesin tuaj, jo kundër tij.',
+      'testi.badge':'Recensione','testi.title':'Çfarë Po Thonë Klientët<br>Tanë Rreth Nesh?',
+      't1.p':'Zgjedhja e DankeFlow ishte revolucionare për markën tonë. Ekipi i tyre krijues ridizajnoi faqen duke sjellë elegancë moderne që pasqyron identitetin tonë.',
+      't2.p':'Ekspertiza dhe dedikimi i DankeFlow kanë qenë vendimtare për përparimin e startup-it tonë. Ata kuptojnë vërtet çfarë do të thotë të ndërtosh për të ardhmen.',
+      't3.p':'Puna me DankeFlow ka qenë një përvojë transformuese. UI/UX-i i tyre jo vetëm rezonoi me audiencën tonë por rriti ndjeshëm ndërgjegjësimin e markës.',
+      'blog.badge':'Blog','blog.title':'Postimet Tona të Fundit','blog.viewall':'Shiko të Gjitha →',
+      'blog1.cat':'Dizajn & Marketing','blog1.title':'Arti i Tregimit në Marketing Dixhital',
+      'blog2.cat':'Dizajn UI/UX','blog2.title':'Psikologjia e Ngjyrës në Dizajn UI/UX','readmore':'Lexo Më Shumë →',
+      'cta.title':'Gati të Transformoni Praninë Tuaj Dixhitale?','cta.p':'Le të fillojmë së bashku një udhëtim inovacioni dhe kreativiteti.',
+      'footer.brand':'Jemi një ekip i apasionuar vizionarësh dixhitalë të dedikuar për të krijuar eksperienca të jashtëzakonshme online.',
+      'footer.col1':'Rreth Nesh','footer.col2':'Na Kontaktoni','footer.col3':'Privatësia','footer.copy':'© 2025 DankeFlow. Të Gjitha të Drejtat të Rezervuara.',
     },
     de: {
-      'nav.services':'Leistungen','nav.projects':'Projekte','nav.why':'Warum Wir',
-      'nav.testimonials':'Bewertungen','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
+      'nav.services':'Leistungen','nav.projects':'Projekte','nav.why':'Warum Wir','nav.testimonials':'Bewertungen','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
       'hero.badge':'🚀 Neue Projekte werden angenommen',
       'hero.h1':'Digitale Lösungen die Ihr Business <span class="blue">wachsen und automatisieren</span>',
       'hero.p':'Entfesseln Sie das Potenzial Ihres Unternehmens. Von der Idee zu Kunden — Wir bauen alles, was Sie brauchen.',
       'hero.btn1':'Über Uns →','hero.btn2':'Gespräch Buchen',
-      'trusted.label':'Vertraut von +50 Unternehmen',
+      'trusted.label':'Vertraut von +50 Unternehmen und Firmen',
+      'services.badge':'Unsere Leistungen','services.title':'Leistungen für<br>unsere Kunden','services.viewall':'Alle Leistungen →',
+      's1.title':'UI/UX Design','s1.l1':'Individuelles Webdesign','s1.l2':'UX-Optimierung','s1.l3':'Visuelle Markenidentität','s1.l4':'Design-Systeme',
+      's2.title':'Webentwicklung','s2.l1':'Responsives Webdesign','s2.l2':'Full-Stack-Entwicklung','s2.l3':'E-Commerce-Lösungen','s2.l4':'CMS-Integration',
+      's3.title':'SEO & Wachstum','s3.l1':'Suchmaschinenoptimierung','s3.l2':'Content-Strategie & Erstellung','s3.l3':'Performance-Analyse','s3.l4':'Conversion-Optimierung',
+      's4.title':'E-Commerce','s4.l1':'Shopify & WooCommerce','s4.l2':'Produktseiten-Design','s4.l3':'Zahlungsintegration','s4.l4':'Lagerverwaltung',
+      's5.title':'Web-Performance','s5.l1':'Geschwindigkeitsoptimierung','s5.l2':'Core Web Vitals','s5.l3':'CDN & Hosting','s5.l4':'Sicherheit & SSL',
+      's6.title':'Wartung & Support','s6.l1':'Regelmäßige Updates','s6.l2':'Fehlerbehebung & Monitoring','s6.l3':'Backup & Wiederherstellung','s6.l4':'Monatsberichte',
+      'projects.badge':'Unsere Projekte','projects.title':'Was wir für unsere<br>Kunden geleistet haben','projects.viewall':'Alle Projekte ansehen →',
+      'proj1.title':'EventSpark — Konferenz-Website','proj2.title':'FitFlow — Fitness-App','proj.link':'Projekt ansehen →',
+      'why.badge':'Warum Wir?','why.title':'Warum Sie Uns Für Ihr Business Wählen Sollten?',
+      'why.p':'Bei DankeFlow sind wir mehr als nur ein Dienstleister — wir sind Ihre engagierten Partner im Erfolg. Uns zu wählen bedeutet Ihre digitale Reise einem leidenschaftlichen Team anzuvertrauen.',
+      'stat1':'Jahre Erfahrung','stat2':'Zufriedene Kunden','stat3':'Abgeschlossene Projekte','stat4':'Positive Bewertungen',
+      'f1.title':'Ergebnisorientierter Ansatz','f1.p':'Jede Entscheidung basiert auf Daten und ist auf messbare Ergebnisse für Ihr Geschäftswachstum ausgerichtet.',
+      'f2.title':'Schnelle Lieferung','f2.p':'Wir respektieren Ihre Fristen. Die meisten Projekte werden pünktlich ohne Qualitätsverlust geliefert.',
+      'f3.title':'Transparente Kommunikation','f3.p':'Sie wissen immer was passiert. Regelmäßige Updates, klare Zeitpläne und offene Zusammenarbeit.',
+      'f4.title':'Skalierbare Lösungen','f4.p':'Wir bauen mit Wachstum im Sinn. Ihre Website wächst mit Ihrem Unternehmen, nicht dagegen.',
+      'testi.badge':'Bewertungen','testi.title':'Was unsere Kunden<br>über uns sagen?',
+      't1.p':'Die Wahl von DankeFlow war bahnbrechend für unsere Marke. Ihr kreatives Team hat unsere Website neu gestaltet und moderne Eleganz eingebracht.',
+      't2.p':'Das Fachwissen von DankeFlow war entscheidend für den Fortschritt unseres Tech-Startups.',
+      't3.p':'Die Zusammenarbeit mit DankeFlow war eine transformative Erfahrung für unsere Marketinginitiativen.',
+      'blog.badge':'Blog','blog.title':'Unsere neuesten Beiträge','blog.viewall':'Alle Beiträge →',
+      'blog1.cat':'Design & Marketing','blog1.title':'Die Kunst des Storytellings im digitalen Marketing',
+      'blog2.cat':'UI/UX Design','blog2.title':'Die Psychologie der Farbe im UI/UX-Design','readmore':'Mehr lesen →',
+      'cta.title':'Bereit Ihre digitale Präsenz zu transformieren?','cta.p':'Lassen Sie uns gemeinsam eine Reise der Innovation beginnen.',
+      'footer.brand':'Wir sind ein leidenschaftliches Team digitaler Visionäre das außergewöhnliche Online-Erlebnisse schafft.',
+      'footer.col1':'Über Uns','footer.col2':'Kontakt','footer.col3':'Datenschutz','footer.copy':'© 2025 DankeFlow. Alle Rechte vorbehalten.',
+    },
+    it: {
+      'nav.services':'Servizi','nav.projects':'Progetti','nav.why':'Perché Noi','nav.testimonials':'Testimonianze','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
+      'hero.badge':'🚀 Accettando nuovi progetti',
+      'hero.h1':'Soluzioni Digitali che <span class="blue">Crescono e Automatizzano</span> il Tuo Business',
+      'hero.p':"Sblocca il potenziale del tuo business. Dall'idea ai clienti — costruiamo tutto ciò di cui hai bisogno.",
+      'hero.btn1':'Chi Siamo →','hero.btn2':'Prenota una Chiamata',
+      'trusted.label':'Scelti da +50 Aziende e Imprese',
+      'services.badge':'I Nostri Servizi','services.title':'Servizi che Offriamo<br>ai Nostri Clienti','services.viewall':'Vedi Tutti i Servizi →',
+      's1.title':'Design UI/UX','s1.l1':'Design Web Personalizzato','s1.l2':'Ottimizzazione UX','s1.l3':'Identità Visiva del Brand','s1.l4':'Sistemi di Design',
+      's2.title':'Sviluppo Web','s2.l1':'Design Responsive','s2.l2':'Sviluppo Full-Stack','s2.l3':'Soluzioni E-Commerce','s2.l4':'Integrazione CMS',
+      's3.title':'SEO & Crescita','s3.l1':'Ottimizzazione Motori di Ricerca','s3.l2':'Strategia & Creazione Contenuti','s3.l3':'Analisi delle Performance','s3.l4':'Ottimizzazione Conversioni',
+      's4.title':'E-Commerce','s4.l1':'Shopify & WooCommerce','s4.l2':'Design Pagine Prodotto','s4.l3':'Integrazione Pagamenti','s4.l4':'Gestione Inventario',
+      's5.title':'Performance Web','s5.l1':'Ottimizzazione Velocità','s5.l2':'Core Web Vitals','s5.l3':'CDN & Hosting','s5.l4':'Sicurezza & SSL',
+      's6.title':'Manutenzione & Supporto','s6.l1':'Aggiornamenti Regolari','s6.l2':'Correzione Bug & Monitoraggio','s6.l3':'Backup & Ripristino','s6.l4':'Report Mensili',
+      'projects.badge':'I Nostri Progetti','projects.title':'Cosa Abbiamo Fatto per<br>i Nostri Clienti','projects.viewall':'Vedi Tutti i Progetti →',
+      'proj1.title':'EventSpark — Sito per Conferenze','proj2.title':'FitFlow — App di Fitness','proj.link':'Vedi Dettagli Progetto →',
+      'why.badge':'Perché Noi?','why.title':'Perché Sceglierci Per Il Tuo Business?',
+      'why.p':"Da DankeFlow siamo i tuoi partner dedicati al successo. Sceglierci significa affidare il tuo percorso digitale a un team appassionato.",
+      'stat1':'Anni di Esperienza','stat2':'Clienti Soddisfatti','stat3':'Progetti Completati','stat4':'Recensioni Positive',
+      'f1.title':'Approccio Orientato ai Risultati','f1.p':'Ogni decisione è basata sui dati e orientata a risultati misurabili.',
+      'f2.title':'Consegna Rapida','f2.p':'Rispettiamo le tue scadenze. La maggior parte dei progetti viene consegnata puntualmente.',
+      'f3.title':'Comunicazione Trasparente','f3.p':'Sai sempre cosa sta succedendo. Aggiornamenti regolari e collaborazione aperta.',
+      'f4.title':'Soluzioni Scalabili','f4.p':'Costruiamo pensando alla crescita. Il tuo sito cresce con il tuo business.',
+      'testi.badge':'Testimonianze','testi.title':'Cosa Dicono i Nostri<br>Clienti di Noi?',
+      't1.p':'Scegliere DankeFlow è stata una svolta. Il loro team ha ridisegnato il nostro sito portando eleganza moderna.',
+      't2.p':"L'esperienza di DankeFlow è stata fondamentale per il progresso del nostro startup.",
+      't3.p':"Lavorare con DankeFlow è stata un'esperienza trasformativa per le nostre iniziative di marketing.",
+      'blog.badge':'Blog','blog.title':'I Nostri Ultimi Articoli','blog.viewall':'Vedi Tutti →',
+      'blog1.cat':'Design & Marketing','blog1.title':"L'Arte dello Storytelling nel Marketing Digitale",
+      'blog2.cat':'Design UI/UX','blog2.title':'La Psicologia del Colore nel Design UI/UX','readmore':'Leggi di Più →',
+      'cta.title':'Pronto a Trasformare la Tua Presenza Digitale?','cta.p':"Intraprendiamo insieme un viaggio di innovazione.",
+      'footer.brand':"Siamo un team appassionato di visionari digitali, dedicati a creare esperienze online eccezionali.",
+      'footer.col1':'Chi Siamo','footer.col2':'Contattaci','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. Tutti i diritti riservati.',
+    },
+    el: {
+      'nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.why':'Γιατί Εμείς','nav.testimonials':'Μαρτυρίες','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
+      'hero.badge':'🚀 Δεχόμαστε νέα έργα',
+      'hero.h1':'Ψηφιακές Λύσεις που <span class="blue">Αναπτύσσουν & Αυτοματοποιούν</span> την Επιχείρησή σας',
+      'hero.p':'Ξεκλειδώστε το δυναμικό της επιχείρησής σας. Από ιδέα σε πελάτες — χτίζουμε ό,τι χρειάζεστε.',
+      'hero.btn1':'Σχετικά με Εμάς →','hero.btn2':'Κλείστε Ραντεβού',
+      'trusted.label':'Εμπιστεύονται +50 Εταιρείες και Επιχειρήσεις',
+      'services.badge':'Οι Υπηρεσίες μας','services.title':'Υπηρεσίες που Προσφέρουμε<br>στους Πελάτες μας','services.viewall':'Δείτε Όλες →',
+      's1.title':'Σχεδιασμός UI/UX','s1.l1':'Προσαρμοσμένος Σχεδιασμός','s1.l2':'Βελτιστοποίηση UX','s1.l3':'Οπτική Ταυτότητα Brand','s1.l4':'Συστήματα Σχεδιασμού',
+      's2.title':'Ανάπτυξη Ιστοτόπου','s2.l1':'Responsive Σχεδιασμός','s2.l2':'Full-Stack Ανάπτυξη','s2.l3':'Λύσεις E-Commerce','s2.l4':'Ενσωμάτωση CMS',
+      's3.title':'SEO & Ανάπτυξη','s3.l1':'Βελτιστοποίηση Μηχανών Αναζήτησης','s3.l2':'Στρατηγική & Δημιουργία Περιεχομένου','s3.l3':'Ανάλυση Απόδοσης','s3.l4':'Βελτιστοποίηση Μετατροπών',
+      's4.title':'E-Commerce','s4.l1':'Shopify & WooCommerce','s4.l2':'Σχεδιασμός Σελίδων Προϊόντων','s4.l3':'Ενσωμάτωση Πληρωμών','s4.l4':'Διαχείριση Αποθεμάτων',
+      's5.title':'Απόδοση Ιστοτόπου','s5.l1':'Βελτιστοποίηση Ταχύτητας','s5.l2':'Core Web Vitals','s5.l3':'CDN & Φιλοξενία','s5.l4':'Ασφάλεια & SSL',
+      's6.title':'Συντήρηση & Υποστήριξη','s6.l1':'Τακτικές Ενημερώσεις','s6.l2':'Διόρθωση Σφαλμάτων','s6.l3':'Backup & Αποκατάσταση','s6.l4':'Μηνιαίες Αναφορές',
+      'projects.badge':'Τα Έργα μας','projects.title':'Τι Κάναμε για τους<br>Προηγούμενους Πελάτες μας','projects.viewall':'Δείτε Όλα τα Έργα →',
+      'proj1.title':'EventSpark — Ιστοτόπος Συνεδρίου','proj2.title':'FitFlow — Εφαρμογή Fitness','proj.link':'Δείτε Λεπτομέρειες →',
+      'why.badge':'Γιατί Εμείς;','why.title':'Γιατί να μας Επιλέξετε για την Επιχείρησή σας;',
+      'why.p':'Στη DankeFlow είμαστε οι αφοσιωμένοι συνεργάτες σας στην επιτυχία. Εμπιστευτείτε μας το ψηφιακό σας ταξίδι.',
+      'stat1':'Χρόνια Εμπειρίας','stat2':'Ικανοποιημένοι Πελάτες','stat3':'Ολοκληρωμένα Έργα','stat4':'Θετικές Αξιολογήσεις',
+      'f1.title':'Προσέγγιση Προσανατολισμένη στα Αποτελέσματα','f1.p':'Κάθε απόφαση βασίζεται σε δεδομένα για μετρήσιμα αποτελέσματα ανάπτυξης.',
+      'f2.title':'Γρήγορη Παράδοση','f2.p':'Σεβόμαστε τις προθεσμίες σας. Τα έργα παραδίδονται εγκαίρως χωρίς να θυσιάζεται η ποιότητα.',
+      'f3.title':'Διαφανής Επικοινωνία','f3.p':'Πάντα ξέρετε τι συμβαίνει. Τακτικές ενημερώσεις και ανοιχτή συνεργασία.',
+      'f4.title':'Κλιμακούμενες Λύσεις','f4.p':'Χτίζουμε με γνώμονα την ανάπτυξη. Ο ιστοτόπος μεγαλώνει με την επιχείρησή σας.',
+      'testi.badge':'Μαρτυρίες','testi.title':'Τι Λένε οι Πελάτες μας<br>για Εμάς;',
+      't1.p':'Η επιλογή της DankeFlow ήταν καταλυτική. Ανασχεδίασαν τον ιστοτόπο μας με μοντέρνα κομψότητα.',
+      't2.p':'Η εμπειρία της DankeFlow ήταν καθοριστική για την πρόοδο του startup μας.',
+      't3.p':'Η συνεργασία με τη DankeFlow ήταν μεταμορφωτική για τις πρωτοβουλίες marketing μας.',
+      'blog.badge':'Blog','blog.title':'Τελευταία Άρθρα μας','blog.viewall':'Δείτε Όλα →',
+      'blog1.cat':'Σχεδιασμός & Marketing','blog1.title':'Η Τέχνη της Αφήγησης στο Ψηφιακό Marketing',
+      'blog2.cat':'Σχεδιασμός UI/UX','blog2.title':'Η Ψυχολογία του Χρώματος στο UI/UX','readmore':'Διαβάστε Περισσότερα →',
+      'cta.title':'Έτοιμοι να Μεταμορφώσετε την Ψηφιακή σας Παρουσία;','cta.p':'Ας ξεκινήσουμε μαζί ένα ταξίδι καινοτομίας.',
+      'footer.brand':'Είμαστε μια παθιασμένη ομάδα ψηφιακών οραματιστών αφοσιωμένη στη δημιουργία εξαιρετικών online εμπειριών.',
+      'footer.col1':'Σχετικά με Εμάς','footer.col2':'Επικοινωνία','footer.col3':'Απόρρητο','footer.copy':'© 2025 DankeFlow. Με επιφύλαξη παντός δικαιώματος.',
     }
   };
-  const langMeta = { en:{flag:'🇬🇧',code:'EN'}, sq:{flag:'🇦🇱',code:'SQ'}, de:{flag:'🇩🇪',code:'DE'} };
+  const langMeta = { en:{flag:'🇬🇧',code:'EN'}, sq:{flag:'🇦🇱',code:'SQ'}, de:{flag:'🇩🇪',code:'DE'}, it:{flag:'🇮🇹',code:'IT'}, el:{flag:'🇬🇷',code:'EL'} };
   let currentLang = 'en';
 
   function applyTranslations(lang) {
     currentLang = lang;
     const t = i18n[lang];
+    const htmlKeys = new Set(['hero.h1','services.title','projects.title','why.title','testi.title']);
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.innerHTML = t[key];
+      if (t[key] === undefined) return;
+      htmlKeys.has(key) ? el.innerHTML = t[key] : el.textContent = t[key];
     });
     const heroH1 = document.querySelector('.hero h1');
     if (heroH1 && t['hero.h1']) heroH1.innerHTML = t['hero.h1'];
     const heroP = document.querySelector('.hero > p');
     if (heroP && t['hero.p']) heroP.textContent = t['hero.p'];
     const heroBadge = document.querySelector('.hero-badge');
-    if (heroBadge && t['hero.badge']) heroBadge.innerHTML = '<span class="dot"></span>' + t['hero.badge'];
+    if (heroBadge && t['hero.badge']) heroBadge.textContent = t['hero.badge'];
     document.getElementById('currentFlag').textContent = langMeta[lang].flag;
     document.getElementById('currentCode').textContent = langMeta[lang].code;
     document.querySelectorAll('.mob-lang-btn').forEach(btn => {
@@ -565,7 +1833,9 @@
 
   const navEl = document.querySelector('nav');
   window.addEventListener('scroll', () => {
-    navEl.style.background = window.scrollY > 50 ? 'rgba(2,6,23,0.98)' : 'rgba(2,6,23,0.85)';
+    navEl.style.background = window.scrollY > 50
+      ? 'rgba(2,6,23,0.98)'
+      : 'rgba(2,6,23,0.85)';
   });
 </script>
 </body>
