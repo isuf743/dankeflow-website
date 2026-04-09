@@ -1113,6 +1113,95 @@
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .footer-main { grid-template-columns: 1fr; }
     }
+  
+    /* == 3D MOCKUP FLOAT == */
+    .hero-image-wrap {
+      perspective: 1400px;
+      transform-style: preserve-3d;
+    }
+    .hero-img-bg {
+      transform: rotateX(5deg) rotateY(-4deg);
+      transform-style: preserve-3d;
+      animation: floatMockup 7s ease-in-out infinite;
+      box-shadow:
+        0 50px 100px rgba(0,0,0,0.55),
+        0 0 80px rgba(59,130,246,0.18),
+        0 0 0 1px rgba(59,130,246,0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      will-change: transform;
+    }
+    @keyframes floatMockup {
+      0%,100% { transform: rotateX(5deg) rotateY(-4deg) translateY(0px); }
+      50%      { transform: rotateX(2deg) rotateY(-1deg) translateY(-14px); }
+    }
+
+    /* == MOVING BACKGROUND GLOW == */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 700px 450px at 15% 25%, rgba(37,99,235,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 500px 350px at 85% 65%, rgba(96,165,250,0.13) 0%, transparent 65%);
+      animation: glowShift 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes glowShift {
+      0%   { transform: scale(1)   translate(0%,   0%);   opacity: 0.7; }
+      33%  { transform: scale(1.1) translate(3%,  -4%);   opacity: 1;   }
+      66%  { transform: scale(0.95) translate(-2%, 3%);   opacity: 0.85;}
+      100% { transform: scale(1.05) translate(1%, -2%);   opacity: 0.9; }
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse at center, rgba(37,99,235,0.2) 0%, transparent 60%);
+      pointer-events: none;
+      animation: orbFloat 9s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes orbFloat {
+      0%,100% { transform: translateX(-50%) translateY(0)   scale(1);    opacity: 0.7; }
+      33%      { transform: translateX(-42%) translateY(-30px) scale(1.12); opacity: 1;   }
+      66%      { transform: translateX(-58%) translateY(20px)  scale(0.92); opacity: 0.8; }
+    }
+
+    /* == DEPTH REVEAL == */
+    .reveal {
+      opacity: 0;
+      transform: translateY(44px) scale(0.96);
+      filter: blur(6px);
+      transition:
+        opacity  0.8s cubic-bezier(0.22,1,0.36,1),
+        transform 0.8s cubic-bezier(0.22,1,0.36,1),
+        filter   0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+    .service-card.reveal:nth-child(1){transition-delay:0.04s}
+    .service-card.reveal:nth-child(2){transition-delay:0.1s}
+    .service-card.reveal:nth-child(3){transition-delay:0.16s}
+    .service-card.reveal:nth-child(4){transition-delay:0.22s}
+    .service-card.reveal:nth-child(5){transition-delay:0.28s}
+    .service-card.reveal:nth-child(6){transition-delay:0.34s}
+    .testi-card.reveal:nth-child(1){transition-delay:0.04s}
+    .testi-card.reveal:nth-child(2){transition-delay:0.14s}
+    .testi-card.reveal:nth-child(3){transition-delay:0.24s}
+    .project-card.reveal:nth-child(1){transition-delay:0.05s}
+    .project-card.reveal:nth-child(2){transition-delay:0.15s}
+
+    /* hero content sits above glows */
+    .hero > *:not(.hero::before):not(.hero::after) { position: relative; z-index: 1; }
+    .hero-badge,.hero h1,.hero p,.hero-btns,.hero-image-wrap { position: relative; z-index: 1; }
+
   </style>
 </head>
 <body>
@@ -1653,8 +1742,8 @@
       'f4.title':'Zgjidhje të Shkallëzueshme','f4.p':'Ndërtojmë me rritje në mendje. Faqja juaj rritet me biznesin tuaj, jo kundër tij.',
       'testi.badge':'Recensione','testi.title':'Çfarë Po Thonë Klientët<br>Tanë Rreth Nesh?',
       't1.p':'Zgjedhja e DankeFlow ishte revolucionare për markën tonë. Ekipi i tyre krijues ridizajnoi faqen duke sjellë elegancë moderne që pasqyron identitetin tonë.',
-      't2.p':'Ekspertiza dhe dedikimi i DankeFlow kanë qenë vendimtare për përparimin e startup-it tonë. Ata kuptojnë vërtet çfarë do të thotë të ndërtosh për të ardhmen.',
-      't3.p':'Puna me DankeFlow ka qenë një përvojë transformuese. UI/UX-i i tyre jo vetëm rezonoi me audiencën tonë por rriti ndjeshëm ndërgjegjësimin e markës.',
+      't2.p':'Ekspertiza dhe dedikimi i DankeFlow kanë qenë vendimtare për përparimin e startup-it tonë.',
+      't3.p':'Puna me DankeFlow ka qenë një përvojë transformuese. UI/UX-i i tyre rriti ndjeshëm ndërgjegjësimin e markës.',
       'blog.badge':'Blog','blog.title':'Postimet Tona të Fundit','blog.viewall':'Shiko të Gjitha →',
       'blog1.cat':'Dizajn & Marketing','blog1.title':'Arti i Tregimit në Marketing Dixhital',
       'blog2.cat':'Dizajn UI/UX','blog2.title':'Psikologjia e Ngjyrës në Dizajn UI/UX','readmore':'Lexo Më Shumë →',
@@ -1679,16 +1768,16 @@
       'projects.badge':'Unsere Projekte','projects.title':'Was wir für unsere<br>Kunden geleistet haben','projects.viewall':'Alle Projekte ansehen →',
       'proj1.title':'EventSpark — Konferenz-Website','proj2.title':'FitFlow — Fitness-App','proj.link':'Projekt ansehen →',
       'why.badge':'Warum Wir?','why.title':'Warum Sie Uns Für Ihr Business Wählen Sollten?',
-      'why.p':'Bei DankeFlow sind wir mehr als nur ein Dienstleister — wir sind Ihre engagierten Partner im Erfolg. Uns zu wählen bedeutet Ihre digitale Reise einem leidenschaftlichen Team anzuvertrauen.',
+      'why.p':'Bei DankeFlow sind wir mehr als nur ein Dienstleister — wir sind Ihre engagierten Partner im Erfolg.',
       'stat1':'Jahre Erfahrung','stat2':'Zufriedene Kunden','stat3':'Abgeschlossene Projekte','stat4':'Positive Bewertungen',
-      'f1.title':'Ergebnisorientierter Ansatz','f1.p':'Jede Entscheidung basiert auf Daten und ist auf messbare Ergebnisse für Ihr Geschäftswachstum ausgerichtet.',
-      'f2.title':'Schnelle Lieferung','f2.p':'Wir respektieren Ihre Fristen. Die meisten Projekte werden pünktlich ohne Qualitätsverlust geliefert.',
-      'f3.title':'Transparente Kommunikation','f3.p':'Sie wissen immer was passiert. Regelmäßige Updates, klare Zeitpläne und offene Zusammenarbeit.',
-      'f4.title':'Skalierbare Lösungen','f4.p':'Wir bauen mit Wachstum im Sinn. Ihre Website wächst mit Ihrem Unternehmen, nicht dagegen.',
+      'f1.title':'Ergebnisorientierter Ansatz','f1.p':'Jede Entscheidung basiert auf Daten und ist auf messbare Ergebnisse ausgerichtet.',
+      'f2.title':'Schnelle Lieferung','f2.p':'Wir respektieren Ihre Fristen. Die meisten Projekte werden pünktlich geliefert.',
+      'f3.title':'Transparente Kommunikation','f3.p':'Sie wissen immer was passiert. Regelmäßige Updates und offene Zusammenarbeit.',
+      'f4.title':'Skalierbare Lösungen','f4.p':'Wir bauen mit Wachstum im Sinn. Ihre Website wächst mit Ihrem Unternehmen.',
       'testi.badge':'Bewertungen','testi.title':'Was unsere Kunden<br>über uns sagen?',
-      't1.p':'Die Wahl von DankeFlow war bahnbrechend für unsere Marke. Ihr kreatives Team hat unsere Website neu gestaltet und moderne Eleganz eingebracht.',
+      't1.p':'Die Wahl von DankeFlow war bahnbrechend. Ihr kreatives Team hat unsere Website neu gestaltet.',
       't2.p':'Das Fachwissen von DankeFlow war entscheidend für den Fortschritt unseres Tech-Startups.',
-      't3.p':'Die Zusammenarbeit mit DankeFlow war eine transformative Erfahrung für unsere Marketinginitiativen.',
+      't3.p':'Die Zusammenarbeit mit DankeFlow war eine transformative Erfahrung.',
       'blog.badge':'Blog','blog.title':'Unsere neuesten Beiträge','blog.viewall':'Alle Beiträge →',
       'blog1.cat':'Design & Marketing','blog1.title':'Die Kunst des Storytellings im digitalen Marketing',
       'blog2.cat':'UI/UX Design','blog2.title':'Die Psychologie der Farbe im UI/UX-Design','readmore':'Mehr lesen →',
@@ -1706,7 +1795,7 @@
       'services.badge':'I Nostri Servizi','services.title':'Servizi che Offriamo<br>ai Nostri Clienti','services.viewall':'Vedi Tutti i Servizi →',
       's1.title':'Design UI/UX','s1.l1':'Design Web Personalizzato','s1.l2':'Ottimizzazione UX','s1.l3':'Identità Visiva del Brand','s1.l4':'Sistemi di Design',
       's2.title':'Sviluppo Web','s2.l1':'Design Responsive','s2.l2':'Sviluppo Full-Stack','s2.l3':'Soluzioni E-Commerce','s2.l4':'Integrazione CMS',
-      's3.title':'SEO & Crescita','s3.l1':'Ottimizzazione Motori di Ricerca','s3.l2':'Strategia & Creazione Contenuti','s3.l3':'Analisi delle Performance','s3.l4':'Ottimizzazione Conversioni',
+      's3.title':'SEO & Crescita','s3.l1':'Ottimizzazione Motori di Ricerca','s3.l2':'Strategia & Creazione Contenuti','s3.l3':'Analisi Performance','s3.l4':'Ottimizzazione Conversioni',
       's4.title':'E-Commerce','s4.l1':'Shopify & WooCommerce','s4.l2':'Design Pagine Prodotto','s4.l3':'Integrazione Pagamenti','s4.l4':'Gestione Inventario',
       's5.title':'Performance Web','s5.l1':'Ottimizzazione Velocità','s5.l2':'Core Web Vitals','s5.l3':'CDN & Hosting','s5.l4':'Sicurezza & SSL',
       's6.title':'Manutenzione & Supporto','s6.l1':'Aggiornamenti Regolari','s6.l2':'Correzione Bug & Monitoraggio','s6.l3':'Backup & Ripristino','s6.l4':'Report Mensili',
@@ -1715,14 +1804,14 @@
       'why.badge':'Perché Noi?','why.title':'Perché Sceglierci Per Il Tuo Business?',
       'why.p':"Da DankeFlow siamo i tuoi partner dedicati al successo. Sceglierci significa affidare il tuo percorso digitale a un team appassionato.",
       'stat1':'Anni di Esperienza','stat2':'Clienti Soddisfatti','stat3':'Progetti Completati','stat4':'Recensioni Positive',
-      'f1.title':'Approccio Orientato ai Risultati','f1.p':'Ogni decisione è basata sui dati e orientata a risultati misurabili.',
-      'f2.title':'Consegna Rapida','f2.p':'Rispettiamo le tue scadenze. La maggior parte dei progetti viene consegnata puntualmente.',
-      'f3.title':'Comunicazione Trasparente','f3.p':'Sai sempre cosa sta succedendo. Aggiornamenti regolari e collaborazione aperta.',
+      'f1.title':'Approccio Orientato ai Risultati','f1.p':'Ogni decisione è basata sui dati per risultati misurabili.',
+      'f2.title':'Consegna Rapida','f2.p':'Rispettiamo le tue scadenze. I progetti vengono consegnati puntualmente.',
+      'f3.title':'Comunicazione Trasparente','f3.p':'Sai sempre cosa succede. Aggiornamenti regolari e collaborazione aperta.',
       'f4.title':'Soluzioni Scalabili','f4.p':'Costruiamo pensando alla crescita. Il tuo sito cresce con il tuo business.',
       'testi.badge':'Testimonianze','testi.title':'Cosa Dicono i Nostri<br>Clienti di Noi?',
       't1.p':'Scegliere DankeFlow è stata una svolta. Il loro team ha ridisegnato il nostro sito portando eleganza moderna.',
       't2.p':"L'esperienza di DankeFlow è stata fondamentale per il progresso del nostro startup.",
-      't3.p':"Lavorare con DankeFlow è stata un'esperienza trasformativa per le nostre iniziative di marketing.",
+      't3.p':"Lavorare con DankeFlow è stata un'esperienza trasformativa per il marketing.",
       'blog.badge':'Blog','blog.title':'I Nostri Ultimi Articoli','blog.viewall':'Vedi Tutti →',
       'blog1.cat':'Design & Marketing','blog1.title':"L'Arte dello Storytelling nel Marketing Digitale",
       'blog2.cat':'Design UI/UX','blog2.title':'La Psicologia del Colore nel Design UI/UX','readmore':'Leggi di Più →',
@@ -1749,12 +1838,12 @@
       'why.badge':'Γιατί Εμείς;','why.title':'Γιατί να μας Επιλέξετε για την Επιχείρησή σας;',
       'why.p':'Στη DankeFlow είμαστε οι αφοσιωμένοι συνεργάτες σας στην επιτυχία. Εμπιστευτείτε μας το ψηφιακό σας ταξίδι.',
       'stat1':'Χρόνια Εμπειρίας','stat2':'Ικανοποιημένοι Πελάτες','stat3':'Ολοκληρωμένα Έργα','stat4':'Θετικές Αξιολογήσεις',
-      'f1.title':'Προσέγγιση Προσανατολισμένη στα Αποτελέσματα','f1.p':'Κάθε απόφαση βασίζεται σε δεδομένα για μετρήσιμα αποτελέσματα ανάπτυξης.',
-      'f2.title':'Γρήγορη Παράδοση','f2.p':'Σεβόμαστε τις προθεσμίες σας. Τα έργα παραδίδονται εγκαίρως χωρίς να θυσιάζεται η ποιότητα.',
+      'f1.title':'Προσέγγιση Προσανατολισμένη στα Αποτελέσματα','f1.p':'Κάθε απόφαση βασίζεται σε δεδομένα για μετρήσιμα αποτελέσματα.',
+      'f2.title':'Γρήγορη Παράδοση','f2.p':'Σεβόμαστε τις προθεσμίες. Τα έργα παραδίδονται εγκαίρως χωρίς να θυσιάζεται η ποιότητα.',
       'f3.title':'Διαφανής Επικοινωνία','f3.p':'Πάντα ξέρετε τι συμβαίνει. Τακτικές ενημερώσεις και ανοιχτή συνεργασία.',
       'f4.title':'Κλιμακούμενες Λύσεις','f4.p':'Χτίζουμε με γνώμονα την ανάπτυξη. Ο ιστοτόπος μεγαλώνει με την επιχείρησή σας.',
       'testi.badge':'Μαρτυρίες','testi.title':'Τι Λένε οι Πελάτες μας<br>για Εμάς;',
-      't1.p':'Η επιλογή της DankeFlow ήταν καταλυτική. Ανασχεδίασαν τον ιστοτόπο μας με μοντέρνα κομψότητα.',
+      't1.p':'Η επιλογή της DankeFlow ήταν καταλυτική. Ανασχεδίασαν τον ιστοτόπο με μοντέρνα κομψότητα.',
       't2.p':'Η εμπειρία της DankeFlow ήταν καθοριστική για την πρόοδο του startup μας.',
       't3.p':'Η συνεργασία με τη DankeFlow ήταν μεταμορφωτική για τις πρωτοβουλίες marketing μας.',
       'blog.badge':'Blog','blog.title':'Τελευταία Άρθρα μας','blog.viewall':'Δείτε Όλα →',
@@ -1800,16 +1889,13 @@
     applyTranslations(lang);
     document.getElementById('langSwitcher').classList.remove('open');
   }
-
   function toggleLang(e) {
     e.stopPropagation();
     document.getElementById('langSwitcher').classList.toggle('open');
   }
-
   document.addEventListener('click', () => {
     document.getElementById('langSwitcher').classList.remove('open');
   });
-
   function toggleMenu() {
     const nav = document.getElementById('mobileNav');
     const overlay = document.getElementById('navOverlay');
@@ -1820,23 +1906,38 @@
     document.body.style.overflow = isOpen ? 'hidden' : '';
   }
 
+  // Depth Reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
 
+  // Nav scroll
   const navEl = document.querySelector('nav');
   window.addEventListener('scroll', () => {
     navEl.style.background = window.scrollY > 50
       ? 'rgba(2,6,23,0.98)'
       : 'rgba(2,6,23,0.85)';
   });
+
+  // Subtle mouse parallax on hero mockup
+  const heroWrap = document.querySelector('.hero-image-wrap');
+  if (heroWrap) {
+    document.addEventListener('mousemove', (e) => {
+      const rx = ((e.clientY / window.innerHeight) - 0.5) * 6;
+      const ry = ((e.clientX / window.innerWidth) - 0.5) * -8;
+      heroWrap.style.transform = `rotateX(${rx + 4}deg) rotateY(${ry - 3}deg)`;
+    });
+    document.addEventListener('mouseleave', () => {
+      heroWrap.style.transform = '';
+    });
+  }
 </script>
 </body>
 </html>
