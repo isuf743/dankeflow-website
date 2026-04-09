@@ -796,6 +796,13 @@
       filter: brightness(0.8);
       transition: filter 0.3s;
     }
+    .blog-img-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      transition: opacity 0.3s;
+    }
+    .blog-card:hover .blog-img-wrap { opacity: 0.9; }
     .blog-card:hover .blog-img { filter: brightness(1); }
 
     .blog-info {
@@ -1087,15 +1094,9 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 0 16px; gap: 8px; height: 64px; }
-      .nav-links { display: flex; gap: 16px; }
-      .nav-links a { font-size: 0.78rem; }
-      .nav-cta { padding: 8px 14px; font-size: 0.78rem; }
-      .hamburger { display: none !important; }
-      .mobile-nav { display: none !important; }
-      .mobile-nav-overlay { display: none !important; }
-      .lang-btn { padding: 6px 8px; font-size: 0.72rem; }
-      .lang-code { display: none; }
+      nav { padding: 0 20px; gap: 10px; height: 66px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
 
       .services-grid { grid-template-columns: 1fr 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
@@ -1107,9 +1108,7 @@
     }
 
     @media (max-width: 600px) {
-      nav { padding: 0 12px; }
-      .nav-links { gap: 10px; }
-      .nav-links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
+      nav { padding: 0 14px; }
       .services-grid { grid-template-columns: 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .footer-main { grid-template-columns: 1fr; }
@@ -1222,9 +1221,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">🚀 Duke pranuar projekte të reja</div>
-  <h1>Zgjidhje Dixhitale që <span class="blue">Rrisin dhe Automatizojnë</span> Biznesin Tuaj</h1>
-  <p>Çlironi potencialin e biznesit tuaj me shërbimet tona. Nga ide në Klientë — Ne ndërtojmë gjithçka që ju duhet.</p>
+  <div class="hero-badge">🚀 Accepting New Projects</div>
+  <h1>Digital Solutions that <span class="blue">Grow and Automate</span> Your Business</h1>
+  <p>Unlock the potential of your business with our services. From idea to clients — we build everything you need.</p>
   <div class="hero-btns">
     <a href="#why" class="btn-primary">About Us →</a>
     <a href="#contact" class="btn-secondary">Book A Call</a>
@@ -1690,15 +1689,127 @@
 
     <div class="blog-grid">
       <a href="#" class="blog-card reveal">
-        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80" alt="Blog 1" class="blog-img"/>
+        <!-- Design & Marketing SVG -->
+        <div class="blog-img-wrap">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:200px;display:block;">
+            <defs>
+              <linearGradient id="bgrad1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#020617"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+              <linearGradient id="barGrad" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#1d4ed8"/>
+                <stop offset="100%" stop-color="#60a5fa"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="200" fill="url(#bgrad1)"/>
+            <!-- Grid -->
+            <line x1="0" y1="50" x2="800" y2="50" stroke="#1e3a5f" stroke-width="0.5" opacity="0.4"/>
+            <line x1="0" y1="100" x2="800" y2="100" stroke="#1e3a5f" stroke-width="0.5" opacity="0.4"/>
+            <line x1="0" y1="150" x2="800" y2="150" stroke="#1e3a5f" stroke-width="0.5" opacity="0.4"/>
+            <!-- Funnel shape -->
+            <path d="M80 30 L180 30 L155 80 L105 80 Z" fill="#1d4ed8" opacity="0.85"/>
+            <path d="M105 85 L155 85 L140 130 L120 130 Z" fill="#2563eb" opacity="0.75"/>
+            <path d="M120 135 L140 135 L133 165 L127 165 Z" fill="#3b82f6" opacity="0.9"/>
+            <text x="130" y="185" text-anchor="middle" font-family="monospace" font-size="9" fill="#60a5fa" opacity="0.7">FUNNEL</text>
+            <!-- Bar chart -->
+            <rect x="230" y="130" width="22" height="42" rx="3" fill="url(#barGrad)" opacity="0.8"/>
+            <rect x="258" y="100" width="22" height="72" rx="3" fill="url(#barGrad)" opacity="0.9"/>
+            <rect x="286" y="115" width="22" height="57" rx="3" fill="url(#barGrad)" opacity="0.75"/>
+            <rect x="314" y="80" width="22" height="92" rx="3" fill="url(#barGrad)"/>
+            <rect x="342" y="95" width="22" height="77" rx="3" fill="url(#barGrad)" opacity="0.85"/>
+            <rect x="370" y="65" width="22" height="107" rx="3" fill="url(#barGrad)"/>
+            <!-- Line chart overlay -->
+            <polyline points="241,128 269,98 297,113 325,78 353,93 381,63" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="381" cy="63" r="4" fill="#60a5fa"/>
+            <circle cx="325" cy="78" r="3" fill="#93c5fd"/>
+            <!-- Floating metric cards -->
+            <rect x="430" y="30" width="130" height="50" rx="8" fill="#0d2347" stroke="#2563eb" stroke-width="1"/>
+            <text x="447" y="52" font-family="'Syne',sans-serif" font-size="18" font-weight="800" fill="#3b82f6">+247%</text>
+            <text x="447" y="68" font-family="monospace" font-size="9" fill="#64748b">Conversion Rate</text>
+            <rect x="580" y="30" width="110" height="50" rx="8" fill="#0d2347" stroke="#1d4ed8" stroke-width="1"/>
+            <text x="597" y="52" font-family="'Syne',sans-serif" font-size="18" font-weight="800" fill="#60a5fa">12.4k</text>
+            <text x="597" y="68" font-family="monospace" font-size="9" fill="#64748b">New Leads</text>
+            <!-- Glow -->
+            <rect x="430" y="100" width="260" height="60" rx="8" fill="#0f172a" stroke="#1e3a5f" stroke-width="1"/>
+            <polyline points="445,148 480,130 515,138 550,118 585,125 620,108 655,115 680,100" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+            <text x="445" y="117" font-family="monospace" font-size="8" fill="#64748b">ENGAGEMENT TREND</text>
+            <ellipse cx="400" cy="100" rx="200" ry="60" fill="#3b82f6" opacity="0.04"/>
+          </svg>
+        </div>
         <div class="blog-info">
           <div class="blog-cat">Design & Marketing</div>
           <h3>The Art Of Storytelling In Digital Marketing</h3>
           <span class="read-more">Read More →</span>
         </div>
       </a>
+
       <a href="#" class="blog-card reveal">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Blog 2" class="blog-img"/>
+        <!-- UI/UX Design SVG -->
+        <div class="blog-img-wrap">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:200px;display:block;">
+            <defs>
+              <linearGradient id="bgrad2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#020617"/>
+                <stop offset="100%" stop-color="#0c1628"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="200" fill="url(#bgrad2)"/>
+            <!-- Glow -->
+            <ellipse cx="400" cy="100" rx="260" ry="90" fill="#2563eb" opacity="0.05"/>
+            <!-- Browser mockup -->
+            <rect x="40" y="20" width="340" height="165" rx="10" fill="#0d1b2e" stroke="#1d4ed8" stroke-width="1.5"/>
+            <!-- Browser bar -->
+            <rect x="40" y="20" width="340" height="28" rx="10" fill="#0f2040"/>
+            <rect x="40" y="38" width="340" height="10" fill="#0f2040"/>
+            <circle cx="58" cy="34" r="5" fill="#ef4444" opacity="0.7"/>
+            <circle cx="74" cy="34" r="5" fill="#f59e0b" opacity="0.7"/>
+            <circle cx="90" cy="34" r="5" fill="#22c55e" opacity="0.7"/>
+            <!-- URL bar -->
+            <rect x="110" y="27" width="200" height="14" rx="4" fill="#1e3a5f"/>
+            <text x="118" y="38" font-family="monospace" font-size="8" fill="#60a5fa" opacity="0.8">dankeflow.com</text>
+            <!-- Nav inside mockup -->
+            <rect x="50" y="58" width="320" height="16" rx="3" fill="#0a1628"/>
+            <rect x="56" y="62" width="24" height="8" rx="2" fill="#3b82f6" opacity="0.9"/>
+            <rect x="86" y="63" width="20" height="6" rx="1" fill="#1e3a5f"/>
+            <rect x="112" y="63" width="20" height="6" rx="1" fill="#1e3a5f"/>
+            <rect x="138" y="63" width="20" height="6" rx="1" fill="#1e3a5f"/>
+            <rect x="310" y="61" width="50" height="10" rx="3" fill="#1d4ed8"/>
+            <!-- Hero section inside -->
+            <rect x="50" y="80" width="170" height="12" rx="3" fill="#1e3a5f"/>
+            <rect x="50" y="96" width="140" height="8" rx="2" fill="#0f2040"/>
+            <rect x="50" y="108" width="150" height="8" rx="2" fill="#0f2040"/>
+            <rect x="50" y="124" width="55" height="16" rx="4" fill="#2563eb"/>
+            <rect x="112" y="124" width="55" height="16" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="0.8"/>
+            <!-- Image placeholder inside -->
+            <rect x="230" y="80" width="130" height="75" rx="6" fill="#0f2040" stroke="#1e3a5f" stroke-width="1"/>
+            <rect x="245" y="95" width="100" height="45" rx="3" fill="#0d2347"/>
+            <polyline points="248,125 268,108 288,115 308,100 328,110 342,98" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Color palette right side -->
+            <rect x="420" y="20" width="340" height="165" rx="10" fill="#0d1b2e" stroke="#1d4ed8" stroke-width="1.5" opacity="0.95"/>
+            <text x="440" y="48" font-family="'Syne',sans-serif" font-size="11" font-weight="700" fill="#93c5fd">Design System</text>
+            <!-- Color swatches -->
+            <rect x="440" y="58" width="30" height="30" rx="5" fill="#2563eb"/>
+            <rect x="476" y="58" width="30" height="30" rx="5" fill="#3b82f6"/>
+            <rect x="512" y="58" width="30" height="30" rx="5" fill="#60a5fa"/>
+            <rect x="548" y="58" width="30" height="30" rx="5" fill="#93c5fd"/>
+            <rect x="584" y="58" width="30" height="30" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+            <rect x="620" y="58" width="30" height="30" rx="5" fill="#1e293b"/>
+            <rect x="656" y="58" width="30" height="30" rx="5" fill="#334155"/>
+            <!-- Typography sample -->
+            <text x="440" y="115" font-family="'Syne',sans-serif" font-size="20" font-weight="800" fill="#fff" opacity="0.9">Aa</text>
+            <text x="480" y="115" font-family="monospace" font-size="20" fill="#60a5fa" opacity="0.7">Aa</text>
+            <text x="520" y="115" font-family="sans-serif" font-size="20" fill="#93c5fd" opacity="0.5">Aa</text>
+            <!-- Component preview -->
+            <rect x="440" y="125" width="90" height="26" rx="6" fill="#2563eb"/>
+            <text x="460" y="142" font-family="monospace" font-size="9" fill="#fff">Primary</text>
+            <rect x="540" y="125" width="90" height="26" rx="6" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="558" y="142" font-family="monospace" font-size="9" fill="#60a5fa">Secondary</text>
+            <rect x="440" y="158" width="55" height="16" rx="3" fill="#0f2040" stroke="#1e3a5f" stroke-width="1"/>
+            <rect x="502" y="158" width="55" height="16" rx="3" fill="#0f2040" stroke="#1e3a5f" stroke-width="1"/>
+            <rect x="564" y="158" width="55" height="16" rx="3" fill="#0f2040" stroke="#1e3a5f" stroke-width="1"/>
+          </svg>
+        </div>
         <div class="blog-info">
           <div class="blog-cat">UI/UX Design</div>
           <h3>The Psychology Of Color In UI/UX Design</h3>
