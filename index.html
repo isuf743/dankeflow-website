@@ -1114,62 +1114,50 @@
       .footer-main { grid-template-columns: 1fr; }
     }
   
-    /* == SOCIAL PROOF BAR == */
-    .social-proof-bar { position:relative; z-index:1; background:rgba(15,23,42,0.8); border-top:1px solid var(--border); border-bottom:1px solid var(--border); backdrop-filter:blur(10px); }
-    .social-proof-bar::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,rgba(37,99,235,0.06) 0%,transparent 50%,rgba(37,99,235,0.06) 100%); pointer-events:none; }
-    .spb-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:center; padding:18px 24px; flex-wrap:wrap; }
-    .spb-item { display:flex; align-items:center; gap:8px; padding:6px 28px; }
-    .spb-stars { color:#f59e0b; font-size:.85rem; letter-spacing:2px; }
-    .spb-icon { font-size:1rem; }
-    .spb-text { font-family:'DM Sans',sans-serif; font-size:.82rem; font-weight:500; color:var(--text); white-space:nowrap; }
-    .spb-divider { width:1px; height:20px; background:var(--border); flex-shrink:0; }
-    @media(max-width:600px){ .spb-item{padding:4px 14px;} .spb-divider{display:none;} .spb-text{font-size:.78rem;} }
-
-    /* == 3D MOCKUP FLOAT == */
-    .hero-image-wrap { perspective:1400px; transform-style:preserve-3d; }
-    .hero-img-bg { transform:rotateX(5deg) rotateY(-4deg); animation:floatMockup 7s ease-in-out infinite; box-shadow:0 50px 100px rgba(0,0,0,0.55),0 0 80px rgba(59,130,246,0.18),0 0 0 1px rgba(59,130,246,0.12); border-radius:16px; overflow:hidden; will-change:transform; }
-    @keyframes floatMockup { 0%,100%{transform:rotateX(5deg) rotateY(-4deg) translateY(0)} 50%{transform:rotateX(2deg) rotateY(-1deg) translateY(-14px)} }
-    .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 700px 450px at 15% 25%,rgba(37,99,235,0.2) 0%,transparent 65%),radial-gradient(ellipse 500px 350px at 85% 65%,rgba(96,165,250,0.13) 0%,transparent 65%); animation:glowShift 12s ease-in-out infinite alternate; pointer-events:none; z-index:0; }
-    @keyframes glowShift { 0%{transform:scale(1) translate(0%,0%);opacity:.7} 50%{transform:scale(1.1) translate(3%,-4%);opacity:1} 100%{transform:scale(1.05) translate(1%,-2%);opacity:.9} }
-    .hero::after { content:''; position:absolute; width:600px; height:600px; top:0; left:50%; transform:translateX(-50%); background:radial-gradient(ellipse at center,rgba(37,99,235,0.2) 0%,transparent 60%); pointer-events:none; animation:orbFloat 9s ease-in-out infinite; z-index:0; }
-    @keyframes orbFloat { 0%,100%{transform:translateX(-50%) translateY(0) scale(1);opacity:.7} 33%{transform:translateX(-42%) translateY(-30px) scale(1.12);opacity:1} 66%{transform:translateX(-58%) translateY(20px) scale(.92);opacity:.8} }
-
-    /* == DEPTH REVEAL == */
-    .reveal { opacity:0; transform:translateY(44px) scale(0.96); filter:blur(6px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .65s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
-    .service-card.reveal:nth-child(1){transition-delay:.04s} .service-card.reveal:nth-child(2){transition-delay:.10s} .service-card.reveal:nth-child(3){transition-delay:.16s} .service-card.reveal:nth-child(4){transition-delay:.22s} .service-card.reveal:nth-child(5){transition-delay:.28s} .service-card.reveal:nth-child(6){transition-delay:.34s}
-    .testi-card.reveal:nth-child(1){transition-delay:.04s} .testi-card.reveal:nth-child(2){transition-delay:.14s} .testi-card.reveal:nth-child(3){transition-delay:.24s}
-    .project-card.reveal:nth-child(1){transition-delay:.05s} .project-card.reveal:nth-child(2){transition-delay:.15s}
-    .hiw-step.reveal:nth-child(1){transition-delay:.05s} .hiw-step.reveal:nth-child(3){transition-delay:.15s} .hiw-step.reveal:nth-child(5){transition-delay:.25s}
-    .hero-badge,.hero h1,.hero p,.hero-btns,.hero-image-wrap { position:relative; z-index:1; }
-
-    /* == HOW IT WORKS == */
-    .hiw-grid { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; align-items:start; gap:0 16px; }
-    .hiw-step { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:36px 28px 32px; text-align:center; transition:border-color .3s,transform .3s,box-shadow .3s; }
-    .hiw-step:hover { border-color:rgba(59,130,246,0.5); transform:translateY(-6px); box-shadow:0 24px 60px rgba(59,130,246,0.12); }
-    .hiw-icon-wrap { position:relative; display:inline-flex; align-items:center; justify-content:center; margin-bottom:22px; }
-    .hiw-icon { width:80px; height:80px; }
-    .hiw-num { position:absolute; top:-8px; right:-8px; width:26px; height:26px; background:var(--grad); border-radius:50%; font-family:'Syne',sans-serif; font-size:.7rem; font-weight:800; color:#fff; display:flex; align-items:center; justify-content:center; }
-    .hiw-content h3 { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:10px; }
-    .hiw-content p { font-size:.85rem; color:var(--muted); line-height:1.7; }
-    .hiw-arrow { display:flex; align-items:center; justify-content:center; padding-top:56px; opacity:.6; }
-    .hiw-arrow svg { width:48px; }
-    @media(max-width:900px){ .hiw-grid{grid-template-columns:1fr;gap:0} .hiw-arrow{padding:0;transform:rotate(90deg);margin:12px auto;width:48px} .hiw-step{text-align:left;display:flex;gap:20px;align-items:flex-start;padding:24px} .hiw-icon-wrap{margin-bottom:0;flex-shrink:0} .hiw-icon{width:60px;height:60px} }
-
-    /* == FAQ == */
-    .faq-section { background:linear-gradient(180deg,transparent 0%,rgba(37,99,235,0.03) 50%,transparent 100%); }
-    .faq-wrap { max-width:780px; margin:0 auto; display:flex; flex-direction:column; gap:12px; margin-top:48px; }
-    .faq-item { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:border-color .3s; }
-    .faq-item.open { border-color:rgba(59,130,246,0.45); }
-    .faq-q { width:100%; background:none; border:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; padding:22px 24px; gap:16px; text-align:left; }
-    .faq-q span { font-family:'Syne',sans-serif; font-size:.97rem; font-weight:700; color:#fff; flex:1; transition:color .2s; }
-    .faq-item.open .faq-q span { color:var(--accent); }
-    .faq-icon { width:28px; height:28px; border-radius:50%; flex-shrink:0; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.25); display:flex; align-items:center; justify-content:center; transition:background .3s,transform .35s cubic-bezier(.22,1,.36,1); color:var(--accent); }
-    .faq-item.open .faq-icon { background:var(--grad); border-color:transparent; transform:rotate(45deg); color:#fff; }
-    .faq-icon svg { width:12px; height:12px; }
-    .faq-a { max-height:0; overflow:hidden; transition:max-height .45s cubic-bezier(.22,1,.36,1); }
-    .faq-a p { font-size:.875rem; color:var(--muted); line-height:1.75; padding:16px 24px 22px; border-top:1px solid var(--border); }
-    .faq-item.open .faq-a { max-height:400px; }
+    .social-proof-bar{position:relative;z-index:1;background:rgba(15,23,42,0.8);border-top:1px solid var(--border);border-bottom:1px solid var(--border);backdrop-filter:blur(10px);}
+    .spb-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;padding:18px 24px;flex-wrap:wrap;}
+    .spb-item{display:flex;align-items:center;gap:8px;padding:6px 28px;}
+    .spb-stars{color:#f59e0b;font-size:.85rem;letter-spacing:2px;}
+    .spb-icon{font-size:1rem;}
+    .spb-text{font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;color:var(--text);white-space:nowrap;}
+    .spb-divider{width:1px;height:20px;background:var(--border);flex-shrink:0;}
+    @media(max-width:600px){.spb-item{padding:4px 14px;}.spb-divider{display:none;}}
+    .hero-image-wrap{perspective:1400px;transform-style:preserve-3d;}
+    .hero-img-bg{transform:rotateX(5deg) rotateY(-4deg);animation:floatMockup 7s ease-in-out infinite;box-shadow:0 50px 100px rgba(0,0,0,0.55),0 0 80px rgba(59,130,246,0.18);border-radius:16px;overflow:hidden;will-change:transform;}
+    @keyframes floatMockup{0%,100%{transform:rotateX(5deg) rotateY(-4deg) translateY(0)}50%{transform:rotateX(2deg) rotateY(-1deg) translateY(-14px)}}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 700px 450px at 15% 25%,rgba(37,99,235,0.2) 0%,transparent 65%),radial-gradient(ellipse 500px 350px at 85% 65%,rgba(96,165,250,0.13) 0%,transparent 65%);animation:glowShift 12s ease-in-out infinite alternate;pointer-events:none;z-index:0;}
+    @keyframes glowShift{0%{transform:scale(1) translate(0%,0%);opacity:.7}50%{transform:scale(1.1) translate(3%,-4%);opacity:1}100%{transform:scale(1.05) translate(1%,-2%);opacity:.9}}
+    .hero::after{content:'';position:absolute;width:600px;height:600px;top:0;left:50%;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(37,99,235,0.2) 0%,transparent 60%);pointer-events:none;animation:orbFloat 9s ease-in-out infinite;z-index:0;}
+    @keyframes orbFloat{0%,100%{transform:translateX(-50%) translateY(0) scale(1);opacity:.7}33%{transform:translateX(-42%) translateY(-30px) scale(1.12);opacity:1}66%{transform:translateX(-58%) translateY(20px) scale(.92);opacity:.8}}
+    .reveal{opacity:0;transform:translateY(44px) scale(0.96);filter:blur(6px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .65s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+    .service-card.reveal:nth-child(1){transition-delay:.04s}.service-card.reveal:nth-child(2){transition-delay:.10s}.service-card.reveal:nth-child(3){transition-delay:.16s}.service-card.reveal:nth-child(4){transition-delay:.22s}.service-card.reveal:nth-child(5){transition-delay:.28s}.service-card.reveal:nth-child(6){transition-delay:.34s}
+    .testi-card.reveal:nth-child(1){transition-delay:.04s}.testi-card.reveal:nth-child(2){transition-delay:.14s}.testi-card.reveal:nth-child(3){transition-delay:.24s}
+    .hero-badge,.hero h1,.hero p,.hero-btns,.hero-image-wrap{position:relative;z-index:1;}
+    .hiw-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:start;gap:0 16px;}
+    .hiw-step{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 28px 32px;text-align:center;transition:border-color .3s,transform .3s,box-shadow .3s;}
+    .hiw-step:hover{border-color:rgba(59,130,246,.5);transform:translateY(-6px);box-shadow:0 24px 60px rgba(59,130,246,.12);}
+    .hiw-icon-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;margin-bottom:22px;}
+    .hiw-icon{width:80px;height:80px;}
+    .hiw-num{position:absolute;top:-8px;right:-8px;width:26px;height:26px;background:var(--grad);border-radius:50%;font-family:'Syne',sans-serif;font-size:.7rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;}
+    .hiw-content h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:10px;}
+    .hiw-content p{font-size:.85rem;color:var(--muted);line-height:1.7;}
+    .hiw-arrow{display:flex;align-items:center;justify-content:center;padding-top:56px;opacity:.6;}
+    .hiw-arrow svg{width:48px;}
+    @media(max-width:900px){.hiw-grid{grid-template-columns:1fr;gap:0}.hiw-arrow{padding:0;transform:rotate(90deg);margin:12px auto;width:48px}.hiw-step{text-align:left;display:flex;gap:20px;align-items:flex-start;padding:24px}.hiw-icon-wrap{margin-bottom:0;flex-shrink:0}.hiw-icon{width:60px;height:60px}}
+    .faq-section{background:linear-gradient(180deg,transparent 0%,rgba(37,99,235,.03) 50%,transparent 100%);}
+    .faq-wrap{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px;margin-top:48px;}
+    .faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .3s;}
+    .faq-item.open{border-color:rgba(59,130,246,.45);}
+    .faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:22px 24px;gap:16px;text-align:left;}
+    .faq-q span{font-family:'Syne',sans-serif;font-size:.97rem;font-weight:700;color:#fff;flex:1;transition:color .2s;}
+    .faq-item.open .faq-q span{color:var(--accent);}
+    .faq-icon{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;transition:background .3s,transform .35s cubic-bezier(.22,1,.36,1);color:var(--accent);}
+    .faq-item.open .faq-icon{background:var(--grad);border-color:transparent;transform:rotate(45deg);color:#fff;}
+    .faq-icon svg{width:12px;height:12px;}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.22,1,.36,1);}
+    .faq-a p{font-size:.875rem;color:var(--muted);line-height:1.75;padding:16px 24px 22px;border-top:1px solid var(--border);}
+    .faq-item.open .faq-a{max-height:400px;}
 
   </style>
 </head>
@@ -1194,7 +1182,7 @@
   </div>
 
   <div class="mobile-nav-links">
-    <a href="#services" onclick="toggleMenu()"><span data-i18n="nav.services">Services</span><span class="arrow">›</span></a>
+    <a href="services.html" onclick="toggleMenu()"><span data-i18n="nav.services">Services</span><span class="arrow">›</span></a>
     <a href="#projects" onclick="toggleMenu()"><span data-i18n="nav.projects">Projects</span><span class="arrow">›</span></a>
     <a href="#why" onclick="toggleMenu()"><span data-i18n="nav.why">Why Us</span><span class="arrow">›</span></a>
     <a href="#testimonials" onclick="toggleMenu()"><span data-i18n="nav.testimonials">Testimonials</span><span class="arrow">›</span></a>
@@ -1232,7 +1220,7 @@
   </a>
 
   <ul class="nav-links">
-    <li><a href="#services" data-i18n="nav.services">Services</a></li>
+    <li><a href="services.html" data-i18n="nav.services">Services</a></li>
     <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
     <li><a href="#why" data-i18n="nav.why">Why Us</a></li>
     <li><a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a></li>
@@ -1298,7 +1286,7 @@
   <p>Unlock the potential of your business with our services. From idea to clients — we build everything you need.</p>
   <div class="hero-btns">
     <a href="#why" class="btn-primary" data-i18n="hero.btn1">About Us →</a>
-    <a href="contact.html" class="btn-secondary" data-i18n="hero.btn2">Book A Call</a>
+    <a href="contact.html" class="btn-secondary">Book A Call</a>
   </div>
   <div class="hero-image-wrap">
     <div class="hero-img-bg">
@@ -1306,18 +1294,7 @@
     </div>
   </div>
 </section>
-<!-- SOCIAL PROOF BAR -->
-<div class="social-proof-bar">
-  <div class="spb-inner">
-    <div class="spb-item"><span class="spb-stars">★★★★★</span><span class="spb-text" data-i18n="spb.rating">4.9/5 Rating</span></div>
-    <div class="spb-divider"></div>
-    <div class="spb-item"><span class="spb-icon">🚀</span><span class="spb-text" data-i18n="spb.projects">80+ Projects Delivered</span></div>
-    <div class="spb-divider"></div>
-    <div class="spb-item"><span class="spb-icon">👥</span><span class="spb-text" data-i18n="spb.clients">50+ Happy Clients</span></div>
-    <div class="spb-divider"></div>
-    <div class="spb-item"><span class="spb-icon">⚡</span><span class="spb-text" data-i18n="spb.delivery">Delivered in 14 Days</span></div>
-  </div>
-</div>
+<div class="social-proof-bar"><div class="spb-inner"><div class="spb-item"><span class="spb-stars">★★★★★</span><span class="spb-text" data-i18n="spb.rating">4.9/5 Rating</span></div><div class="spb-divider"></div><div class="spb-item"><span class="spb-icon">🚀</span><span class="spb-text" data-i18n="spb.projects">80+ Projects</span></div><div class="spb-divider"></div><div class="spb-item"><span class="spb-icon">👥</span><span class="spb-text" data-i18n="spb.clients">50+ Clients</span></div><div class="spb-divider"></div><div class="spb-item"><span class="spb-icon">⚡</span><span class="spb-text" data-i18n="spb.delivery">14 Days Delivery</span></div></div></div>
 
 
 <!-- TRUSTED BY -->
@@ -1342,7 +1319,7 @@
         <div class="section-badge" data-i18n="services.badge">Our Services</div>
         <h2 class="section-title" data-i18n="services.title">Services We Provide<br>To Our Clients</h2>
       </div>
-      <a href="#" class="view-all" data-i18n="services.viewall">View All Services →</a>
+      <a href="services.html" class="view-all" data-i18n="services.viewall">View All Services →</a>
     </div>
 
     <div class="services-grid">
@@ -1453,30 +1430,7 @@
 <div class="divider"></div>
 
 <!-- HOW IT WORKS -->
-<section id="how-it-works">
-  <div class="section-wrap">
-    <div class="reveal" style="text-align:center;margin-bottom:56px;">
-      <div class="section-badge" data-i18n="hiw.badge">How It Works</div>
-      <h2 class="section-title" data-i18n="hiw.title">From First Contact<br>to a Live Website</h2>
-    </div>
-    <div class="hiw-grid">
-      <div class="hiw-step reveal">
-        <div class="hiw-icon-wrap"><div class="hiw-num">01</div><svg class="hiw-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="url(#g1)" stroke-width="1.5" fill="rgba(37,99,235,0.08)"/><path d="M16 20h16M16 24h10" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/><path d="M30 32l4-4-4-4" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs></svg></div>
-        <div class="hiw-content"><h3 data-i18n="hiw.s1.title">Contact Us</h3><p data-i18n="hiw.s1.desc">Tell us about your project. We listen and understand exactly what you need.</p></div>
-      </div>
-      <div class="hiw-arrow reveal"><svg viewBox="0 0 60 24" fill="none"><path d="M0 12h52M44 4l12 8-12 8" stroke="url(#ga)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ga" x1="0" y1="0" x2="60" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs></svg></div>
-      <div class="hiw-step reveal">
-        <div class="hiw-icon-wrap"><div class="hiw-num">02</div><svg class="hiw-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="url(#g2)" stroke-width="1.5" fill="rgba(37,99,235,0.08)"/><rect x="14" y="16" width="20" height="16" rx="3" stroke="url(#g2)" stroke-width="2"/><path d="M18 22h12M18 26h8" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round"/><defs><linearGradient id="g2" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs></svg></div>
-        <div class="hiw-content"><h3 data-i18n="hiw.s2.title">We Plan & Build</h3><p data-i18n="hiw.s2.desc">We design and develop your website with regular updates. You see progress at every step.</p></div>
-      </div>
-      <div class="hiw-arrow reveal"><svg viewBox="0 0 60 24" fill="none"><path d="M0 12h52M44 4l12 8-12 8" stroke="url(#gb)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="gb" x1="0" y1="0" x2="60" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs></svg></div>
-      <div class="hiw-step reveal">
-        <div class="hiw-icon-wrap"><div class="hiw-num">03</div><svg class="hiw-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="url(#g3)" stroke-width="1.5" fill="rgba(37,99,235,0.08)"/><path d="M24 14l2.5 5 5.5.8-4 3.9.95 5.5L24 27l-4.95 2.2.95-5.5-4-3.9 5.5-.8L24 14z" stroke="url(#g3)" stroke-width="1.8" stroke-linejoin="round" fill="rgba(37,99,235,0.15)"/><path d="M18 34h12" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="g3" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#60a5fa"/></linearGradient></defs></svg></div>
-        <div class="hiw-content"><h3 data-i18n="hiw.s3.title">We Launch</h3><p data-i18n="hiw.s3.desc">Your website goes live. We handle hosting, testing, and post-launch support.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
+<section id="how-it-works"><div class="section-wrap"><div class="reveal" style="text-align:center;margin-bottom:56px;"><div class="section-badge" data-i18n="hiw.badge">How It Works</div><h2 class="section-title" data-i18n="hiw.title">From First Contact<br>to a Live Website</h2></div><div class="hiw-grid"><div class="hiw-step reveal"><div class="hiw-icon-wrap"><div class="hiw-num">01</div><svg class="hiw-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#3b82f6" stroke-width="1.5" fill="rgba(37,99,235,0.08)"/><path d="M16 20h16M16 24h10" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/></svg></div><div class="hiw-content"><h3 data-i18n="hiw.s1.title">Contact Us</h3><p data-i18n="hiw.s1.desc">Tell us about your project.</p></div></div><div class="hiw-arrow reveal"><svg viewBox="0 0 60 24" fill="none"><path d="M0 12h52M44 4l12 8-12 8" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="hiw-step reveal"><div class="hiw-icon-wrap"><div class="hiw-num">02</div><svg class="hiw-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#3b82f6" stroke-width="1.5" fill="rgba(37,99,235,0.08)"/><rect x="14" y="16" width="20" height="16" rx="3" stroke="#60a5fa" stroke-width="2"/></svg></div><div class="hiw-content"><h3 data-i18n="hiw.s2.title">We Plan & Build</h3><p data-i18n="hiw.s2.desc">We design and develop with updates.</p></div></div><div class="hiw-arrow reveal"><svg viewBox="0 0 60 24" fill="none"><path d="M0 12h52M44 4l12 8-12 8" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="hiw-step reveal"><div class="hiw-icon-wrap"><div class="hiw-num">03</div><svg class="hiw-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#3b82f6" stroke-width="1.5" fill="rgba(37,99,235,0.08)"/><path d="M24 15l2 4 4.5.7-3.25 3.15.77 4.45L24 25.4l-4.02 2.1.77-4.45L17.5 19.7l4.5-.7L24 15z" stroke="#60a5fa" stroke-width="1.5" stroke-linejoin="round"/></svg></div><div class="hiw-content"><h3 data-i18n="hiw.s3.title">We Launch</h3><p data-i18n="hiw.s3.desc">Your website goes live.</p></div></div></div></div></section>
 
 <div class="divider"></div>
 
@@ -1487,7 +1441,7 @@
       <div class="why-left reveal">
         <div class="section-badge" data-i18n="why.badge">Why Us?</div>
         <h2 class="section-title" data-i18n="why.title">Why You Should Choose Us To Help Your Business?</h2>
-        <p style="margin-top:20px" data-i18n="why.p">At DankeFlow, we stand as more than just a service provider — we're your dedicated partners in success. Choosing us means entrusting your digital journey to a team that is not only passionate about what we do but is committed to seeing your business flourish.</p>
+        <p style="margin-top:20px">At DankeFlow, we stand as more than just a service provider — we're your dedicated partners in success. Choosing us means entrusting your digital journey to a team that is not only passionate about what we do but is committed to seeing your business flourish.</p>
         <div class="stats-grid">
           <div class="stat-item">
             <div class="stat-num" data-count="3" data-prefix="+">0</div>
@@ -1513,28 +1467,28 @@
           <div class="why-feature-icon">🎯</div>
           <div>
             <h4 data-i18n="f1.title">Results-Driven Approach</h4>
-            <p data-i18n="f1.p">Every decision we make is backed by data and focused on measurable outcomes for your business growth.</p>
+            <p>Every decision we make is backed by data and focused on measurable outcomes for your business growth.</p>
           </div>
         </div>
         <div class="why-feature">
           <div class="why-feature-icon">⚡</div>
           <div>
             <h4 data-i18n="f2.title">Fast Delivery</h4>
-            <p data-i18n="f2.p">We respect your deadlines. Most projects are delivered on time without compromising on quality.</p>
+            <p>We respect your deadlines. Most projects are delivered on time without compromising on quality.</p>
           </div>
         </div>
         <div class="why-feature">
           <div class="why-feature-icon">🔒</div>
           <div>
             <h4 data-i18n="f3.title">Transparent Communication</h4>
-            <p data-i18n="f3.p">You always know what's happening. Regular updates, clear timelines, and open collaboration at every step.</p>
+            <p>You always know what's happening. Regular updates, clear timelines, and open collaboration at every step.</p>
           </div>
         </div>
         <div class="why-feature">
           <div class="why-feature-icon">🚀</div>
           <div>
             <h4 data-i18n="f4.title">Scalable Solutions</h4>
-            <p data-i18n="f4.p">We build with growth in mind. Your website grows with your business, not against it.</p>
+            <p>We build with growth in mind. Your website grows with your business, not against it.</p>
           </div>
         </div>
       </div>
@@ -1554,7 +1508,7 @@
     <div class="testimonials-grid">
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
-        <p data-i18n="t1.p">Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.</p>
+        <p>Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.</p>
         <div class="testi-author">
           <div class="testi-avatar">JS</div>
           <div>
@@ -1565,7 +1519,7 @@
       </div>
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
-        <p data-i18n="t2.p">The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.</p>
+        <p>The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.</p>
         <div class="testi-author">
           <div class="testi-avatar">JA</div>
           <div>
@@ -1576,7 +1530,7 @@
       </div>
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
-        <p data-i18n="t3.p">Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.</p>
+        <p>Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.</p>
         <div class="testi-author">
           <div class="testi-avatar">ST</div>
           <div>
@@ -1627,29 +1581,14 @@
 <div class="divider"></div>
 
 <!-- FAQ -->
-<section id="faq" class="faq-section">
-  <div class="section-wrap">
-    <div class="reveal" style="text-align:center;margin-bottom:48px;">
-      <div class="section-badge" data-i18n="faq.badge">FAQ</div>
-      <h2 class="section-title" data-i18n="faq.title">Frequently Asked<br>Questions</h2>
-    </div>
-    <div class="faq-wrap">
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q1">How long does it take to build a website?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a1">Most websites are completed within 2–4 weeks. A landing page can be done in 5–7 days. We always agree on a clear timeline before starting.</p></div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q2">What do I need to provide to get started?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a2">Just your idea and any branding you have. We guide you through everything else. No technical knowledge required.</p></div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q3">How much does a website cost?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a3">Pricing depends on the scope. We offer transparent pricing with no hidden fees. Contact us for a free quote.</p></div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q4">Will I be able to update the website myself?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a4">Yes. We build with easy CMS systems so you can update content yourself without any coding knowledge.</p></div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q5">Do you offer support after launch?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a5">Absolutely. We offer maintenance packages with updates, backups, security monitoring and bug fixes.</p></div></div>
-      <div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q6">Will my website work on mobile?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a6">Every website we build is fully responsive — perfect on phones, tablets and desktops.</p></div></div>
-    </div>
-  </div>
-</section>
+<section id="faq" class="faq-section"><div class="section-wrap"><div class="reveal" style="text-align:center;margin-bottom:48px;"><div class="section-badge" data-i18n="faq.badge">FAQ</div><h2 class="section-title" data-i18n="faq.title">Frequently Asked<br>Questions</h2></div><div class="faq-wrap"><div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q1">How long does it take?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a1">Most websites are completed in 2–4 weeks. A landing page in 5–7 days.</p></div></div><div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q2">What do I need to provide?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a2">Just your idea and branding. No technical knowledge required.</p></div></div><div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q3">How much does it cost?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a3">Transparent pricing with no hidden fees. Contact us for a free quote.</p></div></div><div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q4">Can I update the website myself?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a4">Yes. Easy CMS — no coding needed.</p></div></div><div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q5">Do you offer post-launch support?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a5">Absolutely. Maintenance packages with updates and monitoring.</p></div></div><div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq.q6">Will it work on mobile?</span><div class="faq-icon"><svg viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p data-i18n="faq.a6">Every website is fully responsive — perfect on all devices.</p></div></div></div></div></section>
 
 <!-- CTA -->
 <section id="contact" class="cta-section">
   <div class="cta-inner reveal">
     <div class="cta-text">
       <h2 data-i18n="cta.title">Ready To Transform Your Digital Presence?</h2>
-      <p data-i18n="cta.p">Let's embark on a journey of innovation and creativity together.</p>
+      <p>Let's embark on a journey of innovation and creativity together.</p>
     </div>
     <a href="contact.html" class="cta-btn" title="Get In Touch">↗</a>
   </div>
@@ -1668,7 +1607,7 @@
         </svg>
         <span class="logo-text">Danke<span>Flow</span></span>
       </a>
-      <p data-i18n="footer.brand">We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.</p>
+      <p>We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.</p>
     </div>
 
     <div class="footer-col">
@@ -1746,7 +1685,7 @@
       'cta.title':'Ready To Transform Your Digital Presence?','cta.p':"Let's embark on a journey of innovation and creativity together.",
       'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.",
       'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
-      'hiw.badge':'How It Works','hiw.title':'From First Contact<br>to a Live Website','hiw.s1.title':'Contact Us','hiw.s1.desc':'Tell us about your project. We listen and understand exactly what you need.','hiw.s2.title':'We Plan & Build','hiw.s2.desc':'We design and develop your website with regular updates. You see progress at every step.','hiw.s3.title':'We Launch','hiw.s3.desc':'Your website goes live. We handle hosting, testing, and post-launch support.','faq.badge':'FAQ','faq.title':'Frequently Asked<br>Questions','faq.q1':'How long does it take to build a website?','faq.a1':'Most websites are completed within 2–4 weeks. A landing page can be done in 5–7 days.','faq.q2':'What do I need to provide to get started?','faq.a2':'Just your idea and any branding. We guide you through everything. No technical knowledge required.','faq.q3':'How much does a website cost?','faq.a3':'Pricing depends on scope. Transparent pricing with no hidden fees. Contact us for a free quote.','faq.q4':'Will I be able to update the website myself?','faq.a4':'Yes. Easy CMS systems let you update content without coding.','faq.q5':'Do you offer support after launch?','faq.a5':'Absolutely. Maintenance packages with updates, backups, security monitoring and bug fixes.','faq.q6':'Will my website work on mobile?','faq.a6':'Every website is fully responsive — perfect on phones, tablets and desktops.','spb.rating':'4.9/5 Rating','spb.projects':'80+ Projects Delivered','spb.clients':'50+ Happy Clients','spb.delivery':'Delivered in 14 Days',
+      'hiw.badge':'How It Works','hiw.title':'From First Contact<br>to a Live Website','hiw.s1.title':'Contact Us','hiw.s1.desc':'Tell us about your project.','hiw.s2.title':'We Plan & Build','hiw.s2.desc':'We design and develop with regular updates.','hiw.s3.title':'We Launch','hiw.s3.desc':'Your website goes live. We handle everything.','faq.badge':'FAQ','faq.title':'Frequently Asked<br>Questions','faq.q1':'How long does it take?','faq.a1':'Most websites completed in 2–4 weeks.','faq.q2':'What do I need?','faq.a2':'Just your idea and branding. No technical knowledge required.','faq.q3':'How much does it cost?','faq.a3':'Transparent pricing. Contact us for a free quote.','faq.q4':'Can I update it myself?','faq.a4':'Yes. Easy CMS — no coding needed.','faq.q5':'Support after launch?','faq.a5':'Absolutely. Maintenance packages included.','faq.q6':'Works on mobile?','faq.a6':'Every website is fully responsive.','spb.rating':'4.9/5 Rating','spb.projects':'80+ Projects','spb.clients':'50+ Clients','spb.delivery':'14 Days Delivery',
     },
     sq: {
       'nav.services':'Shërbime','nav.projects':'Projekte','nav.why':'Pse Ne','nav.testimonials':'Recensione','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
@@ -1781,7 +1720,7 @@
       'cta.title':'Gati të Transformoni Praninë Tuaj Dixhitale?','cta.p':'Le të fillojmë së bashku një udhëtim inovacioni dhe kreativiteti.',
       'footer.brand':'Jemi një ekip i apasionuar vizionarësh dixhitalë të dedikuar për të krijuar eksperienca të jashtëzakonshme online.',
       'footer.col1':'Rreth Nesh','footer.col2':'Na Kontaktoni','footer.col3':'Privatësia','footer.copy':'© 2025 DankeFlow. Të Gjitha të Drejtat të Rezervuara.',
-      'hiw.badge':'Si Funksionon','hiw.title':'Nga Kontakti i Parë<br>deri tek Faqja Live','hiw.s1.title':'Na Kontakto','hiw.s1.desc':'Na trego për projektin tënd. Ne dëgjojmë dhe kuptojmë saktë çfarë keni nevojë.','hiw.s2.title':'Planifikojmë & Ndërtojmë','hiw.s2.desc':'Dizajnojmë faqen me përditësime të rregullta. Sheh progresin hap pas hapi.','hiw.s3.title':'Lansojmë','hiw.s3.desc':'Faqja juaj shkon live. Trajtojmë hosting, testim dhe mbështetje pas lansimit.','faq.badge':'Pyetje të Shpeshta','faq.title':'Pyetjet më të<br>Shpeshta','faq.q1':'Sa kohë duhet për një faqe web?','faq.a1':'Shumica e faqeve përfundojnë brenda 2–4 javëve. Një landing page mund të bëhet në 5–7 ditë.','faq.q2':'Çfarë duhet të ofroj për të filluar?','faq.a2':'Vetëm idenë tuaj dhe çdo branding ekzistues. Nuk kërkohet njohuri teknike.','faq.q3':'Sa kushton një faqe web?','faq.a3':'Çmimi varet nga projekti. Çmime transparente pa tarifa të fshehura.','faq.q4':'A mund të përditësoj faqen vetë?','faq.a4':'Po. Sisteme CMS të lehta ju mundësojnë përditësime pa njohuri kodimi.','faq.q5':'A ofroni mbështetje pas lansimit?','faq.a5':'Absolutisht. Paketa mirëmbajtjeje me përditësime, backup dhe monitorim sigurie.','faq.q6':'A funksionon faqja në celular?','faq.a6':'Çdo faqe është plotësisht responsive — perfekte në të gjitha pajisjet.','spb.rating':'Vlerësim 4.9/5','spb.projects':'+80 Projekte të Dorëzuara','spb.clients':'+50 Klientë të Kënaqur','spb.delivery':'Dorëzuar brenda 14 Ditëve',
+      'hiw.badge':'Si Funksionon','hiw.title':'Nga Kontakti i Parë<br>deri tek Faqja Live','hiw.s1.title':'Na Kontakto','hiw.s1.desc':'Na trego për projektin tënd.','hiw.s2.title':'Planifikojmë & Ndërtojmë','hiw.s2.desc':'Dizajnojmë me përditësime.','hiw.s3.title':'Lansojmë','hiw.s3.desc':'Faqja shkon live.','faq.badge':'Pyetje të Shpeshta','faq.title':'Pyetjet më të<br>Shpeshta','faq.q1':'Sa kohë duhet?','faq.a1':'Shumica e faqeve brenda 2–4 javëve.','faq.q2':'Çfarë duhet të ofroj?','faq.a2':'Vetëm idenë tuaj. Pa njohuri teknike.','faq.q3':'Sa kushton?','faq.a3':'Çmime transparente pa tarifa të fshehura.','faq.q4':'A mund të përditësoj vetë?','faq.a4':'Po. Sisteme CMS të lehta.','faq.q5':'A ofroni mbështetje pas lansimit?','faq.a5':'Absolutisht. Paketa mirëmbajtjeje.','faq.q6':'A funksionon në celular?','faq.a6':'Çdo faqe është plotësisht responsive.','spb.rating':'Vlerësim 4.9/5','spb.projects':'+80 Projekte','spb.clients':'+50 Klientë','spb.delivery':'Dorëzim brenda 14 Ditëve',
     },
     de: {
       'nav.services':'Leistungen','nav.projects':'Projekte','nav.why':'Warum Wir','nav.testimonials':'Bewertungen','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
@@ -1816,7 +1755,7 @@
       'cta.title':'Bereit Ihre digitale Präsenz zu transformieren?','cta.p':'Lassen Sie uns gemeinsam eine Reise der Innovation beginnen.',
       'footer.brand':'Wir sind ein leidenschaftliches Team digitaler Visionäre das außergewöhnliche Online-Erlebnisse schafft.',
       'footer.col1':'Über Uns','footer.col2':'Kontakt','footer.col3':'Datenschutz','footer.copy':'© 2025 DankeFlow. Alle Rechte vorbehalten.',
-      'hiw.badge':'So funktioniert es','hiw.title':'Vom ersten Kontakt<br>zur fertigen Website','hiw.s1.title':'Kontakt aufnehmen','hiw.s1.desc':'Erzählen Sie von Ihrem Projekt. Wir hören zu und verstehen was Sie brauchen.','hiw.s2.title':'Wir planen & bauen','hiw.s2.desc':'Wir gestalten Ihre Website mit regelmäßigen Updates. Sie sehen den Fortschritt.','hiw.s3.title':'Wir launchen','hiw.s3.desc':'Ihre Website geht live. Wir kümmern uns um Hosting, Tests und Support.','faq.badge':'FAQ','faq.title':'Häufig gestellte<br>Fragen','faq.q1':'Wie lange dauert eine Website?','faq.a1':'Die meisten Websites werden in 2–4 Wochen fertiggestellt. Eine Landing Page in 5–7 Tagen.','faq.q2':'Was muss ich bereitstellen?','faq.a2':'Nur Ihre Idee und Branding. Wir führen Sie durch alles. Keine technischen Kenntnisse nötig.','faq.q3':'Was kostet eine Website?','faq.a3':'Der Preis hängt vom Umfang ab. Transparente Preise ohne versteckte Kosten.','faq.q4':'Kann ich die Website selbst aktualisieren?','faq.a4':'Ja. Benutzerfreundliche CMS-Systeme ermöglichen Updates ohne Programmierung.','faq.q5':'Gibt es Support nach dem Launch?','faq.a5':'Absolut. Wartungspakete mit Updates, Backups und Sicherheitsüberwachung.','faq.q6':'Funktioniert die Website auf Mobilgeräten?','faq.a6':'Jede Website ist vollständig responsiv — perfekt auf allen Geräten.','spb.rating':'Bewertung 4.9/5','spb.projects':'80+ Projekte abgeschlossen','spb.clients':'50+ zufriedene Kunden','spb.delivery':'Lieferung in 14 Tagen',
+      'hiw.badge':'So funktioniert es','hiw.title':'Vom ersten Kontakt<br>zur fertigen Website','hiw.s1.title':'Kontakt aufnehmen','hiw.s1.desc':'Erzählen Sie von Ihrem Projekt.','hiw.s2.title':'Wir planen & bauen','hiw.s2.desc':'Wir gestalten mit Updates.','hiw.s3.title':'Wir launchen','hiw.s3.desc':'Ihre Website geht live.','faq.badge':'FAQ','faq.title':'Häufig gestellte<br>Fragen','faq.q1':'Wie lange dauert es?','faq.a1':'2–4 Wochen.','faq.q2':'Was muss ich bereitstellen?','faq.a2':'Nur Ihre Idee. Keine Kenntnisse nötig.','faq.q3':'Was kostet es?','faq.a3':'Transparente Preise.','faq.q4':'Kann ich selbst aktualisieren?','faq.a4':'Ja. Einfache CMS-Systeme.','faq.q5':'Gibt es Support danach?','faq.a5':'Absolut. Wartungspakete inklusive.','faq.q6':'Funktioniert es mobil?','faq.a6':'Jede Website ist vollständig responsiv.','spb.rating':'Bewertung 4.9/5','spb.projects':'80+ Projekte','spb.clients':'50+ Kunden','spb.delivery':'Lieferung in 14 Tagen',
     },
     it: {
       'nav.services':'Servizi','nav.projects':'Progetti','nav.why':'Perché Noi','nav.testimonials':'Testimonianze','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
@@ -1851,7 +1790,7 @@
       'cta.title':'Pronto a Trasformare la Tua Presenza Digitale?','cta.p':"Intraprendiamo insieme un viaggio di innovazione.",
       'footer.brand':"Siamo un team appassionato di visionari digitali, dedicati a creare esperienze online eccezionali.",
       'footer.col1':'Chi Siamo','footer.col2':'Contattaci','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. Tutti i diritti riservati.',
-      'hiw.badge':'Come Funziona','hiw.title':'Dal Primo Contatto<br>al Sito Live','hiw.s1.title':'Contattaci','hiw.s1.desc':'Raccontaci del tuo progetto. Ascoltiamo e capiamo cosa ti serve.','hiw.s2.title':'Pianifichiamo & Costruiamo','hiw.s2.desc':'Progettiamo il tuo sito con aggiornamenti regolari. Vedi i progressi.','hiw.s3.title':'Lanciamo','hiw.s3.desc':'Il tuo sito va live. Ci occupiamo di hosting, test e supporto post-lancio.','faq.badge':'FAQ','faq.title':'Domande Frequenti<br>dei Clienti','faq.q1':'Quanto tempo ci vuole?','faq.a1':'La maggior parte dei siti viene completata in 2–4 settimane. Una landing page in 5–7 giorni.','faq.q2':'Cosa devo fornire per iniziare?','faq.a2':'Solo la tua idea e il branding. Ti guidiamo in tutto. Nessuna conoscenza tecnica.','faq.q3':'Quanto costa un sito web?','faq.a3':'Il prezzo dipende dal progetto. Prezzi trasparenti senza costi nascosti.','faq.q4':'Potrò aggiornare il sito da solo?','faq.a4':'Sì. CMS facili da usare permettono aggiornamenti senza codice.','faq.q5':'Offrite supporto dopo il lancio?','faq.a5':'Assolutamente. Pacchetti di manutenzione con aggiornamenti e backup.','faq.q6':'Il sito funzionerà su mobile?','faq.a6':'Ogni sito è completamente responsive — perfetto su tutti i dispositivi.','spb.rating':'Valutazione 4.9/5','spb.projects':'80+ Progetti Consegnati','spb.clients':'50+ Clienti Soddisfatti','spb.delivery':'Consegnato in 14 Giorni',
+      'hiw.badge':'Come Funziona','hiw.title':'Dal Primo Contatto<br>al Sito Live','hiw.s1.title':'Contattaci','hiw.s1.desc':'Raccontaci del progetto.','hiw.s2.title':'Pianifichiamo & Costruiamo','hiw.s2.desc':'Progettiamo con aggiornamenti.','hiw.s3.title':'Lanciamo','hiw.s3.desc':'Il tuo sito va live.','faq.badge':'FAQ','faq.title':'Domande Frequenti<br>dei Clienti','faq.q1':'Quanto tempo ci vuole?','faq.a1':'2–4 settimane.','faq.q2':'Cosa devo fornire?','faq.a2':'Solo la tua idea. Nessuna conoscenza tecnica.','faq.q3':'Quanto costa?','faq.a3':'Prezzi trasparenti.','faq.q4':'Posso aggiornare da solo?','faq.a4':'Sì. CMS facili.','faq.q5':'Offrite supporto dopo?','faq.a5':'Assolutamente. Manutenzione inclusa.','faq.q6':'Funzionerà su mobile?','faq.a6':'Ogni sito è responsive.','spb.rating':'Valutazione 4.9/5','spb.projects':'80+ Progetti','spb.clients':'50+ Clienti','spb.delivery':'Consegnato in 14 Giorni',
     },
     el: {
       'nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.why':'Γιατί Εμείς','nav.testimonials':'Μαρτυρίες','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
@@ -1886,7 +1825,7 @@
       'cta.title':'Έτοιμοι να Μεταμορφώσετε την Ψηφιακή σας Παρουσία;','cta.p':'Ας ξεκινήσουμε μαζί ένα ταξίδι καινοτομίας.',
       'footer.brand':'Είμαστε μια παθιασμένη ομάδα ψηφιακών οραματιστών αφοσιωμένη στη δημιουργία εξαιρετικών online εμπειριών.',
       'footer.col1':'Σχετικά με Εμάς','footer.col2':'Επικοινωνία','footer.col3':'Απόρρητο','footer.copy':'© 2025 DankeFlow. Με επιφύλαξη παντός δικαιώματος.',
-      'hiw.badge':'Πώς Λειτουργεί','hiw.title':'Από την Πρώτη Επαφή<br>στον Live Ιστοτόπο','hiw.s1.title':'Επικοινωνήστε','hiw.s1.desc':'Πείτε μας για το έργο σας. Ακούμε και κατανοούμε τι χρειάζεστε.','hiw.s2.title':'Σχεδιάζουμε & Χτίζουμε','hiw.s2.desc':'Σχεδιάζουμε τον ιστοτόπο με τακτικές ενημερώσεις. Βλέπετε την πρόοδο.','hiw.s3.title':'Λανσάρουμε','hiw.s3.desc':'Ο ιστοτόπος ανεβαίνει live. Αναλαμβάνουμε φιλοξενία, δοκιμές και υποστήριξη.','faq.badge':'Συχνές Ερωτήσεις','faq.title':'Συχνές Ερωτήσεις<br>Πελατών','faq.q1':'Πόσος χρόνος χρειάζεται;','faq.a1':'Οι περισσότεροι ιστοτόποι ολοκληρώνονται σε 2–4 εβδομάδες. Μια landing page σε 5–7 μέρες.','faq.q2':'Τι πρέπει να παρέχω;','faq.a2':'Μόνο την ιδέα σας. Σας καθοδηγούμε σε όλα. Δεν απαιτούνται τεχνικές γνώσεις.','faq.q3':'Πόσο κοστίζει;','faq.a3':'Διαφανείς τιμές χωρίς κρυφές χρεώσεις. Επικοινωνήστε για δωρεάν προσφορά.','faq.q4':'Θα μπορώ να ενημερώνω μόνος μου;','faq.a4':'Ναι. Εύχρηστα CMS επιτρέπουν ενημερώσεις χωρίς προγραμματισμό.','faq.q5':'Προσφέρετε υποστήριξη μετά;','faq.a5':'Απολύτως. Πακέτα συντήρησης με ενημερώσεις, backup και ασφάλεια.','faq.q6':'Θα λειτουργεί σε κινητό;','faq.a6':'Κάθε ιστοτόπος είναι πλήρως responsive — τέλειος σε όλες τις συσκευές.','spb.rating':'Βαθμολογία 4.9/5','spb.projects':'80+ Ολοκληρωμένα Έργα','spb.clients':'50+ Ικανοποιημένοι Πελάτες','spb.delivery':'Παράδοση σε 14 Ημέρες',
+      'hiw.badge':'Πώς Λειτουργεί','hiw.title':'Από την Πρώτη Επαφή<br>στον Live Ιστοτόπο','hiw.s1.title':'Επικοινωνήστε','hiw.s1.desc':'Πείτε μας για το έργο σας.','hiw.s2.title':'Σχεδιάζουμε & Χτίζουμε','hiw.s2.desc':'Σχεδιάζουμε με ενημερώσεις.','hiw.s3.title':'Λανσάρουμε','hiw.s3.desc':'Ο ιστοτόπος ανεβαίνει live.','faq.badge':'Συχνές Ερωτήσεις','faq.title':'Συχνές Ερωτήσεις<br>Πελατών','faq.q1':'Πόσος χρόνος;','faq.a1':'2–4 εβδομάδες.','faq.q2':'Τι πρέπει να παρέχω;','faq.a2':'Μόνο την ιδέα σας.','faq.q3':'Πόσο κοστίζει;','faq.a3':'Διαφανείς τιμές.','faq.q4':'Μπορώ να ενημερώνω μόνος μου;','faq.a4':'Ναι. Εύχρηστα CMS.','faq.q5':'Προσφέρετε υποστήριξη μετά;','faq.a5':'Απολύτως.','faq.q6':'Θα λειτουργεί σε κινητό;','faq.a6':'Κάθε ιστοτόπος είναι responsive.','spb.rating':'Βαθμολογία 4.9/5','spb.projects':'80+ Έργα','spb.clients':'50+ Πελάτες','spb.delivery':'Παράδοση σε 14 Ημέρες',
     }
   };
   const langMeta = { en:{flag:'🇬🇧',code:'EN'}, sq:{flag:'🇦🇱',code:'SQ'}, de:{flag:'🇩🇪',code:'DE'}, it:{flag:'🇮🇹',code:'IT'}, el:{flag:'🇬🇷',code:'EL'} };
@@ -1974,40 +1913,11 @@
     });
   }
 
-  // ── STATS COUNTER ──
-  function animateCounter(el) {
-    const target = parseFloat(el.dataset.count);
-    const prefix = el.dataset.prefix || '';
-    const isDecimal = target % 1 !== 0;
-    const duration = 1800;
-    const start = performance.now();
-    function step(now) {
-      const ease = 1 - Math.pow(2, -10 * Math.min((now-start)/duration, 1));
-      const cur = target * ease;
-      el.textContent = prefix + (isDecimal ? cur.toFixed(1) : Math.floor(cur));
-      if ((now-start) < duration) requestAnimationFrame(step);
-      else el.textContent = prefix + (isDecimal ? target.toFixed(1) : target);
-    }
-    requestAnimationFrame(step);
-  }
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !e.target.dataset.done) {
-        e.target.dataset.done = '1';
-        animateCounter(e.target);
-        counterObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.stat-num[data-count]').forEach(el => counterObs.observe(el));
+  function animateCounter(el){const target=parseFloat(el.dataset.count),prefix=el.dataset.prefix||'',isDecimal=target%1!==0,duration=1800,start=performance.now();function step(now){const ease=1-Math.pow(2,-10*Math.min((now-start)/duration,1)),cur=target*ease;el.textContent=prefix+(isDecimal?cur.toFixed(1):Math.floor(cur));if((now-start)<duration)requestAnimationFrame(step);else el.textContent=prefix+(isDecimal?target.toFixed(1):target);}requestAnimationFrame(step);}
+  const counterObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!e.target.dataset.done){e.target.dataset.done='1';animateCounter(e.target);counterObs.unobserve(e.target);}});},{threshold:0.5});
+  document.querySelectorAll('.stat-num[data-count]').forEach(el=>counterObs.observe(el));
+  function toggleFaq(btn){const item=btn.closest('.faq-item'),isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));if(!isOpen)item.classList.add('open');}
 
-  // ── FAQ ──
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
 </script>
 </body>
 </html>
