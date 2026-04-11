@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Services — DankeFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:  #3b82f6;
+      --accent:   #60a5fa;
+      --bg:       #020617;
+      --card:     #0f172a;
+      --border:   rgba(59,130,246,0.15);
+      --text:     #e2e8f0;
+      --muted:    #64748b;
+      --grad:     linear-gradient(135deg, #2563eb, #3b82f6);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      background: rgba(2,6,23,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .logo-text span { color: var(--primary); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      background: var(--grad);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 500 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.85; color: #fff !important; }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      cursor: pointer;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { border-color: var(--primary); background: rgba(59,130,246,0.08); }
+    .lang-flag { font-size: 1rem; line-height: 1; }
+    .lang-code { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; }
+    .lang-arrow { font-size: 0.6rem; color: var(--muted); transition: transform 0.25s; }
+    .lang-switcher.open .lang-arrow { transform: rotate(180deg); }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: #0d1829;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 165px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 200;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .lang-switcher.open .lang-dropdown {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+    }
+    .lang-option:hover { background: rgba(59,130,246,0.12); }
+    .lang-option.active { background: rgba(59,130,246,0.15); color: var(--accent); }
+    .lang-option .flag { font-size: 1.1rem; }
+    .lang-option .lname { font-weight: 500; flex: 1; }
+    .lang-option .native { font-size: 0.72rem; color: var(--muted); }
+    .lang-option .check { color: var(--primary); font-size: 0.75rem; margin-left: auto; }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+    .hamburger:hover { border-color: var(--primary); background: rgba(59,130,246,0.08); }
+    .ham-box {
+      width: 20px; height: 14px;
+      position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .ham-box span {
+      display: block; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s, width 0.3s;
+      transform-origin: center;
+    }
+    .ham-box span:nth-child(1) { width: 20px; }
+    .ham-box span:nth-child(2) { width: 14px; }
+    .ham-box span:nth-child(3) { width: 20px; }
+    .hamburger.is-open .ham-box span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 20px; }
+    .hamburger.is-open .ham-box span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.is-open .ham-box span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 20px; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+
+    /* glow orbs */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(37,99,235,0.3) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      50%      { opacity: 1;   transform: translateX(-50%) scale(1.08); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 5vw, 5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #fff;
+      max-width: 820px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.75rem; line-height: 1.2; }
+    }
+
+    .hero h1 .blue { 
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 24px auto 0;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--grad);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(59,130,246,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(59,130,246,0.5); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 400;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--primary); background: rgba(59,130,246,0.08); }
+
+    /* hero image */
+    .hero-image-wrap {
+      position: relative;
+      margin-top: 64px;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      animation: fadeUp 0.8s 0.4s ease both;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1);
+    }
+    .hero-img-bg {
+      width: 100%;
+      height: 420px;
+      background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 50%, #0a1628 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .hero-img-bg { height: 260px; }
+    }
+    /* gradient fade bottom of image */
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, var(--bg), transparent);
+    }
+
+    /* ── TRUSTED BY ── */
+    .trusted {
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .trusted p {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .logo-pill {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(148,163,184,0.45);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .logo-pill:hover { color: rgba(148,163,184,0.9); }
+
+    /* ── SECTION HELPERS ── */
+    section { position: relative; z-index: 1; }
+
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.25);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ── SERVICES ── */
+    .services-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .view-all {
+      font-size: 0.85rem;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .view-all:hover { gap: 10px; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-color: rgba(59,130,246,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(59,130,246,0.1);
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .service-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .service-list li::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.4);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%233b82f6' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 10px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      text-decoration: none;
+    }
+    .project-card:hover {
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-4px);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+      transition: filter 0.3s;
+    }
+    .project-card:hover .project-img { filter: brightness(1); }
+
+    .project-info {
+      padding: 22px;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(59,130,246,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+
+    .project-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--primary);
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+    .project-card:hover .project-link { gap: 10px; }
+
+    /* ── WHY US ── */
+    .why-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .why-left .section-badge { margin-bottom: 20px; }
+    .why-left .section-title { margin-bottom: 20px; }
+    .why-left p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .stat-item {
+      text-align: left;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .why-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .why-feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: border-color 0.3s;
+    }
+    .why-feature:hover { border-color: rgba(59,130,246,0.4); }
+
+    .why-feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(59,130,246,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .why-feature h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .why-feature p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-bg {
+      background: linear-gradient(180deg, transparent 0%, rgba(37,99,235,0.04) 50%, transparent 100%);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testi-card:hover {
+      border-color: rgba(59,130,246,0.35);
+      transform: translateY(-3px);
+    }
+
+    .stars {
+      color: #f59e0b;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .testi-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testi-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .testi-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .testi-role {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── BLOG ── */
+    .blog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .blog-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      text-decoration: none;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .blog-card:hover {
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-4px);
+    }
+
+    .blog-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      filter: brightness(0.8);
+      transition: filter 0.3s;
+    }
+    .blog-img-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      transition: opacity 0.3s;
+    }
+    .blog-card:hover .blog-img-wrap { opacity: 0.9; }
+    .blog-card:hover .blog-img { filter: brightness(1); }
+
+    .blog-info {
+      padding: 24px;
+    }
+
+    .blog-cat {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .blog-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .read-more {
+      font-size: 0.82rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+    .blog-card:hover .read-more { gap: 10px; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 0 24px 100px;
+    }
+
+    .cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 72px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-text h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-text p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px; height: 80px;
+      background: var(--grad);
+      border-radius: 50%;
+      flex-shrink: 0;
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 40px rgba(59,130,246,0.4);
+    }
+    .cta-btn:hover { transform: scale(1.1) rotate(12deg); box-shadow: 0 0 60px rgba(59,130,246,0.6); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 240px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .footer-col ul li a {
+      font-size: 0.83rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: #fff; }
+
+    .footer-contact li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-link {
+      width: 34px;
+      height: 34px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-link:hover { border-color: var(--primary); color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE MENU ── */
+    .mobile-nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(2,6,23,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 199;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.35s, visibility 0.35s;
+    }
+    .mobile-nav-overlay.open { opacity: 1; visibility: visible; }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(320px, 88vw);
+      height: 100vh;
+      background: #060f1e;
+      border-left: 1px solid var(--border);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+
+    .mobile-nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mob-close {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--muted); font-size: 0.95rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .mob-close:hover { border-color: var(--primary); color: #fff; }
+
+    .mobile-nav-links {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 12px 12px; gap: 3px; overflow-y: auto;
+    }
+    .mobile-nav-links a {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--muted); text-decoration: none;
+      padding: 13px 14px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.2s, color 0.2s;
+      border: 1px solid transparent;
+    }
+    .mobile-nav-links a:hover {
+      background: rgba(59,130,246,0.08);
+      border-color: var(--border); color: #fff;
+    }
+    .mobile-nav-links a .arrow { font-size: 0.7rem; opacity: 0.45; }
+    .mob-cta {
+      background: var(--grad) !important;
+      color: #fff !important; border-color: transparent !important;
+      justify-content: center !important;
+      margin-top: 6px;
+      box-shadow: 0 0 20px rgba(59,130,246,0.25);
+    }
+
+    .mobile-nav-footer {
+      padding: 18px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .mob-lang-label {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .mob-lang-btns { display: flex; gap: 8px; }
+    .mob-lang-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 5px; padding: 9px 6px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem; font-weight: 600; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .mob-lang-btn:hover { border-color: var(--primary); color: #fff; background: rgba(59,130,246,0.08); }
+    .mob-lang-btn.active { border-color: var(--primary); color: var(--accent); background: rgba(59,130,246,0.12); }
+    .mob-lang-btn .flag { font-size: 0.95rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; gap: 10px; height: 66px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .why-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .cta-inner { flex-direction: column; text-align: center; padding: 48px 32px; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 14px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .footer-main { grid-template-columns: 1fr; }
+    }
+  
+    /* == SOCIAL PROOF BAR == */
+    .social-proof-bar { position:relative; z-index:1; background:rgba(15,23,42,0.8); border-top:1px solid var(--border); border-bottom:1px solid var(--border); backdrop-filter:blur(10px); }
+    .spb-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:center; padding:18px 24px; flex-wrap:wrap; }
+    .spb-item { display:flex; align-items:center; gap:8px; padding:6px 28px; }
+    .spb-stars { color:#f59e0b; font-size:.85rem; letter-spacing:2px; }
+    .spb-icon { font-size:1rem; }
+    .spb-text { font-family:'DM Sans',sans-serif; font-size:.82rem; font-weight:500; color:var(--text); white-space:nowrap; }
+    .spb-divider { width:1px; height:20px; background:var(--border); flex-shrink:0; }
+    @media(max-width:600px){ .spb-item{padding:4px 14px;} .spb-divider{display:none;} }
+
+    /* == DEPTH REVEAL == */
+    .reveal { opacity:0; transform:translateY(40px) scale(0.97); filter:blur(5px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .65s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+
+    /* == SERVICES PAGE == */
+    .services-hero { padding:140px 24px 64px; max-width:1100px; margin:0 auto; }
+    .services-hero h1 { font-family:'Syne',sans-serif; font-size:clamp(2.4rem,5vw,4.2rem); font-weight:800; color:#fff; margin-bottom:16px; animation:svFadeUp .6s ease both; }
+    .services-hero p  { font-size:1rem; color:var(--muted); max-width:560px; line-height:1.7; animation:svFadeUp .6s .1s ease both; }
+    @keyframes svFadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+    /* Service cards grid */
+    .sv-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 24px 80px;
+    }
+    .sv-card {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:36px 30px;
+      transition:border-color .3s, transform .3s, box-shadow .3s;
+      cursor:default;
+    }
+    .sv-card:hover {
+      border-color:rgba(59,130,246,.5);
+      transform:translateY(-6px);
+      box-shadow:0 28px 70px rgba(59,130,246,.12);
+    }
+    .sv-card-icon {
+      width:52px; height:52px;
+      background:rgba(59,130,246,.1);
+      border:1px solid rgba(59,130,246,.2);
+      border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem;
+      margin-bottom:22px;
+      transition:background .3s;
+    }
+    .sv-card:hover .sv-card-icon { background:rgba(59,130,246,.2); }
+    .sv-card h3 {
+      font-family:'Syne',sans-serif;
+      font-size:1.05rem; font-weight:700;
+      color:#fff; margin-bottom:18px;
+    }
+    .sv-card ul { list-style:none; display:flex; flex-direction:column; gap:11px; }
+    .sv-card li {
+      display:flex; align-items:flex-start; gap:10px;
+      font-size:.85rem; color:var(--muted); line-height:1.5;
+    }
+    .sv-card li::before {
+      content:'';
+      width:18px; height:18px; flex-shrink:0; margin-top:1px;
+      background:rgba(59,130,246,.12);
+      border:1px solid rgba(59,130,246,.3);
+      border-radius:50%;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5l2.5 2.5L8 3' stroke='%2360a5fa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size:10px;
+    }
+
+    /* stagger delays for sv-cards */
+    .sv-card:nth-child(1){transition-delay:.03s}
+    .sv-card:nth-child(2){transition-delay:.08s}
+    .sv-card:nth-child(3){transition-delay:.13s}
+    .sv-card:nth-child(4){transition-delay:.18s}
+    .sv-card:nth-child(5){transition-delay:.23s}
+    .sv-card:nth-child(6){transition-delay:.28s}
+
+    /* CTA strip between sections */
+    .sv-cta-strip {
+      max-width:1100px; margin:0 auto 80px;
+      padding:40px 48px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      display:flex; align-items:center; justify-content:space-between; gap:24px;
+      flex-wrap:wrap;
+    }
+    .sv-cta-strip h3 { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700; color:#fff; margin-bottom:6px; }
+    .sv-cta-strip p  { font-size:.85rem; color:var(--muted); }
+    .sv-cta-strip a  { flex-shrink:0; }
+
+    @media(max-width:900px){
+      .sv-grid { grid-template-columns:1fr 1fr; }
+      .sv-cta-strip { padding:28px 24px; }
+    }
+    @media(max-width:600px){
+      .sv-grid { grid-template-columns:1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="mobile-nav-overlay" id="navOverlay" onclick="toggleMenu()"></div>
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <a href="index.html" class="logo" onclick="toggleMenu()">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><defs><linearGradient id="lgm" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient></defs><path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8 Z" fill="url(#lgm)" opacity=".15"/><path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8" stroke="url(#lgm)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 28 L22 12" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></svg>
+      <span class="logo-text">Danke<span>Flow</span></span>
+    </a>
+    <button class="mob-close" onclick="toggleMenu()">&#10005;</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="index.html" onclick="toggleMenu()"><span data-i18n="nav.home">Home</span><span class="arrow">&#8250;</span></a>
+    <a href="services.html" onclick="toggleMenu()"><span data-i18n="nav.services">Services</span><span class="arrow">&#8250;</span></a>
+    <a href="#" onclick="toggleMenu()"><span data-i18n="nav.projects">Projects</span><span class="arrow">&#8250;</span></a>
+    <a href="contact.html" class="mob-cta" onclick="toggleMenu()"><span data-i18n="nav.cta">Book A Free Call</span></a>
+  </div>
+  <div class="mobile-nav-footer">
+    <div class="mob-lang-label">Language / Gjuha / Sprache</div>
+    <div class="mob-lang-btns">
+      <button class="mob-lang-btn active" data-lang="en" onclick="setLang('en')"><span class="flag">&#127468;&#127463;</span> EN</button>
+      <button class="mob-lang-btn" data-lang="sq" onclick="setLang('sq')"><span class="flag">&#127462;&#127473;</span> SQ</button>
+      <button class="mob-lang-btn" data-lang="de" onclick="setLang('de')"><span class="flag">&#127465;&#127466;</span> DE</button>
+      <button class="mob-lang-btn" data-lang="it" onclick="setLang('it')"><span class="flag">&#127470;&#127481;</span> IT</button>
+      <button class="mob-lang-btn" data-lang="el" onclick="setLang('el')"><span class="flag">&#127468;&#127479;</span> EL</button>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="index.html" class="logo">
+    <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient></defs><path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8 Z" fill="url(#lg)" opacity=".15"/><path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8" stroke="url(#lg)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 28 L22 12" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></svg>
+    <span class="logo-text">Danke<span>Flow</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+    <li><a href="services.html" class="active" data-i18n="nav.services">Services</a></li>
+    <li><a href="#" data-i18n="nav.projects">Projects</a></li>
+    <li><a href="#" data-i18n="nav.blog">Blog</a></li>
+    <li><a href="contact.html" class="nav-cta" data-i18n="nav.cta">Book A Free Call</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-btn" onclick="toggleLang(event)">
+        <span class="lang-flag" id="currentFlag">&#127468;&#127463;</span>
+        <span class="lang-code" id="currentCode">EN</span>
+        <span class="lang-arrow">&#9660;</span>
+      </button>
+      <div class="lang-dropdown">
+        <button class="lang-option active" data-lang="en" onclick="setLang('en')"><span class="flag">&#127468;&#127463;</span><span class="lname">English</span><span class="native">English</span><span class="check">&#10003;</span></button>
+        <button class="lang-option" data-lang="sq" onclick="setLang('sq')"><span class="flag">&#127462;&#127473;</span><span class="lname">Albanian</span><span class="native">Shqip</span><span class="check" style="display:none">&#10003;</span></button>
+        <button class="lang-option" data-lang="de" onclick="setLang('de')"><span class="flag">&#127465;&#127466;</span><span class="lname">German</span><span class="native">Deutsch</span><span class="check" style="display:none">&#10003;</span></button>
+        <button class="lang-option" data-lang="it" onclick="setLang('it')"><span class="flag">&#127470;&#127481;</span><span class="lname">Italian</span><span class="native">Italiano</span><span class="check" style="display:none">&#10003;</span></button>
+        <button class="lang-option" data-lang="el" onclick="setLang('el')"><span class="flag">&#127468;&#127479;</span><span class="lname">Greek</span><span class="native">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;</span><span class="check" style="display:none">&#10003;</span></button>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><div class="ham-box"><span></span><span></span><span></span></div></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="services-hero">
+  <div class="section-badge" data-i18n="sv.badge">Our Services</div>
+  <h1 data-i18n="sv.h1">Services We Provide<br><span class="blue">To Our Clients</span></h1>
+  <p data-i18n="sv.sub">From design to launch — we build everything your business needs to grow online.</p>
+</section>
+
+<!-- SERVICES GRID -->
+<div class="section-wrap" style="padding-bottom:0;">
+  <div class="sv-grid">
+
+    <!-- 1: UI/UX Design -->
+    <div class="sv-card reveal">
+      <div class="sv-card-icon">&#9998;</div>
+      <h3 data-i18n="sv.s1.title">UI/UX Design</h3>
+      <ul>
+        <li data-i18n="sv.s1.l1">Custom Website Design</li>
+        <li data-i18n="sv.s1.l2">User Experience Optimization</li>
+        <li data-i18n="sv.s1.l3">Brand Visual Identity</li>
+        <li data-i18n="sv.s1.l4">Design Systems &amp; Style Guides</li>
+      </ul>
+    </div>
+
+    <!-- 2: Website Development -->
+    <div class="sv-card reveal">
+      <div class="sv-card-icon">&#128187;</div>
+      <h3 data-i18n="sv.s2.title">Website Development</h3>
+      <ul>
+        <li data-i18n="sv.s2.l1">Responsive Web Design</li>
+        <li data-i18n="sv.s2.l2">Full-Stack Development</li>
+        <li data-i18n="sv.s2.l3">Custom CMS Integration</li>
+        <li data-i18n="sv.s2.l4">Performance Optimization</li>
+      </ul>
+    </div>
+
+    <!-- 3: SEO & Growth -->
+    <div class="sv-card reveal">
+      <div class="sv-card-icon">&#128200;</div>
+      <h3 data-i18n="sv.s3.title">SEO &amp; Growth</h3>
+      <ul>
+        <li data-i18n="sv.s3.l1">Search Engine Optimization</li>
+        <li data-i18n="sv.s3.l2">Content Strategy &amp; Creation</li>
+        <li data-i18n="sv.s3.l3">Performance Analytics</li>
+        <li data-i18n="sv.s3.l4">Conversion Rate Optimization</li>
+      </ul>
+    </div>
+
+    <!-- 4: E-Commerce -->
+    <div class="sv-card reveal">
+      <div class="sv-card-icon">&#128722;</div>
+      <h3 data-i18n="sv.s4.title">E-Commerce Solutions</h3>
+      <ul>
+        <li data-i18n="sv.s4.l1">Shopify &amp; WooCommerce</li>
+        <li data-i18n="sv.s4.l2">Product Page Design</li>
+        <li data-i18n="sv.s4.l3">Payment Gateway Integration</li>
+        <li data-i18n="sv.s4.l4">Inventory Management</li>
+      </ul>
+    </div>
+
+    <!-- 5: Web Performance -->
+    <div class="sv-card reveal">
+      <div class="sv-card-icon">&#9889;</div>
+      <h3 data-i18n="sv.s5.title">Web Performance</h3>
+      <ul>
+        <li data-i18n="sv.s5.l1">Speed Optimization</li>
+        <li data-i18n="sv.s5.l2">Core Web Vitals</li>
+        <li data-i18n="sv.s5.l3">CDN &amp; Hosting Setup</li>
+        <li data-i18n="sv.s5.l4">Security &amp; SSL</li>
+      </ul>
+    </div>
+
+    <!-- 6: Maintenance & Support -->
+    <div class="sv-card reveal">
+      <div class="sv-card-icon">&#128736;</div>
+      <h3 data-i18n="sv.s6.title">Maintenance &amp; Support</h3>
+      <ul>
+        <li data-i18n="sv.s6.l1">Ongoing Website Updates</li>
+        <li data-i18n="sv.s6.l2">Bug Fixes &amp; Monitoring</li>
+        <li data-i18n="sv.s6.l3">Backup &amp; Recovery</li>
+        <li data-i18n="sv.s6.l4">Monthly Reports</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA STRIP -->
+<div class="section-wrap">
+  <div class="sv-cta-strip reveal">
+    <div>
+      <h3 data-i18n="sv.strip.title">Not sure which service you need?</h3>
+      <p data-i18n="sv.strip.sub">Book a free 30-minute call. We\'ll guide you to the right solution.</p>
+    </div>
+    <a href="contact.html" class="btn-primary" data-i18n="sv.strip.btn">Book A Free Call &#8599;</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:56px;">
+      <div class="section-badge" data-i18n="testi.badge">Testimonials</div>
+      <h2 class="section-title" data-i18n="testi.title">What Our Customers Are<br>Saying About Us?</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p data-i18n="t1.p">Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JS</div>
+          <div><strong>Jeo Smith</strong><span>CEO at Smith &amp; Co</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p data-i18n="t2.p">The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JA</div>
+          <div><strong>John Anderson</strong><span>Designer at AndersonTech</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p data-i18n="t3.p">Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ST</div>
+          <div><strong>Sarah Thompson</strong><span>Marketing Director</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <div class="cta-text">
+      <h2 data-i18n="cta.title">Ready To Transform Your Digital Presence?</h2>
+      <p data-i18n="cta.p">Let's embark on a journey of innovation and creativity together.</p>
+    </div>
+    <a href="contact.html" class="cta-btn" title="Get In Touch">&#8599;</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient></defs><path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8 Z" fill="url(#lg2)" opacity=".15"/><path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8" stroke="url(#lg2)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 28 L22 12" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></svg>
+        <span class="logo-text">Danke<span>Flow</span></span>
+      </a>
+      <p data-i18n="footer.brand">We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.col1">About Us</h4>
+      <ul><li><a href="index.html">Home</a></li><li><a href="#">About Us</a></li><li><a href="#">Projects</a></li><li><a href="#">Blog</a></li></ul>
+    </div>
+    <div class="footer-col footer-contact">
+      <h4 data-i18n="footer.col2">Contact Us</h4>
+      <ul><li>&#9993; hello@dankeflow.com</li><li>&#128222; +383 44 000 000</li><li>&#128205; Kosovo</li></ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.col3">Privacy</h4>
+      <ul><li><a href="#">FAQ</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footer.copy">&#169; 2025 DankeFlow. All Rights Reserved.</p>
+    <div class="socials">
+      <a href="#" class="social-link">ig</a>
+      <a href="#" class="social-link">tw</a>
+      <a href="#" class="social-link">in</a>
+      <a href="#" class="social-link">be</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const i18n = {
+  en: {
+    'nav.home':'Home','nav.services':'Services','nav.projects':'Projects','nav.blog':'Blog','nav.cta':'Book A Free Call',
+    'sv.badge':'Our Services','sv.h1':'Services We Provide<br><span class="blue">To Our Clients</span>',
+    'sv.sub':'From design to launch — we build everything your business needs to grow online.',
+    'sv.s1.title':'UI/UX Design','sv.s1.l1':'Custom Website Design','sv.s1.l2':'User Experience Optimization','sv.s1.l3':'Brand Visual Identity','sv.s1.l4':'Design Systems & Style Guides',
+    'sv.s2.title':'Website Development','sv.s2.l1':'Responsive Web Design','sv.s2.l2':'Full-Stack Development','sv.s2.l3':'Custom CMS Integration','sv.s2.l4':'Performance Optimization',
+    'sv.s3.title':'SEO & Growth','sv.s3.l1':'Search Engine Optimization','sv.s3.l2':'Content Strategy & Creation','sv.s3.l3':'Performance Analytics','sv.s3.l4':'Conversion Rate Optimization',
+    'sv.s4.title':'E-Commerce Solutions','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Product Page Design','sv.s4.l3':'Payment Gateway Integration','sv.s4.l4':'Inventory Management',
+    'sv.s5.title':'Web Performance','sv.s5.l1':'Speed Optimization','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting Setup','sv.s5.l4':'Security & SSL',
+    'sv.s6.title':'Maintenance & Support','sv.s6.l1':'Ongoing Website Updates','sv.s6.l2':'Bug Fixes & Monitoring','sv.s6.l3':'Backup & Recovery','sv.s6.l4':'Monthly Reports',
+    'sv.strip.title':'Not sure which service you need?','sv.strip.sub':'Book a free 30-minute call. We\'ll guide you to the right solution.','sv.strip.btn':'Book A Free Call ↗',
+    'testi.badge':'Testimonials','testi.title':'What Our Customers Are<br>Saying About Us?',
+    't1.p':'Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.',
+    't2.p':'The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.',
+    't3.p':'Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.',
+    'cta.title':'Ready To Transform Your Digital Presence?','cta.p':"Let's embark on a journey of innovation and creativity together.",
+    'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.",
+    'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
+  },
+  sq: {
+    'nav.home':'Kryefaqja','nav.services':'Shërbime','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
+    'sv.badge':'Shërbimet Tona','sv.h1':'Shërbimet që Ofrojmë<br><span class="blue">për Klientët Tanë</span>',
+    'sv.sub':'Nga dizajni deri tek lansimi — ne ndërtojmë gjithçka që biznesi juaj ka nevojë për të rritur online.',
+    'sv.s1.title':'Dizajn UI/UX','sv.s1.l1':'Dizajn i Personalizuar','sv.s1.l2':'Optimizim i Përvojës','sv.s1.l3':'Identiteti Vizual i Markës','sv.s1.l4':'Sisteme Dizajni',
+    'sv.s2.title':'Zhvillim Webi','sv.s2.l1':'Dizajn Responsive','sv.s2.l2':'Zhvillim Full-Stack','sv.s2.l3':'Integrimi CMS','sv.s2.l4':'Optimizim Performancës',
+    'sv.s3.title':'SEO & Rritje','sv.s3.l1':'Optimizim për Motorët Kërkues','sv.s3.l2':'Strategji & Krijim Përmbajtjeje','sv.s3.l3':'Analitikë Performancës','sv.s3.l4':'Optimizim Konvertimi',
+    'sv.s4.title':'Zgjidhje E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Dizajn Faqesh Produkti','sv.s4.l3':'Integrimi Pagesave','sv.s4.l4':'Menaxhim Inventari',
+    'sv.s5.title':'Performancë Web','sv.s5.l1':'Optimizim Shpejtësie','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Siguri & SSL',
+    'sv.s6.title':'Mirëmbajtje & Mbështetje','sv.s6.l1':'Përditësime të Rregullta','sv.s6.l2':'Rregullim Gabimesh','sv.s6.l3':'Backup & Rikuperim','sv.s6.l4':'Raporte Mujore',
+    'sv.strip.title':'Nuk jeni të sigurt cilin shërbim keni nevojë?','sv.strip.sub':'Rezervoni një telefonatë falas 30 minutëshe. Do t\'ju udhëzojmë drejt zgjidhjes së duhur.','sv.strip.btn':'Rezervo Takim Falas ↗',
+    'testi.badge':'Recensione','testi.title':'Çfarë Po Thonë Klientët<br>Tanë Rreth Nesh?',
+    't1.p':'Zgjedhja e DankeFlow ishte revolucionare për markën tonë. Ekipi i tyre krijues ridizajnoi faqen duke sjellë elegancë moderne.',
+    't2.p':'Ekspertiza dhe dedikimi i DankeFlow kanë qenë vendimtare për përparimin e startup-it tonë.',
+    't3.p':'Puna me DankeFlow ka qenë një përvojë transformuese. UI/UX-i i tyre rriti ndjeshëm ndërgjegjësimin e markës.',
+    'cta.title':'Gati të Transformoni Praninë Tuaj Dixhitale?','cta.p':'Le të fillojmë së bashku një udhëtim inovacioni.',
+    'footer.brand':'Jemi një ekip i apasionuar vizionarësh dixhitalë.','footer.col1':'Rreth Nesh','footer.col2':'Na Kontaktoni','footer.col3':'Privatësia','footer.copy':'© 2025 DankeFlow. Të Gjitha të Drejtat të Rezervuara.',
+  },
+  de: {
+    'nav.home':'Startseite','nav.services':'Leistungen','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
+    'sv.badge':'Unsere Leistungen','sv.h1':'Leistungen die wir<br><span class="blue">unseren Kunden bieten</span>',
+    'sv.sub':'Von Design bis Launch — wir bauen alles, was Ihr Unternehmen für Online-Wachstum braucht.',
+    'sv.s1.title':'UI/UX Design','sv.s1.l1':'Individuelles Webdesign','sv.s1.l2':'UX-Optimierung','sv.s1.l3':'Visuelle Markenidentität','sv.s1.l4':'Design-Systeme',
+    'sv.s2.title':'Webentwicklung','sv.s2.l1':'Responsives Webdesign','sv.s2.l2':'Full-Stack-Entwicklung','sv.s2.l3':'CMS-Integration','sv.s2.l4':'Performance-Optimierung',
+    'sv.s3.title':'SEO & Wachstum','sv.s3.l1':'Suchmaschinenoptimierung','sv.s3.l2':'Content-Strategie','sv.s3.l3':'Performance-Analyse','sv.s3.l4':'Conversion-Optimierung',
+    'sv.s4.title':'E-Commerce-Lösungen','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Produktseiten-Design','sv.s4.l3':'Zahlungsintegration','sv.s4.l4':'Lagerverwaltung',
+    'sv.s5.title':'Web-Performance','sv.s5.l1':'Geschwindigkeitsoptimierung','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Sicherheit & SSL',
+    'sv.s6.title':'Wartung & Support','sv.s6.l1':'Regelmäßige Updates','sv.s6.l2':'Fehlerbehebung','sv.s6.l3':'Backup & Wiederherstellung','sv.s6.l4':'Monatsberichte',
+    'sv.strip.title':'Unsicher welche Leistung Sie brauchen?','sv.strip.sub':'Buchen Sie ein kostenloses 30-minütiges Gespräch.','sv.strip.btn':'Kostenloses Gespräch ↗',
+    'testi.badge':'Bewertungen','testi.title':'Was unsere Kunden<br>über uns sagen?',
+    't1.p':'Die Wahl von DankeFlow war bahnbrechend für unsere Marke. Ihr kreatives Team hat unsere Website neu gestaltet.',
+    't2.p':'Das Fachwissen von DankeFlow war entscheidend für den Fortschritt unseres Tech-Startups.',
+    't3.p':'Die Zusammenarbeit mit DankeFlow war transformativ für unsere Marketinginitiativen.',
+    'cta.title':'Bereit Ihre digitale Präsenz zu transformieren?','cta.p':'Lassen Sie uns gemeinsam eine Reise der Innovation beginnen.',
+    'footer.brand':'Wir sind ein leidenschaftliches Team digitaler Visionäre.','footer.col1':'Über Uns','footer.col2':'Kontakt','footer.col3':'Datenschutz','footer.copy':'© 2025 DankeFlow. Alle Rechte vorbehalten.',
+  },
+  it: {
+    'nav.home':'Home','nav.services':'Servizi','nav.projects':'Progetti','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
+    'sv.badge':'I Nostri Servizi','sv.h1':'Servizi che Offriamo<br><span class="blue">ai Nostri Clienti</span>',
+    'sv.sub':'Dal design al lancio — costruiamo tutto ciò di cui il tuo business ha bisogno per crescere online.',
+    'sv.s1.title':'Design UI/UX','sv.s1.l1':'Design Web Personalizzato','sv.s1.l2':'Ottimizzazione UX','sv.s1.l3':'Identità Visiva del Brand','sv.s1.l4':'Sistemi di Design',
+    'sv.s2.title':'Sviluppo Web','sv.s2.l1':'Design Responsive','sv.s2.l2':'Sviluppo Full-Stack','sv.s2.l3':'Integrazione CMS','sv.s2.l4':'Ottimizzazione Performance',
+    'sv.s3.title':'SEO & Crescita','sv.s3.l1':'Ottimizzazione Motori di Ricerca','sv.s3.l2':'Strategia & Creazione Contenuti','sv.s3.l3':'Analisi Performance','sv.s3.l4':'Ottimizzazione Conversioni',
+    'sv.s4.title':'Soluzioni E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Design Pagine Prodotto','sv.s4.l3':'Integrazione Pagamenti','sv.s4.l4':'Gestione Inventario',
+    'sv.s5.title':'Performance Web','sv.s5.l1':'Ottimizzazione Velocità','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Sicurezza & SSL',
+    'sv.s6.title':'Manutenzione & Supporto','sv.s6.l1':'Aggiornamenti Regolari','sv.s6.l2':'Correzione Bug','sv.s6.l3':'Backup & Ripristino','sv.s6.l4':'Report Mensili',
+    'sv.strip.title':'Non sai quale servizio ti serve?','sv.strip.sub':'Prenota una chiamata gratuita di 30 minuti. Ti guideremo alla soluzione giusta.','sv.strip.btn':'Prenota Chiamata Gratuita ↗',
+    'testi.badge':'Testimonianze','testi.title':'Cosa Dicono i Nostri<br>Clienti di Noi?',
+    't1.p':'Scegliere DankeFlow è stata una svolta per il nostro brand. Il loro team ha ridisegnato il nostro sito con eleganza moderna.',
+    't2.p':"L'esperienza di DankeFlow è stata fondamentale per il progresso del nostro startup.",
+    't3.p':"Lavorare con DankeFlow è stata un'esperienza trasformativa per le nostre iniziative di marketing.",
+    'cta.title':'Pronto a Trasformare la Tua Presenza Digitale?','cta.p':'Intraprendiamo insieme un viaggio di innovazione.',
+    'footer.brand':'Siamo un team appassionato di visionari digitali.','footer.col1':'Chi Siamo','footer.col2':'Contattaci','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. Tutti i diritti riservati.',
+  },
+  el: {
+    'nav.home':'Αρχική','nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
+    'sv.badge':'Οι Υπηρεσίες μας','sv.h1':'Υπηρεσίες που Προσφέρουμε<br><span class="blue">στους Πελάτες μας</span>',
+    'sv.sub':'Από τον σχεδιασμό ως το λανσάρισμα — χτίζουμε ό,τι χρειάζεται η επιχείρησή σας.',
+    'sv.s1.title':'Σχεδιασμός UI/UX','sv.s1.l1':'Προσαρμοσμένος Σχεδιασμός','sv.s1.l2':'Βελτιστοποίηση UX','sv.s1.l3':'Οπτική Ταυτότητα Brand','sv.s1.l4':'Συστήματα Σχεδιασμού',
+    'sv.s2.title':'Ανάπτυξη Ιστοτόπου','sv.s2.l1':'Responsive Σχεδιασμός','sv.s2.l2':'Full-Stack Ανάπτυξη','sv.s2.l3':'Ενσωμάτωση CMS','sv.s2.l4':'Βελτιστοποίηση Απόδοσης',
+    'sv.s3.title':'SEO & Ανάπτυξη','sv.s3.l1':'Βελτιστοποίηση Μηχανών Αναζήτησης','sv.s3.l2':'Στρατηγική & Δημιουργία Περιεχομένου','sv.s3.l3':'Ανάλυση Απόδοσης','sv.s3.l4':'Βελτιστοποίηση Μετατροπών',
+    'sv.s4.title':'Λύσεις E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Σχεδιασμός Σελίδων Προϊόντων','sv.s4.l3':'Ενσωμάτωση Πληρωμών','sv.s4.l4':'Διαχείριση Αποθεμάτων',
+    'sv.s5.title':'Απόδοση Ιστοτόπου','sv.s5.l1':'Βελτιστοποίηση Ταχύτητας','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Φιλοξενία','sv.s5.l4':'Ασφάλεια & SSL',
+    'sv.s6.title':'Συντήρηση & Υποστήριξη','sv.s6.l1':'Τακτικές Ενημερώσεις','sv.s6.l2':'Διόρθωση Σφαλμάτων','sv.s6.l3':'Backup & Αποκατάσταση','sv.s6.l4':'Μηνιαίες Αναφορές',
+    'sv.strip.title':'Δεν είστε σίγουροι ποια υπηρεσία χρειάζεστε;','sv.strip.sub':'Κλείστε δωρεάν κλήση 30 λεπτών. Θα σας καθοδηγήσουμε στη σωστή λύση.','sv.strip.btn':'Δωρεάν Κλήση ↗',
+    'testi.badge':'Μαρτυρίες','testi.title':'Τι Λένε οι Πελάτες μας<br>για Εμάς;',
+    't1.p':'Η επιλογή της DankeFlow ήταν καταλυτική. Ανασχεδίασαν τον ιστοτόπο με μοντέρνα κομψότητα.',
+    't2.p':'Η εμπειρία της DankeFlow ήταν καθοριστική για την πρόοδο του startup μας.',
+    't3.p':'Η συνεργασία με τη DankeFlow ήταν μεταμορφωτική για τις πρωτοβουλίες marketing μας.',
+    'cta.title':'Έτοιμοι να Μεταμορφώσετε την Ψηφιακή σας Παρουσία;','cta.p':'Ας ξεκινήσουμε μαζί ένα ταξίδι καινοτομίας.',
+    'footer.brand':'Είμαστε μια παθιασμένη ομάδα ψηφιακών οραματιστών.','footer.col1':'Σχετικά με Εμάς','footer.col2':'Επικοινωνία','footer.col3':'Απόρρητο','footer.copy':'© 2025 DankeFlow. Με επιφύλαξη παντός δικαιώματος.',
+  },
+};
+
+const langMeta = { en:{flag:'🇬🇧',code:'EN'}, sq:{flag:'🇦🇱',code:'SQ'}, de:{flag:'🇩🇪',code:'DE'}, it:{flag:'🇮🇹',code:'IT'}, el:{flag:'🇬🇷',code:'EL'} };
+let currentLang = 'en';
+
+function applyTranslations(lang) {
+  currentLang = lang;
+  const t = i18n[lang];
+  const htmlKeys = new Set(['sv.h1','testi.title','sv.strip.title']);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!t[key]) return;
+    htmlKeys.has(key) ? el.innerHTML = t[key] : el.textContent = t[key];
+  });
+  document.getElementById('currentFlag').textContent = langMeta[lang].flag;
+  document.getElementById('currentCode').textContent = langMeta[lang].code;
+  document.querySelectorAll('.mob-lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('#langSwitcher .lang-option').forEach(b => {
+    const a = b.dataset.lang === lang;
+    b.classList.toggle('active', a);
+    const ch = b.querySelector('.check');
+    if (ch) ch.style.display = a ? '' : 'none';
+  });
+}
+
+function setLang(lang) { applyTranslations(lang); document.getElementById('langSwitcher').classList.remove('open'); }
+function toggleLang(e) { e.stopPropagation(); document.getElementById('langSwitcher').classList.toggle('open'); }
+document.addEventListener('click', () => document.getElementById('langSwitcher').classList.remove('open'));
+
+function toggleMenu() {
+  const nav = document.getElementById('mobileNav');
+  const overlay = document.getElementById('navOverlay');
+  const ham = document.getElementById('hamburger');
+  const isOpen = nav.classList.toggle('open');
+  overlay.classList.toggle('open', isOpen);
+  ham.classList.toggle('is-open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.08 }).observe(el);
+});
+
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  navEl.style.background = window.scrollY > 50 ? 'rgba(2,6,23,0.98)' : 'rgba(2,6,23,0.85)';
+});
+</script>
+</body>
+</html>
