@@ -1,5 +1,4 @@
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const i18n = {
+const i18n = {
     en: {
       'nav.services':'Services','nav.projects':'Projects','nav.pricing': 'Pricing','nav.why':'Why Us','nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
       'hero.badge':'🚀 Accepting New Projects',
@@ -318,4 +317,3 @@
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   applyTranslations('en');
 
-</script>
