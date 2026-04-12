@@ -70,7 +70,7 @@ const i18n = {
       'spb.rating':'Vlerësim 4.9/5','spb.projects':'+80 Projekte','spb.clients':'+50 Klientë','spb.delivery':'Dorëzim brenda 14 Ditëve',
     },
     de: {
-      'nav.services':'Leistungen','nav.projects':'Projekte','nav.why':'Warum Wir','nav.testimonials':'Bewertungen','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
+      'nav.services':'Leistungen','nav.projects':'Projekte','nav.pricing':'Preise','nav.why':'Warum Wir','nav.testimonials':'Bewertungen','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
       'hero.badge':'🚀 Neue Projekte werden angenommen',
       'hero.h1':'Digitale Lösungen die Ihr Business <span class="blue">wachsen und automatisieren</span>',
       'hero.p':'Entfesseln Sie das Potenzial Ihres Unternehmens. Von der Idee zu Kunden — Wir bauen alles, was Sie brauchen.',
@@ -105,7 +105,7 @@ const i18n = {
       'spb.rating':'Bewertung 4.9/5','spb.projects':'80+ Projekte','spb.clients':'50+ Kunden','spb.delivery':'Lieferung in 14 Tagen',
     },
     it: {
-      'nav.services':'Servizi','nav.projects':'Progetti','nav.why':'Perché Noi','nav.testimonials':'Testimonianze','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
+      'nav.services':'Servizi','nav.projects':'Progetti','nav.pricing':'Prezzi','nav.why':'Perché Noi','nav.testimonials':'Testimonianze','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
       'hero.badge':'🚀 Accettando nuovi progetti',
       'hero.h1':'Soluzioni Digitali che <span class="blue">Crescono e Automatizzano</span> il Tuo Business',
       'hero.p':"Sblocca il potenziale del tuo business. Dall'idea ai clienti — costruiamo tutto ciò di cui hai bisogno.",
@@ -140,7 +140,7 @@ const i18n = {
       'spb.rating':'Valutazione 4.9/5','spb.projects':'80+ Progetti','spb.clients':'50+ Clienti','spb.delivery':'Consegnato in 14 Giorni',
     },
     el: {
-      'nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.why':'Γιατί Εμείς','nav.testimonials':'Μαρτυρίες','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
+      'nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.pricing':'Τιμές','nav.why':'Γιατί Εμείς','nav.testimonials':'Μαρτυρίες','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
       'hero.badge':'🚀 Δεχόμαστε νέα έργα',
       'hero.h1':'Ψηφιακές Λύσεις που <span class="blue">Αναπτύσσουν & Αυτοματοποιούν</span> την Επιχείρησή σας',
       'hero.p':'Ξεκλειδώστε το δυναμικό της επιχείρησής σας. Από ιδέα σε πελάτες — χτίζουμε ό,τι χρειάζεστε.',
@@ -171,6 +171,7 @@ const i18n = {
       'blog2.cat':'Σχεδιασμός UI/UX','blog2.title':'Η Ψυχολογία του Χρώματος στο UI/UX','readmore':'Διαβάστε Περισσότερα →',
       'cta.title':'Έτοιμοι να Μεταμορφώσετε την Ψηφιακή σας Παρουσία;','cta.p':'Ας ξεκινήσουμε μαζί ένα ταξίδι καινοτομίας.',
       'footer.brand':'Είμαστε μια παθιασμένη ομάδα ψηφιακών οραματιστών αφοσιωμένη στη. Με επιφύλαξη παντός δικαιώματος.',
+      'footer.col1':'Σχετικά με Εμάς','footer.col2':'Επικοινωνία','footer.col3':'Απόρρητο','footer.copy':'© 2025 DankeFlow. Με επιφύλαξη παντός δικαιώματος.',
       'spb.rating':'Βαθμολογία 4.9/5','spb.projects':'80+ Έργα','spb.clients':'50+ Πελάτες','spb.delivery':'Παράδοση σε 14 Ημέρες',
     }
   };
@@ -316,4 +317,3 @@ const i18n = {
 
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   applyTranslations('en');
-
