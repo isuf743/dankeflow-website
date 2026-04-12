@@ -992,9 +992,9 @@
     }
 
     .reveal {
-      opacity: 0;
+      opacity: 1;
       transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease; animation:revealFallback 0.01s 2s forwards;
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
     .reveal.visible {
       opacity: 1;
@@ -1509,7 +1509,7 @@
     </div>
     <div class="footer-col footer-contact">
       <h4 data-i18n="footer.col2">Contact Us</h4>
-      <ul><li>&#9993; <a href="/cdn-cgi/l/email-protection#acc4c9c0c0c3ecc8cdc2c7c9cac0c3db82cfc3c1">[email&#160;protected]</a></li><li>&#128222; +383 44 000 000</li><li>&#128205; Kosovo</li></ul>
+      <ul><li>&#9993; <a href="/cdn-cgi/l/email-protection#8fe7eae3e3e0cfebeee1e4eae9e3e0f8a1ece0e2">[email&#160;protected]</a></li><li>&#128222; +383 44 000 000</li><li>&#128205; Kosovo</li></ul>
     </div>
     <div class="footer-col">
       <h4 data-i18n="footer.col3">Privacy</h4>
@@ -1526,8 +1526,7 @@
     </div>
   </div>
 </footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const i18n = {
   en: {
     'nav.home':'Home','nav.services':'Services','nav.projects':'Projects','nav.blog':'Blog','nav.cta':'Book A Free Call',
@@ -1665,8 +1664,8 @@ function toggleMenu() {
 
 document.querySelectorAll('.reveal').forEach(el => {
   new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.08 }).observe(el);
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 }).observe(el);
 });
 
 const navEl = document.querySelector('nav');
@@ -1674,16 +1673,18 @@ window.addEventListener('scroll', () => {
   navEl.style.background = window.scrollY > 50 ? 'rgba(2,6,23,0.98)' : 'rgba(2,6,23,0.85)';
 });
 
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
 
-  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-  applyTranslations('en');
-
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".reveal").forEach(function(el) { el.classList.add("visible"); });
+  applyTranslations("en");
+  document.addEventListener("click", function() { document.getElementById("langSwitcher").classList.remove("open"); });
+});
 </script>
 </body>
 </html>
