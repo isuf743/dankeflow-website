@@ -1198,10 +1198,11 @@
   <div class="mobile-nav-links">
     <a href="services.html" onclick="toggleMenu()"><span data-i18n="nav.services">Services</span><span class="arrow">›</span></a>
     <a href="projects.html" onclick="toggleMenu()"><span data-i18n="nav.projects">Projects</span><span class="arrow">›</span></a>
+	<a href="pricing.html" onclick="toggleMenu()"><span data-i18n="nav.pricing">Pricing</span><span class="arrow">›</span></a>
     <a href="#why" onclick="toggleMenu()"><span data-i18n="nav.why">Why Us</span><span class="arrow">›</span></a>
     <a href="#testimonials" onclick="toggleMenu()"><span data-i18n="nav.testimonials">Testimonials</span><span class="arrow">›</span></a>
     <a href="#blog" onclick="toggleMenu()"><span data-i18n="nav.blog">Blog</span><span class="arrow">›</span></a>
-    <a href="contact.html" class="mob-cta" onclick="toggleMenu()"><span data-i18n="nav.cta">Book A Free Call</span></a>
+	<a href="contact.html" class="mob-cta" onclick="toggleMenu()"><span data-i18n="nav.cta">Book A Free Call</span></a>
   </div>
 
   <div class="mobile-nav-footer">
@@ -1236,7 +1237,8 @@
   <ul class="nav-links">
     <li><a href="services.html" data-i18n="nav.services">Services</a></li>
     <li><a href="projects.html" data-i18n="nav.projects">Projects</a></li>
-    <li><a href="#why" data-i18n="nav.why">Why Us</a></li>
+	<li><a href="pricing.html" data-i18n="nav.pricing">Pricing</a></li>
+	<li><a href="#why" data-i18n="nav.why">Why Us</a></li>
     <li><a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a></li>
     <li><a href="#blog" data-i18n="nav.blog">Blog</a></li>
     <li><a href="contact.html" class="nav-cta" data-i18n="nav.cta">Book A Free Call</a></li>
@@ -1296,7 +1298,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-badge">🚀 Accepting New Projects</div>
-  <h1>We Design& Build <span class="blue"> That Actually Grow </span> Your Business</h1>
+  <h1>We Design & Build Websites<span class="blue"> That Actually Grow </span> Your Business</h1>
   <p>Unlock the potential of your business with our services. From idea to clients — we build everything you need.</p>
   <div class="hero-btns">
   <a href="contact.html" class="btn-primary">Get Your Website →</a>
@@ -1707,9 +1709,9 @@
 <script>
   const i18n = {
     en: {
-      'nav.services':'Services','nav.projects':'Projects','nav.why':'Why Us','nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
+      'nav.services':'Services','nav.projects':'Projects','nav.pricing': 'Pricing','nav.why':'Why Us','nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
       'hero.badge':'🚀 Accepting New Projects',
-      'hero.h1':'Digital Solutions that <span class="blue">Grow and Automate</span> Your Business',
+      'hero.h1':'We Design & Build Websites <span class="blue">That Actually Grow</span> Your Business',
       'hero.p':'Unlock the potential of your business with our services. From idea to clients — we build everything you need.',
       'hero.btn1':'About Us →','hero.btn2':'Book A Call',
       'trusted.label':'Trusted By +50 Companies and Businesses',
@@ -1742,9 +1744,9 @@
       'spb.rating':'4.9/5 Rating','spb.projects':'80+ Projects','spb.clients':'50+ Clients','spb.delivery':'14 Days Delivery',
     },
     sq: {
-      'nav.services':'Shërbime','nav.projects':'Projekte','nav.why':'Pse Ne','nav.testimonials':'Recensione','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
+      'nav.services':'Shërbime','nav.projects':'Projekte','nav.pricing': 'Çmimet','nav.why':'Pse Ne','nav.testimonials':'Recensione','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
       'hero.badge':'🚀 Duke pranuar projekte të reja',
-      'hero.h1':'Zgjidhje Dixhitale që <span class="blue">Rrisin dhe Automatizojnë</span> Biznesin Tuaj',
+      'hero.h1':'Ne Projektojme & Ndertojme Faqe <span class="blue"> Qe Rrisin dhe Automatizojnë</span> Biznesin Tuaj',
       'hero.p':'Çlironi potencialin e biznesit tuaj me shërbimet tona. Nga ide në Klientë — Ne ndërtojmë gjithçka që ju duhet.',
       'hero.btn1':'Rreth Nesh →','hero.btn2':'Rezervo Takim',
       'trusted.label':'Besuar nga +50 Kompani dhe Biznese',
@@ -1893,7 +1895,7 @@
       if (t[key] === undefined) return;
       htmlKeys.has(key) ? el.innerHTML = t[key] : el.textContent = t[key];
     });
-    const heroH1 = document.querySelector('.hero h1');
+	const heroH1 = document.querySelector('.hero h1');
     if (heroH1 && t['hero.h1']) heroH1.innerHTML = t['hero.h1'];
     const heroP = document.querySelector('.hero > p');
     if (heroP && t['hero.p']) heroP.textContent = t['hero.p'];
