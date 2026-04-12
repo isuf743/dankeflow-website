@@ -1249,6 +1249,133 @@
       opacity: 1 !important;
     }
   </style>
+<script>
+const i18n = {
+  en: {
+    'nav.home':'Home','nav.services':'Services','nav.projects':'Projects','nav.blog':'Blog','nav.cta':'Book A Free Call',
+    'sv.badge':'Our Services','sv.h1':'Services We Provide<br><span class="blue">To Our Clients</span>',
+    'sv.sub':'From design to launch — we build everything your business needs to grow online.',
+    'sv.s1.title':'UI/UX Design','sv.s1.l1':'Custom Website Design','sv.s1.l2':'User Experience Optimization','sv.s1.l3':'Brand Visual Identity','sv.s1.l4':'Design Systems & Style Guides',
+    'sv.s2.title':'Website Development','sv.s2.l1':'Responsive Web Design','sv.s2.l2':'Full-Stack Development','sv.s2.l3':'Custom CMS Integration','sv.s2.l4':'Performance Optimization',
+    'sv.s3.title':'SEO & Growth','sv.s3.l1':'Search Engine Optimization','sv.s3.l2':'Content Strategy & Creation','sv.s3.l3':'Performance Analytics','sv.s3.l4':'Conversion Rate Optimization',
+    'sv.s4.title':'E-Commerce Solutions','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Product Page Design','sv.s4.l3':'Payment Gateway Integration','sv.s4.l4':'Inventory Management',
+    'sv.s5.title':'Web Performance','sv.s5.l1':'Speed Optimization','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting Setup','sv.s5.l4':'Security & SSL',
+    'sv.s6.title':'Maintenance & Support','sv.s6.l1':'Ongoing Website Updates','sv.s6.l2':'Bug Fixes & Monitoring','sv.s6.l3':'Backup & Recovery','sv.s6.l4':'Monthly Reports',
+    'sv.strip.title':'Not sure which service you need?','sv.strip.sub':'Book a free 30-minute call. We\'ll guide you to the right solution.','sv.strip.btn':'Book A Free Call ↗',
+    'testi.badge':'Testimonials','testi.title':'What Our Customers Are<br>Saying About Us?',
+    't1.p':'Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.',
+    't2.p':'The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.',
+    't3.p':'Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.',
+    'cta.title':'Ready To Transform Your Digital Presence?','cta.p':"Let's embark on a journey of innovation and creativity together.",
+    'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.",
+    'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
+      'faq.badge':'FAQ','faq.title':'Frequently Asked<br>Questions','faq.q1':'How long does it take to build a website?','faq.a1':'Most websites completed in 2–4 weeks. A landing page in 5–7 days.','faq.q2':'What do I need to provide?','faq.a2':'Just your idea and any branding. No technical knowledge required.','faq.q3':'How much does a website cost?','faq.a3':'Transparent pricing with no hidden fees. Contact us for a free quote.','faq.q4':'Will I be able to update it myself?','faq.a4':'Yes. Easy CMS — update content without coding.','faq.q5':'Do you offer support after launch?','faq.a5':'Absolutely. Maintenance packages with updates, backups and monitoring.','faq.q6':'Will it work on mobile?','faq.a6':'Every website is fully responsive — perfect on all devices.',
+  },
+  sq: {
+    'nav.home':'Kryefaqja','nav.services':'Shërbime','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
+    'sv.badge':'Shërbimet Tona','sv.h1':'Shërbimet që Ofrojmë<br><span class="blue">për Klientët Tanë</span>',
+    'sv.sub':'Nga dizajni deri tek lansimi — ne ndërtojmë gjithçka që biznesi juaj ka nevojë për të rritur online.',
+    'sv.s1.title':'Dizajn UI/UX','sv.s1.l1':'Dizajn i Personalizuar','sv.s1.l2':'Optimizim i Përvojës','sv.s1.l3':'Identiteti Vizual i Markës','sv.s1.l4':'Sisteme Dizajni',
+    'sv.s2.title':'Zhvillim Webi','sv.s2.l1':'Dizajn Responsive','sv.s2.l2':'Zhvillim Full-Stack','sv.s2.l3':'Integrimi CMS','sv.s2.l4':'Optimizim Performancës',
+    'sv.s3.title':'SEO & Rritje','sv.s3.l1':'Optimizim për Motorët Kërkues','sv.s3.l2':'Strategji & Krijim Përmbajtjeje','sv.s3.l3':'Analitikë Performancës','sv.s3.l4':'Optimizim Konvertimi',
+    'sv.s4.title':'Zgjidhje E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Dizajn Faqesh Produkti','sv.s4.l3':'Integrimi Pagesave','sv.s4.l4':'Menaxhim Inventari',
+    'sv.s5.title':'Performancë Web','sv.s5.l1':'Optimizim Shpejtësie','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Siguri & SSL',
+    'sv.s6.title':'Mirëmbajtje & Mbështetje','sv.s6.l1':'Përditësime të Rregullta','sv.s6.l2':'Rregullim Gabimesh','sv.s6.l3':'Backup & Rikuperim','sv.s6.l4':'Raporte Mujore',
+    'sv.strip.title':'Nuk jeni të sigurt cilin shërbim keni nevojë?','sv.strip.sub':'Rezervoni një telefonatë falas 30 minutëshe. Do t\'ju udhëzojmë drejt zgjidhjes së duhur.','sv.strip.btn':'Rezervo Takim Falas ↗',
+    'testi.badge':'Recensione','testi.title':'Çfarë Po Thonë Klientët<br>Tanë Rreth Nesh?',
+    't1.p':'Zgjedhja e DankeFlow ishte revolucionare për markën tonë. Ekipi i tyre krijues ridizajnoi faqen duke sjellë elegancë moderne.',
+    't2.p':'Ekspertiza dhe dedikimi i DankeFlow kanë qenë vendimtare për përparimin e startup-it tonë.',
+    't3.p':'Puna me DankeFlow ka qenë një përvojë transformuese. UI/UX-i i tyre rriti ndjeshëm ndërgjegjësimin e markës.',
+    'cta.title':'Gati të Transformoni Praninë Tuaj Dixhitale?','cta.p':'Le të fillojmë së bashku një udhëtim inovacioni.',
+    'footer.brand':'Jemi një ekip i apasionuar vizionarësh dixhitalë.','footer.col1':'Rreth Nesh','footer.col2':'Na Kontaktoni','footer.col3':'Privatësia','footer.copy':'© 2025 DankeFlow. Të Gjitha të Drejtat të Rezervuara.',
+      'faq.badge':'Pyetje të Shpeshta','faq.title':'Pyetjet më të<br>Shpeshta','faq.q1':'Sa kohë duhet për një faqe web?','faq.a1':'Shumica e faqeve brenda 2–4 javëve. Një landing page në 5–7 ditë.','faq.q2':'Çfarë duhet të ofroj?','faq.a2':'Vetëm idenë tuaj. Pa njohuri teknike.','faq.q3':'Sa kushton?','faq.a3':'Çmime transparente pa tarifa të fshehura.','faq.q4':'A mund të përditësoj vetë?','faq.a4':'Po. Sisteme CMS të lehta pa njohuri kodimi.','faq.q5':'A ofroni mbështetje pas lansimit?','faq.a5':'Absolutisht. Paketa mirëmbajtjeje.','faq.q6':'A funksionon në celular?','faq.a6':'Çdo faqe është plotësisht responsive.',
+  },
+  de: {
+    'nav.home':'Startseite','nav.services':'Leistungen','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
+    'sv.badge':'Unsere Leistungen','sv.h1':'Leistungen die wir<br><span class="blue">unseren Kunden bieten</span>',
+    'sv.sub':'Von Design bis Launch — wir bauen alles, was Ihr Unternehmen für Online-Wachstum braucht.',
+    'sv.s1.title':'UI/UX Design','sv.s1.l1':'Individuelles Webdesign','sv.s1.l2':'UX-Optimierung','sv.s1.l3':'Visuelle Markenidentität','sv.s1.l4':'Design-Systeme',
+    'sv.s2.title':'Webentwicklung','sv.s2.l1':'Responsives Webdesign','sv.s2.l2':'Full-Stack-Entwicklung','sv.s2.l3':'CMS-Integration','sv.s2.l4':'Performance-Optimierung',
+    'sv.s3.title':'SEO & Wachstum','sv.s3.l1':'Suchmaschinenoptimierung','sv.s3.l2':'Content-Strategie','sv.s3.l3':'Performance-Analyse','sv.s3.l4':'Conversion-Optimierung',
+    'sv.s4.title':'E-Commerce-Lösungen','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Produktseiten-Design','sv.s4.l3':'Zahlungsintegration','sv.s4.l4':'Lagerverwaltung',
+    'sv.s5.title':'Web-Performance','sv.s5.l1':'Geschwindigkeitsoptimierung','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Sicherheit & SSL',
+    'sv.s6.title':'Wartung & Support','sv.s6.l1':'Regelmäßige Updates','sv.s6.l2':'Fehlerbehebung','sv.s6.l3':'Backup & Wiederherstellung','sv.s6.l4':'Monatsberichte',
+    'sv.strip.title':'Unsicher welche Leistung Sie brauchen?','sv.strip.sub':'Buchen Sie ein kostenloses 30-minütiges Gespräch.','sv.strip.btn':'Kostenloses Gespräch ↗',
+    'testi.badge':'Bewertungen','testi.title':'Was unsere Kunden<br>über uns sagen?',
+    't1.p':'Die Wahl von DankeFlow war bahnbrechend für unsere Marke. Ihr kreatives Team hat unsere Website neu gestaltet.',
+    't2.p':'Das Fachwissen von DankeFlow war entscheidend für den Fortschritt unseres Tech-Startups.',
+    't3.p':'Die Zusammenarbeit mit DankeFlow war transformativ für unsere Marketinginitiativen.',
+    'cta.title':'Bereit Ihre digitale Präsenz zu transformieren?','cta.p':'Lassen Sie uns gemeinsam eine Reise der Innovation beginnen.',
+    'footer.brand':'Wir sind ein leidenschaftliches Team digitaler Visionäre.','footer.col1':'Über Uns','footer.col2':'Kontakt','footer.col3':'Datenschutz','footer.copy':'© 2025 DankeFlow. Alle Rechte vorbehalten.',
+      'faq.badge':'FAQ','faq.title':'Häufig gestellte<br>Fragen','faq.q1':'Wie lange dauert eine Website?','faq.a1':'2–4 Wochen. Eine Landing Page in 5–7 Tagen.','faq.q2':'Was muss ich bereitstellen?','faq.a2':'Nur Ihre Idee. Keine technischen Kenntnisse nötig.','faq.q3':'Was kostet eine Website?','faq.a3':'Transparente Preise ohne versteckte Kosten.','faq.q4':'Kann ich selbst aktualisieren?','faq.a4':'Ja. Einfache CMS-Systeme.','faq.q5':'Gibt es Support nach dem Launch?','faq.a5':'Absolut. Wartungspakete inklusive.','faq.q6':'Funktioniert es auf Mobilgeräten?','faq.a6':'Jede Website ist vollständig responsiv.',
+  },
+  it: {
+    'nav.home':'Home','nav.services':'Servizi','nav.projects':'Progetti','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
+    'sv.badge':'I Nostri Servizi','sv.h1':'Servizi che Offriamo<br><span class="blue">ai Nostri Clienti</span>',
+    'sv.sub':'Dal design al lancio — costruiamo tutto ciò di cui il tuo business ha bisogno per crescere online.',
+    'sv.s1.title':'Design UI/UX','sv.s1.l1':'Design Web Personalizzato','sv.s1.l2':'Ottimizzazione UX','sv.s1.l3':'Identità Visiva del Brand','sv.s1.l4':'Sistemi di Design',
+    'sv.s2.title':'Sviluppo Web','sv.s2.l1':'Design Responsive','sv.s2.l2':'Sviluppo Full-Stack','sv.s2.l3':'Integrazione CMS','sv.s2.l4':'Ottimizzazione Performance',
+    'sv.s3.title':'SEO & Crescita','sv.s3.l1':'Ottimizzazione Motori di Ricerca','sv.s3.l2':'Strategia & Creazione Contenuti','sv.s3.l3':'Analisi Performance','sv.s3.l4':'Ottimizzazione Conversioni',
+    'sv.s4.title':'Soluzioni E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Design Pagine Prodotto','sv.s4.l3':'Integrazione Pagamenti','sv.s4.l4':'Gestione Inventario',
+    'sv.s5.title':'Performance Web','sv.s5.l1':'Ottimizzazione Velocità','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Sicurezza & SSL',
+    'sv.s6.title':'Manutenzione & Supporto','sv.s6.l1':'Aggiornamenti Regolari','sv.s6.l2':'Corre.strip.btn':'Prenota Chiamata Gratuita ↗',
+    'testi.badge':'Testimonianze','testi.title':'Cosa Dicono i Nostri<br>Clienti di Noi?',
+    't1.p':'Scegliere DankeFlow è stata una svolta per il nostro brand. Il loro team ha ridisegnato il nostro sito con eleganza moderna.',
+    't2.p':"L'esperienza di DankeFlow è stata fondamentale per il progresso del nostro startup.",
+    't3.p':"Lavorare con DankeFlow è stata un'esperienza trasformativa per le nostre iniziative di marketing.",
+    'cta.title':'Pronto a Trasformare la Tua Presenza Digitale?','cta.p':'Intraprendiamo insieme un viaggio di innovazione.',
+    'footer.brand':'Siamo un team appassionato di visionari digitali.','footer.col1':'Chi Siamo','footer.col2':'Contattaci','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. Tutti i diritti riservati.',
+      'faq.badge':'FAQ','faq.title':'Domande Frequenti<br>dei Clienti','faq.q1':'Quanto tempo ci vuole?','faq.a1':'2–4 settimane. Una landing page in 5–7 giorni.','faq.q2':'Cosa devo fornire?','faq.a2':'Solo la tua idea. Nessuna conoscenza tecnica.','faq.q3':'Quanto costa?','faq.a3':'Prezzi trasparenti senza costi nascosti.','faq.q4':'Posso aggiornare da solo?','faq.a4':'Sì. CMS facili senza codice.','faq.q5':'Offrite supporto dopo il lancio?','faq.a5':'Assolutamente. Pacchetti di manutenzione.','faq.q6':'Funzionerà su mobile?','faq.a6':'Ogni sito è completamente responsive.',
+  },
+  el: {
+    'nav.home':'Αρχική','nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
+    'sv.badge':'Οι Υπηρεσίες μας','sv.h1':'Υπηρεσίες που Προσφέρουμε<br><span class="blue">στους Πελάτες μας</span>',
+    'sv.sub':'Από τον σχεδιασμό ως το λανσάρισμα — χτίζουμε ό,τι χρειάζεται η επιχείρησή σας.',
+    'sv.s1.title':'Σχεδιασμός UI/UX','sv.s1.l1':'Προσαρμοσμένος Σχεδιασμός','sv.s1.l2':'Βελτιστοποίηση UX','sv.s1.l3':'Οπτική Ταυτότητα Brand','sv.s1.l4':'Συστήματα Σχεδιασμού',
+    'sv.s2.title':'Ανάπτυξη Ιστοτόπου','sv.s2.l1':'Responsive Σχεδιασμός','sv.s2.l2':'Full-Stack Ανάπτυξη','sv.s2.l3':'Ενσωμάτωση CMS','sv.s2.l4':'Βελτιστοποίηση Απόδοσης',
+    'sv.s3.title':'SEO & Ανάπτυξη','sv.s3.l1':'Βελτιστοποίηση Μηχανών Αναζήτησης','sv.s3.l2':'Στρατηγική & Δημιουργία Περιεχομένου','sv.s3.l3':'Ανάλυση Απόδοσης','sv.s3.l4':'Βελτιστοποίηση Μετατροπών',
+    'sv.s4.title':'Λύσεις E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Σχεδιασμός Σελίδων Προϊόντων','sv.s4.l3':'Ενσωμάτωση Πληρωμών','sv.s4.l4':'Διαχείριση Αποθεμάτων',
+    'sv.s5.title':'Απόδοση Ιστοτόπου','sv.s5.l1':'Βελτιστοποίηση Ταχύτητας','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Φιλοξενία','sv.s5.l4':'Ασφάλεια & SSL',
+    'sv.s6.title':'Συντήρηση & Υποστήριξη','sv.s6.l1':'Τακτικές Ενημερώσεις','sv.s6.l2':'Διόρθωση Σφαλμάτων','sv.s6.l3':'Backup & Αποκατάσταση','sv.s6.l4':'Μηνιαίες Αναφορές',
+    'sv.strip.title':'Δεν είστε σίγουροι ποια υπηρεσία χρειάζεστε;','sv.strip.sub':'Κλείστε δωρεάν κλήση 30 λεπτών. Θα σας καθοδηγήσουμε στη σωστή λύση.','sv.strip.btn':'Δωρεάν Κλήση ↗',
+    'testi.badge':'Μαρτυρίες','testi.title':'Τι Λένε οι Πελάτες μας<br>για Εμάς;',
+    't1.p':'Η επιλογή της DankeFlow ήταν καταλυτική. Ανασχεδίασαν τον ιστοτόπο με μοντέρνα κομψότητα.',
+    't2.p':'Η εμπειρία της DankeFlow ήταν καθοριστική για την πρόοδο του startup μας.',
+    't3.p':'Η συνεργασία με τη DankeFlow ήταν μεταμορφωτική για τις πρωτοβουλίες marketing μας.',
+    'cta.title':'Έτοιμοι να Μεταμορφώσετε την Ψηφιακή σας Παρουσία;','cta.p':'Ας ξεκινήσουμε μαζί ένα ταξίδι καινοτομίας.',
+    'footer.brand':'Είμαστε μια παθιασμένη ομάδα ψηφιακών οραματιστών.','footer.col1':'Σχετικά με Εμάς','footer.col2':'Επικοινωνία','footer.col3':'Απόρρητο','footer.copy':'© 2025 DankeFlow. Με επιφύλαξη παντός δικαιώματος.',
+      'faq.badge':'Συχνές Ερωτήσεις','faq.title':'Συχνές Ερωτήσεις<br>Πελατών','faq.q1':'Πόσος χρόνος χρειάζεται;','faq.a1':'2–4 εβδομάδες. Μια landing page σε 5–7 μέρες.','faq.q2':'Τι πρέπει να παρέχω;','faq.a2':'Μόνο την ιδέα σας. Χωρίς τεχνικές γνώσεις.','faq.q3':'Πόσο κοστίζει;','faq.a3':'Διαφανείς τιμές χωρίς κρυφές χρεώσεις.','faq.q4':'Μπορώ να ενημερώνω μόνος μου;','faq.a4':'Ναι. Εύχρηστα CMS χωρίς προγραμματισμό.','faq.q5':'Προσφέρετε υποστήριξη μετά;','faq.a5':'Απολύτως. Πακέτα συντήρησης.','faq.q6':'Θα λειτουργεί σε κινητό;','faq.a6':'Κάθε ιστοτόπος είναι πλήρως responsive.',
+  },
+};
+
+const langMeta = { en:{flag:'🇬🇧',code:'EN'}, sq:{flag:'🇦🇱',code:'SQ'}, de:{flag:'🇩🇪',code:'DE'}, it:{flag:'🇮🇹',code:'IT'}, el:{flag:'🇬🇷',code:'EL'} };
+let currentLang = 'en';
+
+function applyTranslations(lang) {
+  currentLang = lang;
+  const t = i18n[lang];
+  const htmlKeys = new Set(['sv.h1','testi.title','sv.strip.title']);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!t[key]) return;
+    htmlKeys.has(key) ? el.innerHTML = t[key] : el.textContent = t[key];
+  });
+  document.getElementById('currentFlag').textContent = langMeta[lang].flag;
+  document.getElementById('currentCode').textContent = langMeta[lang].code;
+  document.querySelectorAll('.mob-lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('#langSwitcher .lang-option').forEach(b => {
+    const a = b.dataset.lang === lang;
+    b.classList.toggle('active', a);
+    const ch = b.querySelector('.check');
+    if (ch) ch.style.display = a ? '' : 'none';
+  });
+}
+
+function setLang(lang) { applyTranslations(lang); document.getElementById('langSwitcher').classList.remove('open'); }
+function toggleLang(e) { e.stopPropagation(); document.getElementById('langSwitcher').classList.toggle('open'); }
+document.addEventListener('click', () => document.getElementById('langSwitcher').classList.remove('open'));
+
+</script>
 </head>
 <body>
 
@@ -1509,7 +1636,7 @@
     </div>
     <div class="footer-col footer-contact">
       <h4 data-i18n="footer.col2">Contact Us</h4>
-      <ul><li>&#9993; <a href="/cdn-cgi/l/email-protection#8fe7eae3e3e0cfebeee1e4eae9e3e0f8a1ece0e2">[email&#160;protected]</a></li><li>&#128222; +383 44 000 000</li><li>&#128205; Kosovo</li></ul>
+      <ul><li>&#9993; <a href="/cdn-cgi/l/email-protection#4a222f2626250a2e2b24212f2c26253d64292527">[email&#160;protected]</a></li><li>&#128222; +383 44 000 000</li><li>&#128205; Kosovo</li></ul>
     </div>
     <div class="footer-col">
       <h4 data-i18n="footer.col3">Privacy</h4>
@@ -1526,116 +1653,84 @@
     </div>
   </div>
 </footer>
+
 <script>
 const i18n = {
   en: {
     'nav.home':'Home','nav.services':'Services','nav.projects':'Projects','nav.blog':'Blog','nav.cta':'Book A Free Call',
-    'sv.badge':'Our Services','sv.h1':'Services We Provide<br><span class="blue">To Our Clients</span>',
-    'sv.sub':'From design to launch — we build everything your business needs to grow online.',
-    'sv.s1.title':'UI/UX Design','sv.s1.l1':'Custom Website Design','sv.s1.l2':'User Experience Optimization','sv.s1.l3':'Brand Visual Identity','sv.s1.l4':'Design Systems & Style Guides',
-    'sv.s2.title':'Website Development','sv.s2.l1':'Responsive Web Design','sv.s2.l2':'Full-Stack Development','sv.s2.l3':'Custom CMS Integration','sv.s2.l4':'Performance Optimization',
-    'sv.s3.title':'SEO & Growth','sv.s3.l1':'Search Engine Optimization','sv.s3.l2':'Content Strategy & Creation','sv.s3.l3':'Performance Analytics','sv.s3.l4':'Conversion Rate Optimization',
-    'sv.s4.title':'E-Commerce Solutions','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Product Page Design','sv.s4.l3':'Payment Gateway Integration','sv.s4.l4':'Inventory Management',
-    'sv.s5.title':'Web Performance','sv.s5.l1':'Speed Optimization','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting Setup','sv.s5.l4':'Security & SSL',
-    'sv.s6.title':'Maintenance & Support','sv.s6.l1':'Ongoing Website Updates','sv.s6.l2':'Bug Fixes & Monitoring','sv.s6.l3':'Backup & Recovery','sv.s6.l4':'Monthly Reports',
-    'sv.strip.title':'Not sure which service you need?','sv.strip.sub':'Book a free 30-minute call. We\'ll guide you to the right solution.','sv.strip.btn':'Book A Free Call ↗',
-    'testi.badge':'Testimonials','testi.title':'What Our Customers Are<br>Saying About Us?',
-    't1.p':'Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.',
-    't2.p':'The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.',
-    't3.p':'Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.',
+    'contact.badge':'Contact Us','contact.sub':'Reach out through any of these channels or fill in the form below.',
+    'contact.email.title':'Email Us At','contact.location.title':'Our Location','contact.location.val':'Kosovo, Balkans','contact.phone.title':'Call Us At',
+    'contact.form.title':'Get In Touch','contact.form.sub':"Let's have a chat — tell us about your project.",
+    'contact.field.name':'Full Name','contact.field.email':'Email Address','contact.field.website':'Your Website','contact.field.service':'Choose Your Service','contact.field.message':'Your Message',
+    'contact.tag.uiux':'UI/UX Design','contact.tag.web':'Web Development','contact.tag.seo':'SEO & Growth','contact.tag.ecom':'E-Commerce','contact.tag.brand':'Branding','contact.tag.maint':'Maintenance','contact.tag.other':'Other',
+    'contact.submit':'Submit Your Request','contact.note':'We typically respond within 24 hours.',
+    'contact.success':"Message sent! We'll get back to you within 24 hours.",
+    'trusted.label':'Trusted By +50 Companies and Businesses',
     'cta.title':'Ready To Transform Your Digital Presence?','cta.p':"Let's embark on a journey of innovation and creativity together.",
-    'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.",
-    'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
-      'faq.badge':'FAQ','faq.title':'Frequently Asked<br>Questions','faq.q1':'How long does it take to build a website?','faq.a1':'Most websites completed in 2–4 weeks. A landing page in 5–7 days.','faq.q2':'What do I need to provide?','faq.a2':'Just your idea and any branding. No technical knowledge required.','faq.q3':'How much does a website cost?','faq.a3':'Transparent pricing with no hidden fees. Contact us for a free quote.','faq.q4':'Will I be able to update it myself?','faq.a4':'Yes. Easy CMS — update content without coding.','faq.q5':'Do you offer support after launch?','faq.a5':'Absolutely. Maintenance packages with updates, backups and monitoring.','faq.q6':'Will it work on mobile?','faq.a6':'Every website is fully responsive — perfect on all devices.',
+    'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences.",'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
   },
   sq: {
     'nav.home':'Kryefaqja','nav.services':'Shërbime','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
-    'sv.badge':'Shërbimet Tona','sv.h1':'Shërbimet që Ofrojmë<br><span class="blue">për Klientët Tanë</span>',
-    'sv.sub':'Nga dizajni deri tek lansimi — ne ndërtojmë gjithçka që biznesi juaj ka nevojë për të rritur online.',
-    'sv.s1.title':'Dizajn UI/UX','sv.s1.l1':'Dizajn i Personalizuar','sv.s1.l2':'Optimizim i Përvojës','sv.s1.l3':'Identiteti Vizual i Markës','sv.s1.l4':'Sisteme Dizajni',
-    'sv.s2.title':'Zhvillim Webi','sv.s2.l1':'Dizajn Responsive','sv.s2.l2':'Zhvillim Full-Stack','sv.s2.l3':'Integrimi CMS','sv.s2.l4':'Optimizim Performancës',
-    'sv.s3.title':'SEO & Rritje','sv.s3.l1':'Optimizim për Motorët Kërkues','sv.s3.l2':'Strategji & Krijim Përmbajtjeje','sv.s3.l3':'Analitikë Performancës','sv.s3.l4':'Optimizim Konvertimi',
-    'sv.s4.title':'Zgjidhje E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Dizajn Faqesh Produkti','sv.s4.l3':'Integrimi Pagesave','sv.s4.l4':'Menaxhim Inventari',
-    'sv.s5.title':'Performancë Web','sv.s5.l1':'Optimizim Shpejtësie','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Siguri & SSL',
-    'sv.s6.title':'Mirëmbajtje & Mbështetje','sv.s6.l1':'Përditësime të Rregullta','sv.s6.l2':'Rregullim Gabimesh','sv.s6.l3':'Backup & Rikuperim','sv.s6.l4':'Raporte Mujore',
-    'sv.strip.title':'Nuk jeni të sigurt cilin shërbim keni nevojë?','sv.strip.sub':'Rezervoni një telefonatë falas 30 minutëshe. Do t\'ju udhëzojmë drejt zgjidhjes së duhur.','sv.strip.btn':'Rezervo Takim Falas ↗',
-    'testi.badge':'Recensione','testi.title':'Çfarë Po Thonë Klientët<br>Tanë Rreth Nesh?',
-    't1.p':'Zgjedhja e DankeFlow ishte revolucionare për markën tonë. Ekipi i tyre krijues ridizajnoi faqen duke sjellë elegancë moderne.',
-    't2.p':'Ekspertiza dhe dedikimi i DankeFlow kanë qenë vendimtare për përparimin e startup-it tonë.',
-    't3.p':'Puna me DankeFlow ka qenë një përvojë transformuese. UI/UX-i i tyre rriti ndjeshëm ndërgjegjësimin e markës.',
+    'contact.badge':'Na Kontaktoni','contact.sub':'Na kontaktoni nëpërmjet kanaleve tona ose plotësoni formularin.',
+    'contact.email.title':'Na Shkruani','contact.location.title':'Lokacioni Ynë','contact.location.val':'Kosovë, Ballkan','contact.phone.title':'Na Telefononi',
+    'contact.form.title':'Na Dërgoni Mesazh','contact.form.sub':'Le të bisedojmë — tregoni për projektin tuaj.',
+    'contact.field.name':'Emri i Plotë','contact.field.email':'Adresa Email','contact.field.website':'Faqja Juaj Web','contact.field.service':'Zgjidhni Shërbimin','contact.field.message':'Mesazhi Juaj',
+    'contact.tag.uiux':'Dizajn UI/UX','contact.tag.web':'Zhvillim Web','contact.tag.seo':'SEO & Rritje','contact.tag.ecom':'E-Commerce','contact.tag.brand':'Branding','contact.tag.maint':'Mirëmbajtje','contact.tag.other':'Tjetër',
+    'contact.submit':'Dërgo Kërkesën','contact.note':'Zakonisht përgjigjemi brenda 24 orëve.',
+    'contact.success':"Mesazhi u dërgua! Do t'ju përgjigjemi brenda 24 orëve.",
+    'trusted.label':'Besuar nga +50 Kompani dhe Biznese',
     'cta.title':'Gati të Transformoni Praninë Tuaj Dixhitale?','cta.p':'Le të fillojmë së bashku një udhëtim inovacioni.',
     'footer.brand':'Jemi një ekip i apasionuar vizionarësh dixhitalë.','footer.col1':'Rreth Nesh','footer.col2':'Na Kontaktoni','footer.col3':'Privatësia','footer.copy':'© 2025 DankeFlow. Të Gjitha të Drejtat të Rezervuara.',
-      'faq.badge':'Pyetje të Shpeshta','faq.title':'Pyetjet më të<br>Shpeshta','faq.q1':'Sa kohë duhet për një faqe web?','faq.a1':'Shumica e faqeve brenda 2–4 javëve. Një landing page në 5–7 ditë.','faq.q2':'Çfarë duhet të ofroj?','faq.a2':'Vetëm idenë tuaj. Pa njohuri teknike.','faq.q3':'Sa kushton?','faq.a3':'Çmime transparente pa tarifa të fshehura.','faq.q4':'A mund të përditësoj vetë?','faq.a4':'Po. Sisteme CMS të lehta pa njohuri kodimi.','faq.q5':'A ofroni mbështetje pas lansimit?','faq.a5':'Absolutisht. Paketa mirëmbajtjeje.','faq.q6':'A funksionon në celular?','faq.a6':'Çdo faqe është plotësisht responsive.',
   },
   de: {
     'nav.home':'Startseite','nav.services':'Leistungen','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
-    'sv.badge':'Unsere Leistungen','sv.h1':'Leistungen die wir<br><span class="blue">unseren Kunden bieten</span>',
-    'sv.sub':'Von Design bis Launch — wir bauen alles, was Ihr Unternehmen für Online-Wachstum braucht.',
-    'sv.s1.title':'UI/UX Design','sv.s1.l1':'Individuelles Webdesign','sv.s1.l2':'UX-Optimierung','sv.s1.l3':'Visuelle Markenidentität','sv.s1.l4':'Design-Systeme',
-    'sv.s2.title':'Webentwicklung','sv.s2.l1':'Responsives Webdesign','sv.s2.l2':'Full-Stack-Entwicklung','sv.s2.l3':'CMS-Integration','sv.s2.l4':'Performance-Optimierung',
-    'sv.s3.title':'SEO & Wachstum','sv.s3.l1':'Suchmaschinenoptimierung','sv.s3.l2':'Content-Strategie','sv.s3.l3':'Performance-Analyse','sv.s3.l4':'Conversion-Optimierung',
-    'sv.s4.title':'E-Commerce-Lösungen','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Produktseiten-Design','sv.s4.l3':'Zahlungsintegration','sv.s4.l4':'Lagerverwaltung',
-    'sv.s5.title':'Web-Performance','sv.s5.l1':'Geschwindigkeitsoptimierung','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Sicherheit & SSL',
-    'sv.s6.title':'Wartung & Support','sv.s6.l1':'Regelmäßige Updates','sv.s6.l2':'Fehlerbehebung','sv.s6.l3':'Backup & Wiederherstellung','sv.s6.l4':'Monatsberichte',
-    'sv.strip.title':'Unsicher welche Leistung Sie brauchen?','sv.strip.sub':'Buchen Sie ein kostenloses 30-minütiges Gespräch.','sv.strip.btn':'Kostenloses Gespräch ↗',
-    'testi.badge':'Bewertungen','testi.title':'Was unsere Kunden<br>über uns sagen?',
-    't1.p':'Die Wahl von DankeFlow war bahnbrechend für unsere Marke. Ihr kreatives Team hat unsere Website neu gestaltet.',
-    't2.p':'Das Fachwissen von DankeFlow war entscheidend für den Fortschritt unseres Tech-Startups.',
-    't3.p':'Die Zusammenarbeit mit DankeFlow war transformativ für unsere Marketinginitiativen.',
+    'contact.badge':'Kontakt','contact.sub':'Erreichen Sie uns über einen dieser Kanäle oder füllen Sie das Formular aus.',
+    'contact.email.title':'E-Mail an uns','contact.location.title':'Unser Standort','contact.location.val':'Kosovo, Balkan','contact.phone.title':'Rufen Sie uns an',
+    'contact.form.title':'Kontakt aufnehmen','contact.form.sub':'Lassen Sie uns reden — erzählen Sie von Ihrem Projekt.',
+    'contact.field.name':'Vollständiger Name','contact.field.email':'E-Mail-Adresse','contact.field.website':'Ihre Website','contact.field.service':'Dienst wählen','contact.field.message':'Ihre Nachricht',
+    'contact.tag.uiux':'UI/UX Design','contact.tag.web':'Webentwicklung','contact.tag.seo':'SEO & Wachstum','contact.tag.ecom':'E-Commerce','contact.tag.brand':'Branding','contact.tag.maint':'Wartung','contact.tag.other':'Sonstiges',
+    'contact.submit':'Anfrage senden','contact.note':'Wir antworten innerhalb von 24 Stunden.',
+    'contact.success':'Nachricht gesendet! Wir melden uns innerhalb von 24 Stunden.',
+    'trusted.label':'Vertraut von +50 Unternehmen und Firmen',
     'cta.title':'Bereit Ihre digitale Präsenz zu transformieren?','cta.p':'Lassen Sie uns gemeinsam eine Reise der Innovation beginnen.',
     'footer.brand':'Wir sind ein leidenschaftliches Team digitaler Visionäre.','footer.col1':'Über Uns','footer.col2':'Kontakt','footer.col3':'Datenschutz','footer.copy':'© 2025 DankeFlow. Alle Rechte vorbehalten.',
-      'faq.badge':'FAQ','faq.title':'Häufig gestellte<br>Fragen','faq.q1':'Wie lange dauert eine Website?','faq.a1':'2–4 Wochen. Eine Landing Page in 5–7 Tagen.','faq.q2':'Was muss ich bereitstellen?','faq.a2':'Nur Ihre Idee. Keine technischen Kenntnisse nötig.','faq.q3':'Was kostet eine Website?','faq.a3':'Transparente Preise ohne versteckte Kosten.','faq.q4':'Kann ich selbst aktualisieren?','faq.a4':'Ja. Einfache CMS-Systeme.','faq.q5':'Gibt es Support nach dem Launch?','faq.a5':'Absolut. Wartungspakete inklusive.','faq.q6':'Funktioniert es auf Mobilgeräten?','faq.a6':'Jede Website ist vollständig responsiv.',
   },
   it: {
     'nav.home':'Home','nav.services':'Servizi','nav.projects':'Progetti','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
-    'sv.badge':'I Nostri Servizi','sv.h1':'Servizi che Offriamo<br><span class="blue">ai Nostri Clienti</span>',
-    'sv.sub':'Dal design al lancio — costruiamo tutto ciò di cui il tuo business ha bisogno per crescere online.',
-    'sv.s1.title':'Design UI/UX','sv.s1.l1':'Design Web Personalizzato','sv.s1.l2':'Ottimizzazione UX','sv.s1.l3':'Identità Visiva del Brand','sv.s1.l4':'Sistemi di Design',
-    'sv.s2.title':'Sviluppo Web','sv.s2.l1':'Design Responsive','sv.s2.l2':'Sviluppo Full-Stack','sv.s2.l3':'Integrazione CMS','sv.s2.l4':'Ottimizzazione Performance',
-    'sv.s3.title':'SEO & Crescita','sv.s3.l1':'Ottimizzazione Motori di Ricerca','sv.s3.l2':'Strategia & Creazione Contenuti','sv.s3.l3':'Analisi Performance','sv.s3.l4':'Ottimizzazione Conversioni',
-    'sv.s4.title':'Soluzioni E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Design Pagine Prodotto','sv.s4.l3':'Integrazione Pagamenti','sv.s4.l4':'Gestione Inventario',
-    'sv.s5.title':'Performance Web','sv.s5.l1':'Ottimizzazione Velocità','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Hosting','sv.s5.l4':'Sicurezza & SSL',
-    'sv.s6.title':'Manutenzione & Supporto','sv.s6.l1':'Aggiornamenti Regolari','sv.s6.l2':'Corre.strip.btn':'Prenota Chiamata Gratuita ↗',
-    'testi.badge':'Testimonianze','testi.title':'Cosa Dicono i Nostri<br>Clienti di Noi?',
-    't1.p':'Scegliere DankeFlow è stata una svolta per il nostro brand. Il loro team ha ridisegnato il nostro sito con eleganza moderna.',
-    't2.p':"L'esperienza di DankeFlow è stata fondamentale per il progresso del nostro startup.",
-    't3.p':"Lavorare con DankeFlow è stata un'esperienza trasformativa per le nostre iniziative di marketing.",
+    'contact.badge':'Contattaci','contact.sub':'Contattaci attraverso uno di questi canali o compila il modulo.',
+    'contact.email.title':'Scrivici','contact.location.title':'La Nostra Sede','contact.location.val':'Kosovo, Balcani','contact.phone.title':'Chiamaci',
+    'contact.form.title':'Mettiti in Contatto','contact.form.sub':'Parliamo — raccontaci del tuo progetto.',
+    'contact.field.name':'Nome Completo','contact.field.email':'Indirizzo Email','contact.field.website':'Il Tuo Sito','contact.field.service':'Scegli il Servizio','contact.field.message':'Il Tuo Messaggio',
+    'contact.tag.uiux':'Design UI/UX','contact.tag.web':'Sviluppo Web','contact.tag.seo':'SEO & Crescita','contact.tag.ecom':'E-Commerce','contact.tag.brand':'Branding','contact.tag.maint':'Manutenzione','contact.tag.other':'Altro',
+    'contact.submit':'Invia la Richiesta','contact.note':'Rispondiamo generalmente entro 24 ore.',
+    'contact.success':'Messaggio inviato! Ti risponderemo entro 24 ore.',
+    'trusted.label':'Scelti da +50 Aziende e Imprese',
     'cta.title':'Pronto a Trasformare la Tua Presenza Digitale?','cta.p':'Intraprendiamo insieme un viaggio di innovazione.',
     'footer.brand':'Siamo un team appassionato di visionari digitali.','footer.col1':'Chi Siamo','footer.col2':'Contattaci','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. Tutti i diritti riservati.',
-      'faq.badge':'FAQ','faq.title':'Domande Frequenti<br>dei Clienti','faq.q1':'Quanto tempo ci vuole?','faq.a1':'2–4 settimane. Una landing page in 5–7 giorni.','faq.q2':'Cosa devo fornire?','faq.a2':'Solo la tua idea. Nessuna conoscenza tecnica.','faq.q3':'Quanto costa?','faq.a3':'Prezzi trasparenti senza costi nascosti.','faq.q4':'Posso aggiornare da solo?','faq.a4':'Sì. CMS facili senza codice.','faq.q5':'Offrite supporto dopo il lancio?','faq.a5':'Assolutamente. Pacchetti di manutenzione.','faq.q6':'Funzionerà su mobile?','faq.a6':'Ogni sito è completamente responsive.',
   },
   el: {
     'nav.home':'Αρχική','nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
-    'sv.badge':'Οι Υπηρεσίες μας','sv.h1':'Υπηρεσίες που Προσφέρουμε<br><span class="blue">στους Πελάτες μας</span>',
-    'sv.sub':'Από τον σχεδιασμό ως το λανσάρισμα — χτίζουμε ό,τι χρειάζεται η επιχείρησή σας.',
-    'sv.s1.title':'Σχεδιασμός UI/UX','sv.s1.l1':'Προσαρμοσμένος Σχεδιασμός','sv.s1.l2':'Βελτιστοποίηση UX','sv.s1.l3':'Οπτική Ταυτότητα Brand','sv.s1.l4':'Συστήματα Σχεδιασμού',
-    'sv.s2.title':'Ανάπτυξη Ιστοτόπου','sv.s2.l1':'Responsive Σχεδιασμός','sv.s2.l2':'Full-Stack Ανάπτυξη','sv.s2.l3':'Ενσωμάτωση CMS','sv.s2.l4':'Βελτιστοποίηση Απόδοσης',
-    'sv.s3.title':'SEO & Ανάπτυξη','sv.s3.l1':'Βελτιστοποίηση Μηχανών Αναζήτησης','sv.s3.l2':'Στρατηγική & Δημιουργία Περιεχομένου','sv.s3.l3':'Ανάλυση Απόδοσης','sv.s3.l4':'Βελτιστοποίηση Μετατροπών',
-    'sv.s4.title':'Λύσεις E-Commerce','sv.s4.l1':'Shopify & WooCommerce','sv.s4.l2':'Σχεδιασμός Σελίδων Προϊόντων','sv.s4.l3':'Ενσωμάτωση Πληρωμών','sv.s4.l4':'Διαχείριση Αποθεμάτων',
-    'sv.s5.title':'Απόδοση Ιστοτόπου','sv.s5.l1':'Βελτιστοποίηση Ταχύτητας','sv.s5.l2':'Core Web Vitals','sv.s5.l3':'CDN & Φιλοξενία','sv.s5.l4':'Ασφάλεια & SSL',
-    'sv.s6.title':'Συντήρηση & Υποστήριξη','sv.s6.l1':'Τακτικές Ενημερώσεις','sv.s6.l2':'Διόρθωση Σφαλμάτων','sv.s6.l3':'Backup & Αποκατάσταση','sv.s6.l4':'Μηνιαίες Αναφορές',
-    'sv.strip.title':'Δεν είστε σίγουροι ποια υπηρεσία χρειάζεστε;','sv.strip.sub':'Κλείστε δωρεάν κλήση 30 λεπτών. Θα σας καθοδηγήσουμε στη σωστή λύση.','sv.strip.btn':'Δωρεάν Κλήση ↗',
-    'testi.badge':'Μαρτυρίες','testi.title':'Τι Λένε οι Πελάτες μας<br>για Εμάς;',
-    't1.p':'Η επιλογή της DankeFlow ήταν καταλυτική. Ανασχεδίασαν τον ιστοτόπο με μοντέρνα κομψότητα.',
-    't2.p':'Η εμπειρία της DankeFlow ήταν καθοριστική για την πρόοδο του startup μας.',
-    't3.p':'Η συνεργασία με τη DankeFlow ήταν μεταμορφωτική για τις πρωτοβουλίες marketing μας.',
+    'contact.badge':'Επικοινωνία','contact.sub':'Επικοινωνήστε μαζί μας μέσω οποιουδήποτε καναλιού ή συμπληρώστε τη φόρμα.',
+    'contact.email.title':'Στείλτε μας Email','contact.location.title':'Η Τοποθεσία μας','contact.location.val':'Κόσοβο, Βαλκάνια','contact.phone.title':'Καλέστε μας',
+    'contact.form.title':'Επικοινωνήστε','contact.form.sub':'Ας μιλήσουμε — πείτε μας για το έργο σας.',
+    'contact.field.name':'Πλήρες Όνομα','contact.field.email':'Διεύθυνση Email','contact.field.website':'Ο Ιστοτόπος σας','contact.field.service':'Επιλέξτε Υπηρεσία','contact.field.message':'Το Μήνυμά σας',
+    'contact.tag.uiux':'Σχεδιασμός UI/UX','contact.tag.web':'Ανάπτυξη Web','contact.tag.seo':'SEO & Ανάπτυξη','contact.tag.ecom':'E-Commerce','contact.tag.brand':'Branding','contact.tag.maint':'Συντήρηση','contact.tag.other':'Άλλο',
+    'contact.submit':'Αποστολή Αιτήματος','contact.note':'Απαντάμε συνήθως εντός 24 ωρών.',
+    'contact.success':'Το μήνυμά σας στάλθηκε! Θα επικοινωνήσουμε εντός 24 ωρών.',
+    'trusted.label':'Εμπιστεύονται +50 Εταιρείες και Επιχειρήσεις',
     'cta.title':'Έτοιμοι να Μεταμορφώσετε την Ψηφιακή σας Παρουσία;','cta.p':'Ας ξεκινήσουμε μαζί ένα ταξίδι καινοτομίας.',
     'footer.brand':'Είμαστε μια παθιασμένη ομάδα ψηφιακών οραματιστών.','footer.col1':'Σχετικά με Εμάς','footer.col2':'Επικοινωνία','footer.col3':'Απόρρητο','footer.copy':'© 2025 DankeFlow. Με επιφύλαξη παντός δικαιώματος.',
-      'faq.badge':'Συχνές Ερωτήσεις','faq.title':'Συχνές Ερωτήσεις<br>Πελατών','faq.q1':'Πόσος χρόνος χρειάζεται;','faq.a1':'2–4 εβδομάδες. Μια landing page σε 5–7 μέρες.','faq.q2':'Τι πρέπει να παρέχω;','faq.a2':'Μόνο την ιδέα σας. Χωρίς τεχνικές γνώσεις.','faq.q3':'Πόσο κοστίζει;','faq.a3':'Διαφανείς τιμές χωρίς κρυφές χρεώσεις.','faq.q4':'Μπορώ να ενημερώνω μόνος μου;','faq.a4':'Ναι. Εύχρηστα CMS χωρίς προγραμματισμό.','faq.q5':'Προσφέρετε υποστήριξη μετά;','faq.a5':'Απολύτως. Πακέτα συντήρησης.','faq.q6':'Θα λειτουργεί σε κινητό;','faq.a6':'Κάθε ιστοτόπος είναι πλήρως responsive.',
   },
 };
-
 const langMeta = { en:{flag:'🇬🇧',code:'EN'}, sq:{flag:'🇦🇱',code:'SQ'}, de:{flag:'🇩🇪',code:'DE'}, it:{flag:'🇮🇹',code:'IT'}, el:{flag:'🇬🇷',code:'EL'} };
 let currentLang = 'en';
 
 function applyTranslations(lang) {
   currentLang = lang;
   const t = i18n[lang];
-  const htmlKeys = new Set(['sv.h1','testi.title','sv.strip.title']);
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (!t[key]) return;
-    htmlKeys.has(key) ? el.innerHTML = t[key] : el.textContent = t[key];
+    if (t[key]) el.textContent = t[key];
   });
   document.getElementById('currentFlag').textContent = langMeta[lang].flag;
   document.getElementById('currentCode').textContent = langMeta[lang].code;
@@ -1652,6 +1747,29 @@ function setLang(lang) { applyTranslations(lang); document.getElementById('langS
 function toggleLang(e) { e.stopPropagation(); document.getElementById('langSwitcher').classList.toggle('open'); }
 document.addEventListener('click', () => document.getElementById('langSwitcher').classList.remove('open'));
 
+function toggleTag(el) { el.classList.toggle('selected'); }
+
+function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const msg = document.getElementById('f-message').value.trim();
+  if (!name || !email || !msg) {
+    ['f-name','f-email','f-message'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#ef4444';
+        el.style.boxShadow = '0 0 0 3px rgba(239,68,68,.15)';
+        setTimeout(() => { el.style.borderColor=''; el.style.boxShadow=''; }, 2000);
+      }
+    });
+    return;
+  }
+  document.getElementById('successMsg').classList.add('show');
+  ['f-name','f-email','f-website','f-message'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('.service-tag.selected').forEach(t => t.classList.remove('selected'));
+  setTimeout(() => document.getElementById('successMsg').classList.remove('show'), 5000);
+}
+
 function toggleMenu() {
   const nav = document.getElementById('mobileNav');
   const overlay = document.getElementById('navOverlay');
@@ -1662,29 +1780,11 @@ function toggleMenu() {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 }
 
-document.querySelectorAll('.reveal').forEach(el => {
-  new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 }).observe(el);
-});
+  // Make all reveal elements visible immediately
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 
-const navEl = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-  navEl.style.background = window.scrollY > 50 ? 'rgba(2,6,23,0.98)' : 'rgba(2,6,23,0.85)';
-});
-
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll(".reveal").forEach(function(el) { el.classList.add("visible"); });
-  applyTranslations("en");
-  document.addEventListener("click", function() { document.getElementById("langSwitcher").classList.remove("open"); });
-});
+  // Apply English translations on load
+  applyTranslations('en');
 </script>
 </body>
 </html>
