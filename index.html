@@ -1666,7 +1666,7 @@
     <div class="footer-col footer-contact">
       <h4 data-i18n="footer.col2">Contact Us</h4>
       <ul>
-        <li>✉ <a href="mailto:hello@dankeflow.com">[email&#160;protected]</a></li>
+        <li>✉ <a href="/cdn-cgi/l/email-protection#e088858c8c8fa084818e8b85868c8f97ce838f8d">[email&#160;protected]</a></li>
         <li>📞 +355693873740</li>
         <li>📍 Tirane</li>
       </ul>
@@ -1706,7 +1706,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const i18n = {
     en: {
       'nav.services':'Services','nav.projects':'Projects','nav.pricing': 'Pricing','nav.why':'Why Us','nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
@@ -2022,6 +2022,9 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBlog(); });
+
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  applyTranslations('en');
 
 </script>
 </body>
