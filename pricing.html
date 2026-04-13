@@ -478,13 +478,23 @@
     .footer-bottom p { font-size: 0.8rem; color: var(--muted); }
     .socials { display: flex; gap: 12px; }
     .social-link {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); text-decoration: none; font-size: 0.75rem;
-      font-weight: 600; transition: border-color 0.2s, color 0.2s;
-    }
-    .social-link:hover { border-color: var(--primary); color: var(--accent); }
+  width: 38px;
+  height: 38px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--muted);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.social-link svg { width: 18px; height: 18px; fill: currentColor; }
+.social-link:hover { transform: translateY(-2px); }
+.social-link.ig:hover  { border-color: #e1306c; color: #e1306c; background: rgba(225,48,108,0.08); }
+.social-link.tt:hover  { border-color: #fff; color: #fff; background: rgba(255,255,255,0.08); }
+.social-link.wa:hover  { border-color: #25d366; color: #25d366; background: rgba(37,211,102,0.08); }
 
     @media (max-width: 900px) {
       .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
