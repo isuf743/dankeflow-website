@@ -613,13 +613,6 @@
   <p>Choose the plan that fits your goals. No hidden fees, no surprises — just results.</p>
 </section>
 
-<!-- BILLING TOGGLE -->
-<div class="billing-toggle">
-  <span id="labelMonthly" class="active-label">Monthly</span>
-  <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()"></div>
-  <span id="labelYearly">Yearly</span>
-  <span class="save-badge">Save 20%</span>
-</div>
 
 <!-- PRICING GRID -->
 <div class="pricing-grid">
@@ -629,10 +622,8 @@
     <div class="plan-name">Starter Plan</div>
     <div class="plan-desc">Ideal for individuals and small businesses looking to establish their online presence.</div>
     <div class="plan-price">
-      <span class="price-amount" id="price-starter">$4,000</span>
-      <span class="price-period">/Per Month</span>
+      <span class="price-amount">€199</span>
     </div>
-    <div class="price-yearly" id="yearly-starter"></div>
     <div class="plan-divider"></div>
     <ul class="plan-features">
       <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Basic Website Development</li>
@@ -650,10 +641,8 @@
     <div class="plan-name">Growth Plan</div>
     <div class="plan-desc">Perfect for businesses aiming to expand their reach and engage with a larger audience.</div>
     <div class="plan-price">
-      <span class="price-amount" id="price-growth">$8,000</span>
-      <span class="price-period">/Per Month</span>
+      <span class="price-amount">€399</span>
     </div>
-    <div class="price-yearly" id="yearly-growth"></div>
     <div class="plan-divider"></div>
     <ul class="plan-features">
       <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Custom Website Development</li>
@@ -670,10 +659,8 @@
     <div class="plan-name">Premium Plan</div>
     <div class="plan-desc">Designed for established businesses and e-commerce platforms seeking a comprehensive digital solution.</div>
     <div class="plan-price">
-      <span class="price-amount" id="price-premium">$10,000</span>
-      <span class="price-period">/Per Month</span>
+      <span class="price-amount">€599</span>
     </div>
-    <div class="price-yearly" id="yearly-premium"></div>
     <div class="plan-divider"></div>
     <ul class="plan-features">
       <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Performance Analytics</li>
@@ -835,26 +822,7 @@
     if (!isOpen) item.classList.add('open');
   }
 
-  // Billing toggle
-  let isYearly = false;
-  const prices = { starter: 4000, growth: 8000, premium: 10000 };
 
-  function toggleBilling() {
-    isYearly = !isYearly;
-    const toggle = document.getElementById('billingToggle');
-    toggle.classList.toggle('yearly', isYearly);
-    document.getElementById('labelMonthly').classList.toggle('active-label', !isYearly);
-    document.getElementById('labelYearly').classList.toggle('active-label', isYearly);
-
-    for (const [key, monthly] of Object.entries(prices)) {
-      const amount = isYearly ? Math.round(monthly * 0.8) : monthly;
-      document.getElementById('price-' + key).textContent = '$' + amount.toLocaleString();
-      const yearlyEl = document.getElementById('yearly-' + key);
-      yearlyEl.textContent = isYearly
-        ? `$${(amount * 12).toLocaleString()} billed annually`
-        : '';
-    }
-  }
 </script>
 </body>
 </html>
