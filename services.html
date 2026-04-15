@@ -1084,17 +1084,30 @@
       text-transform: uppercase; letter-spacing: 0.1em;
       color: var(--muted); margin-bottom: 10px;
     }
-    .mob-lang-btns { display: flex; gap: 8px; }
+    .mob-lang-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
     .mob-lang-btn {
-      flex: 1; display: flex; align-items: center; justify-content: center;
-      gap: 5px; padding: 9px 6px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border); border-radius: 8px;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.76rem; font-weight: 600; color: var(--muted);
-      transition: all 0.2s;
-    }
+  width: calc(50% - 5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 10px;
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+
+  transition: all 0.2s;
+}
     .mob-lang-btn:hover { border-color: var(--primary); color: #fff; background: rgba(59,130,246,0.08); }
     .mob-lang-btn.active { border-color: var(--primary); color: var(--accent); background: rgba(59,130,246,0.12); }
     .mob-lang-btn .flag { font-size: 0.95rem; }
