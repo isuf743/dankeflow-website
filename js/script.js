@@ -247,16 +247,50 @@ const i18n = {
       : 'rgba(2,6,23,0.85)';
   });
 
-  // Subtle mouse parallax on hero mockup
-  const heroWrap = document.querySelector('.hero-image-wrap');
-  if (heroWrap) {
-    document.addEventListener('mousemove', (e) => {
-      const rx = ((e.clientY / window.innerHeight) - 0.5) * 6;
-      const ry = ((e.clientX / window.innerWidth) - 0.5) * -8;
-      heroWrap.style.transform = `rotateX(${rx + 4}deg) rotateY(${ry - 3}deg)`;
+  // 3D Card tilt effect
+  const wrap = document.getElementById('hero3dWrap');
+  const card = wrap ? wrap.querySelector('.hero-3d-card') : null;
+  if (wrap && card) {
+    let animating = false;
+
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const rx =  dy * -12;
+      const ry =  dx *  14;
+      card.style.animation = 'none';
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(8px)`;
+      card.style.boxShadow = `
+        ${-ry * 2}px ${rx * 2}px 60px rgba(0,0,0,0.7),
+        0 0 80px rgba(59,130,246,${0.12 + Math.abs(dx) * 0.1}),
+        inset 0 1px 0 rgba(255,255,255,0.06)
+      `;
     });
-    document.addEventListener('mouseleave', () => {
-      heroWrap.style.transform = '';
+
+    wrap.addEventListener('mouseleave', () => {
+      card.style.animation = 'cardFloat 6s ease-in-out infinite';
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+
+    // Touch support for mobile
+    wrap.addEventListener('touchmove', (e) => {
+      const t = e.touches[0];
+      const rect = wrap.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (t.clientX - cx) / (rect.width / 2);
+      const dy = (t.clientY - cy) / (rect.height / 2);
+      card.style.animation = 'none';
+      card.style.transform = `rotateX(${dy * -8}deg) rotateY(${dx * 10}deg) translateZ(4px)`;
+    }, { passive: true });
+
+    wrap.addEventListener('touchend', () => {
+      card.style.animation = 'cardFloat 6s ease-in-out infinite';
+      card.style.transform = '';
     });
   }
 
@@ -317,4 +351,3 @@ const i18n = {
 
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   applyTranslations('en');
- 
