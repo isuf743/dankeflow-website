@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms of Service — DankeFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #3b82f6;
+      --accent:  #60a5fa;
+      --bg:      #020617;
+      --card:    #0f172a;
+      --border:  rgba(59,130,246,0.15);
+      --text:    #e2e8f0;
+      --muted:   #64748b;
+      --grad:    linear-gradient(135deg, #2563eb, #3b82f6);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+      background: rgba(2,6,23,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .logo-icon { width:36px; height:36px; }
+    .logo-text { font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:700; color:#fff; }
+    .logo-text span { color:var(--primary); }
+    .nav-links { display:flex; align-items:center; gap:36px; list-style:none; }
+    .nav-links a { font-size:0.875rem; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover { color:#fff; }
+    .nav-cta { background:var(--grad); color:#fff !important; padding:10px 22px; border-radius:8px; font-weight:500 !important; }
+    .nav-cta:hover { opacity:0.85; }
+    @media (max-width:900px) { nav { padding:0 24px; } .nav-links { display:none; } }
+
+    /* HERO */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 140px 24px 64px;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top:0; left:50%; transform:translateX(-50%);
+      width:600px; height:400px;
+      background: radial-gradient(ellipse at center, rgba(37,99,235,0.18) 0%, transparent 70%);
+      pointer-events:none; z-index:0;
+    }
+    .section-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.25);
+      color:var(--accent); font-size:0.78rem; font-weight:600;
+      padding:6px 16px; border-radius:999px;
+      text-transform:uppercase; letter-spacing:0.08em;
+      margin-bottom:20px; position:relative; z-index:1;
+    }
+    .hero h1 {
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2rem,5vw,3.5rem);
+      font-weight:800; color:#fff; line-height:1.15;
+      margin-bottom:16px; position:relative; z-index:1;
+    }
+    .hero h1 span {
+      background:var(--grad);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .hero p { font-size:1rem; color:var(--muted); max-width:500px; margin:0 auto; line-height:1.7; position:relative; z-index:1; }
+    .last-updated {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      margin-top:24px; position:relative; z-index:1;
+    }
+    .last-updated span {
+      font-size:0.8rem; color:var(--muted);
+      background:var(--card); border:1px solid var(--border);
+      border-radius:999px; padding:4px 14px;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 800px; margin: 0 auto;
+      padding: 0 24px 100px;
+      position: relative; z-index: 1;
+    }
+
+    .toc {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; padding:28px 32px; margin-bottom:48px;
+    }
+    .toc h3 {
+      font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700;
+      color:var(--accent); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px;
+    }
+    .toc ol { list-style:none; display:flex; flex-direction:column; gap:8px; counter-reset:toc; }
+    .toc ol li { counter-increment:toc; display:flex; align-items:center; gap:12px; }
+    .toc ol li::before {
+      content:counter(toc,decimal-leading-zero);
+      font-size:0.72rem; font-weight:700; color:var(--primary); min-width:24px;
+    }
+    .toc ol li a { font-size:0.875rem; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+    .toc ol li a:hover { color:#fff; }
+
+    .highlight-box {
+      background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.2);
+      border-left:3px solid var(--primary); border-radius:0 12px 12px 0;
+      padding:16px 20px; margin:20px 0;
+      font-size:0.875rem; color:var(--text); line-height:1.7;
+    }
+
+    .policy-section { margin-bottom:48px; scroll-margin-top:100px; }
+    .section-num {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:0.72rem; font-weight:700; color:var(--primary);
+      text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px;
+    }
+    .section-num::before {
+      content:''; display:inline-block; width:20px; height:2px;
+      background:var(--grad); border-radius:2px;
+    }
+    .policy-section h2 {
+      font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:700;
+      color:#fff; margin-bottom:16px;
+    }
+    .policy-section p {
+      font-size:0.925rem; color:var(--muted);
+      line-height:1.85; margin-bottom:14px;
+    }
+    .policy-section p:last-child { margin-bottom:0; }
+    .policy-section ul { list-style:none; display:flex; flex-direction:column; gap:10px; margin:14px 0; }
+    .policy-section ul li {
+      display:flex; align-items:flex-start; gap:12px;
+      font-size:0.925rem; color:var(--muted); line-height:1.6;
+    }
+    .policy-section ul li::before {
+      content:''; display:inline-block; width:6px; height:6px;
+      background:var(--primary); border-radius:50%; flex-shrink:0; margin-top:8px;
+    }
+    strong.hl { color:#e2e8f0; }
+    a.inline { color:var(--accent); text-decoration:none; }
+    a.inline:hover { text-decoration:underline; }
+
+    .divider-line { height:1px; background:var(--border); margin:48px 0; }
+
+    /* CTA */
+    .cta-box {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:20px; padding:40px 36px; text-align:center;
+      margin-top:64px; position:relative; overflow:hidden;
+    }
+    .cta-box::before {
+      content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+      width:300px; height:200px;
+      background:radial-gradient(ellipse,rgba(59,130,246,0.1) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .cta-box h3 { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:10px; position:relative; z-index:1; }
+    .cta-box p { font-size:0.9rem; color:var(--muted); margin-bottom:24px; position:relative; z-index:1; }
+    .cta-box a {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--grad); color:#fff; padding:13px 28px;
+      border-radius:10px; font-size:0.9rem; font-weight:600;
+      text-decoration:none; transition:opacity 0.2s,transform 0.2s;
+      position:relative; z-index:1;
+    }
+    .cta-box a:hover { opacity:0.85; transform:translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background:var(--card); border-top:1px solid var(--border);
+      padding:40px 48px 28px; position:relative; z-index:1;
+    }
+    .footer-bottom {
+      max-width:1100px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    }
+    .footer-bottom p { font-size:0.8rem; color:var(--muted); }
+    .footer-links { display:flex; gap:20px; }
+    .footer-links a { font-size:0.8rem; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+    .footer-links a:hover { color:#fff; }
+
+    @media (max-width:600px) {
+      footer { padding:32px 24px 20px; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+      .toc { padding:20px; }
+      .cta-box { padding:28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="/" class="logo">
+    <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#2563eb"/>
+          <stop offset="100%" stop-color="#60a5fa"/>
+        </linearGradient>
+      </defs>
+      <path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8 Z" fill="url(#lg)" opacity="0.15"/>
+      <path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8" stroke="url(#lg)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 28 L22 12" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+    </svg>
+    <span class="logo-text">Danke<span>Flow</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/services">Services</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/contact" class="nav-cta">Book A Free Call</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="section-badge">📄 Legal</div>
+  <h1>Terms of <span>Service</span></h1>
+  <p>Please read these terms carefully before using our services. By engaging with DankeFlow, you agree to be bound by these terms.</p>
+  <div class="last-updated">
+    <span>📅 Last updated: January 1, 2025</span>
+  </div>
+</section>
+
+<div class="content">
+
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#services">Our Services</a></li>
+      <li><a href="#client-obligations">Client Obligations</a></li>
+      <li><a href="#payment">Payment Terms</a></li>
+      <li><a href="#intellectual-property">Intellectual Property</a></li>
+      <li><a href="#confidentiality">Confidentiality</a></li>
+      <li><a href="#revisions">Revisions & Scope</a></li>
+      <li><a href="#warranties">Warranties & Disclaimers</a></li>
+      <li><a href="#limitation">Limitation of Liability</a></li>
+      <li><a href="#termination">Termination</a></li>
+      <li><a href="#governing">Governing Law</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    These Terms of Service ("Terms") govern your use of DankeFlow's website and services. By accessing our website or engaging our services, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, please do not use our services.
+  </div>
+
+  <!-- 01 -->
+  <div class="policy-section" id="acceptance">
+    <div class="section-num">01</div>
+    <h2>Acceptance of Terms</h2>
+    <p>By accessing our website at <strong class="hl">dankeflow.com</strong>, contacting us, or engaging DankeFlow for any service, you acknowledge that you have read and agree to these Terms of Service and our <a href="/privacy" class="inline">Privacy Policy</a>.</p>
+    <p>These Terms apply to all visitors, clients, and anyone who interacts with our services. We reserve the right to update these Terms at any time. Continued use of our services after changes constitutes acceptance of the updated Terms.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 02 -->
+  <div class="policy-section" id="services">
+    <div class="section-num">02</div>
+    <h2>Our Services</h2>
+    <p>DankeFlow provides digital services including but not limited to:</p>
+    <ul>
+      <li>Website design and development (UI/UX, frontend, full-stack)</li>
+      <li>Search engine optimization (SEO) and digital growth strategies</li>
+      <li>E-commerce solutions (Shopify, WooCommerce, custom)</li>
+      <li>Website maintenance, updates, and technical support</li>
+      <li>Branding, content strategy, and performance optimization</li>
+    </ul>
+    <p>The specific scope, timeline, and deliverables for each project are defined in a separate project agreement or proposal confirmed between DankeFlow and the client prior to project commencement.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 03 -->
+  <div class="policy-section" id="client-obligations">
+    <div class="section-num">03</div>
+    <h2>Client Obligations</h2>
+    <p>To ensure a successful project, clients agree to:</p>
+    <ul>
+      <li><strong class="hl">Provide Accurate Information</strong> — supply all necessary content, assets, credentials, and feedback in a timely manner</li>
+      <li><strong class="hl">Timely Communication</strong> — respond to requests for feedback, approvals, or clarification within a reasonable timeframe (typically 3–5 business days)</li>
+      <li><strong class="hl">Legal Compliance</strong> — ensure all content, images, and materials provided do not infringe on third-party rights</li>
+      <li><strong class="hl">Authorized Representative</strong> — confirm you have the authority to enter into this agreement on behalf of your business or organization</li>
+    </ul>
+    <div class="highlight-box">
+      Delays caused by late client feedback or missing materials may affect the project timeline. DankeFlow is not responsible for project delays resulting from client-side inaction.
+    </div>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 04 -->
+  <div class="policy-section" id="payment">
+    <div class="section-num">04</div>
+    <h2>Payment Terms</h2>
+    <p>Payment terms are outlined in the individual project proposal. Unless otherwise agreed in writing:</p>
+    <ul>
+      <li><strong class="hl">Deposit</strong> — a deposit (typically 50%) is required before any project work begins</li>
+      <li><strong class="hl">Final Payment</strong> — the remaining balance is due upon project completion, before final files or access are delivered</li>
+      <li><strong class="hl">Late Payments</strong> — invoices not paid within 14 days of the due date may incur a late fee of 2% per month</li>
+      <li><strong class="hl">Currency</strong> — all prices are quoted in the currency stated on the proposal (EUR or USD)</li>
+      <li><strong class="hl">Refunds</strong> — deposits are non-refundable once project work has commenced, as they cover time and resources already allocated</li>
+    </ul>
+    <p>DankeFlow reserves the right to suspend or pause work on a project where payment obligations are not met.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 05 -->
+  <div class="policy-section" id="intellectual-property">
+    <div class="section-num">05</div>
+    <h2>Intellectual Property</h2>
+    <p>Upon receipt of full payment, the client receives full ownership of the final deliverables created specifically for their project, including:</p>
+    <ul>
+      <li>Custom website design files and source code</li>
+      <li>Custom graphics, illustrations, and visual assets created for the project</li>
+      <li>Written content authored by DankeFlow specifically for the client</li>
+    </ul>
+    <p>DankeFlow retains the right to:</p>
+    <ul>
+      <li>Display completed work in our portfolio and case studies</li>
+      <li>Use general methodologies, frameworks, and non-client-specific code developed during the project in future work</li>
+      <li>Retain ownership of any tools, templates, or proprietary systems used but not created exclusively for the project</li>
+    </ul>
+    <p>Third-party assets (stock images, fonts, plugins, open-source libraries) remain subject to their respective licenses. The client is responsible for ensuring proper licensing for any third-party assets they request to be used.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 06 -->
+  <div class="policy-section" id="confidentiality">
+    <div class="section-num">06</div>
+    <h2>Confidentiality</h2>
+    <p>Both parties agree to treat as confidential any proprietary, sensitive, or non-public information shared during the course of the project. This includes business strategies, financial data, client lists, login credentials, and technical specifications.</p>
+    <p>DankeFlow will not disclose confidential client information to third parties without explicit written consent, except where required by law.</p>
+    <p>This confidentiality obligation survives the termination of the working relationship and remains in effect indefinitely.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 07 -->
+  <div class="policy-section" id="revisions">
+    <div class="section-num">07</div>
+    <h2>Revisions & Scope</h2>
+    <p>Each project proposal includes a defined number of revision rounds. Revisions are changes to work already completed and approved. Revisions do not include:</p>
+    <ul>
+      <li>New features or functionality not included in the original scope</li>
+      <li>Fundamental redesigns after a design direction has been approved</li>
+      <li>Changes resulting from third-party platform updates or requirement changes</li>
+    </ul>
+    <p>Requests that fall outside the agreed scope will be treated as new work and quoted separately. Any scope changes must be agreed upon in writing before additional work commences.</p>
+    <div class="highlight-box">
+      Clear communication at the start of a project helps us deliver exactly what you need. We encourage clients to be thorough when reviewing deliverables at each stage.
+    </div>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 08 -->
+  <div class="policy-section" id="warranties">
+    <div class="section-num">08</div>
+    <h2>Warranties & Disclaimers</h2>
+    <p>DankeFlow warrants that:</p>
+    <ul>
+      <li>All work will be performed professionally and with reasonable skill and care</li>
+      <li>Deliverables will conform to the agreed specifications at the time of delivery</li>
+      <li>We have the right to provide the services described</li>
+    </ul>
+    <p>DankeFlow does not warrant that:</p>
+    <ul>
+      <li>Specific business outcomes (e.g., increased sales, traffic, or rankings) will result from our work</li>
+      <li>The website will be free from all bugs or errors after delivery to third-party hosting environments</li>
+      <li>Third-party services, platforms, or APIs integrated into the project will remain available or unchanged</li>
+    </ul>
+    <p>Our website and services are provided "as is" without warranties of any kind beyond those expressly stated herein.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 09 -->
+  <div class="policy-section" id="limitation">
+    <div class="section-num">09</div>
+    <h2>Limitation of Liability</h2>
+    <p>To the maximum extent permitted by applicable law, DankeFlow's total liability to any client for any claim arising from or relating to our services shall not exceed the total amount paid by the client for the specific project giving rise to the claim.</p>
+    <p>DankeFlow shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
+    <ul>
+      <li>Loss of profits, revenue, or business opportunities</li>
+      <li>Loss of data or unauthorized access to data</li>
+      <li>Damages caused by third-party services, plugins, or hosting providers</li>
+      <li>Delays caused by client inaction or third-party dependencies</li>
+    </ul>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 10 -->
+  <div class="policy-section" id="termination">
+    <div class="section-num">10</div>
+    <h2>Termination</h2>
+    <p>Either party may terminate the working relationship with written notice. Upon termination:</p>
+    <ul>
+      <li>The client is responsible for payment of all work completed up to the termination date</li>
+      <li>DankeFlow will deliver all completed work and assets for which payment has been received</li>
+      <li>Any deposit paid is non-refundable if work has already commenced</li>
+      <li>Both parties remain bound by confidentiality obligations</li>
+    </ul>
+    <p>DankeFlow reserves the right to immediately terminate the agreement if the client engages in abusive behavior, requests illegal content, or violates these Terms.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 11 -->
+  <div class="policy-section" id="governing">
+    <div class="section-num">11</div>
+    <h2>Governing Law</h2>
+    <p>These Terms of Service shall be governed by and construed in accordance with the laws of Albania. Any disputes arising from these Terms or our services shall be subject to the exclusive jurisdiction of the courts of Tiranë, Albania.</p>
+    <p>If any provision of these Terms is found to be unenforceable, the remaining provisions shall continue in full force and effect.</p>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <!-- 12 -->
+  <div class="policy-section" id="contact">
+    <div class="section-num">12</div>
+    <h2>Contact</h2>
+    <p>If you have any questions about these Terms of Service, please contact us:</p>
+    <ul>
+      <li>Email: <a href="mailto:hello@dankeflow.com" class="inline">hello@dankeflow.com</a></li>
+      <li>Location: Tiranë, Albania</li>
+    </ul>
+  </div>
+
+  <div class="cta-box">
+    <h3>Questions About Our Terms?</h3>
+    <p>We're happy to clarify anything before you engage our services.</p>
+    <a href="/contact">Get In Touch →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2025 DankeFlow. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/services">Services</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms" style="color:var(--accent)">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(2,6,23,0.98)' : 'rgba(2,6,23,0.85)';
+  });
+</script>
+</body>
+</html>
