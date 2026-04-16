@@ -1,6 +1,6 @@
 const i18n = {
     en: {
-      'nav.services':'Services','nav.projects':'Projects','nav.pricing': 'Pricing','nav.why':'Why Us','nav.testimonials':'Testimonials','nav.blog':'Blog','nav.cta':'Book A Free Call',
+      'nav.services':'Services','nav.projects':'Projects','nav.pricing': 'Pricing','nav.why':'Why Us','nav.testimonials':'Testimonials','nav.cta':'Book A Free Call',
       'hero.badge':'🚀 Accepting New Projects',
       'hero.h1':'We Design & Build Websites <span class="blue">That Actually Grow</span> Your Business',
       'hero.p':'Unlock the potential of your business with our services. From idea to clients — we build everything you need.',
@@ -26,16 +26,13 @@ const i18n = {
       't1.p':'Choosing DankeFlow was a game-changer for our brand. Their creative team seamlessly redesigned our website, bringing a touch of modern elegance that truly reflects our brand identity.',
       't2.p':'The expertise and dedication of DankeFlow have been instrumental in propelling our tech startup forward. They truly understand what it means to build for the future.',
       't3.p':'Working with DankeFlow has been a transformative experience for our marketing initiatives. Their UI/UX not only resonated with our audience but significantly boosted brand awareness.',
-      'blog.badge':'Blog','blog.title':'Our Latest Blog Posts','blog.viewall':'View All Posts →',
-      'blog1.cat':'Design & Marketing','blog1.title':'The Art Of Storytelling In Digital Marketing',
-      'blog2.cat':'UI/UX Design','blog2.title':'The Psychology Of Color In UI/UX Design','readmore':'Read More →',
       'cta.title':'Ready To Transform Your Digital Presence?','cta.p':"Let's embark on a journey of innovation and creativity together.",
       'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.",
       'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
       'spb.rating':'4.9/5 Rating','spb.projects':'80+ Projects','spb.clients':'50+ Clients','spb.delivery':'14 Days Delivery',
     },
     sq: {
-      'nav.services':'Shërbime','nav.projects':'Projekte','nav.pricing': 'Çmimet','nav.why':'Pse Ne','nav.testimonials':'Recensione','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
+      'nav.services':'Shërbime','nav.projects':'Projekte','nav.pricing': 'Çmimet','nav.why':'Pse Ne','nav.testimonials':'Recensione','nav.cta':'Rezervo një Takim',
       'hero.badge':'🚀 Duke pranuar projekte të reja',
       'hero.h1':'Ne Projektojme & Ndertojme Faqe <span class="blue"> Qe Rrisin dhe Automatizojnë</span> Biznesin Tuaj',
       'hero.p':'Çlironi potencialin e biznesit tuaj me shërbimet tona. Nga ide në Klientë — Ne ndërtojmë gjithçka që ju duhet.',
@@ -61,16 +58,13 @@ const i18n = {
       't1.p':'Zgjedhja e DankeFlow ishte revolucionare për markën tonë. Ekipi i tyre krijues ridizajnoi faqen duke sjellë elegancë moderne që pasqyron identitetin tonë.',
       't2.p':'Ekspertiza dhe dedikimi i DankeFlow kanë qenë vendimtare për përparimin e startup-it tonë.',
       't3.p':'Puna me DankeFlow ka qenë një përvojë transformuese. UI/UX-i i tyre rriti ndjeshëm ndërgjegjësimin e markës.',
-      'blog.badge':'Blog','blog.title':'Postimet Tona të Fundit','blog.viewall':'Shiko të Gjitha →',
-      'blog1.cat':'Dizajn & Marketing','blog1.title':'Arti i Tregimit në Marketing Dixhital',
-      'blog2.cat':'Dizajn UI/UX','blog2.title':'Psikologjia e Ngjyrës në Dizajn UI/UX','readmore':'Lexo Më Shumë →',
       'cta.title':'Gati të Transformoni Praninë Tuaj Dixhitale?','cta.p':'Le të fillojmë së bashku një udhëtim inovacioni dhe kreativiteti.',
       'footer.brand':'Jemi një ekip i apasionuar vizionarësh dixhitalë të dedikuar për të krijuar eksperienca të jashtëzakonshme online.',
       'footer.col1':'Rreth Nesh','footer.col2':'Na Kontaktoni','footer.col3':'Privatësia','footer.copy':'© 2025 DankeFlow. Të Gjitha të Drejtat të Rezervuara.',
       'spb.rating':'Vlerësim 4.9/5','spb.projects':'+80 Projekte','spb.clients':'+50 Klientë','spb.delivery':'Dorëzim brenda 14 Ditëve',
     },
     de: {
-      'nav.services':'Leistungen','nav.projects':'Projekte','nav.pricing':'Preise','nav.why':'Warum Wir','nav.testimonials':'Bewertungen','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
+      'nav.services':'Leistungen','nav.projects':'Projekte','nav.pricing':'Preise','nav.why':'Warum Wir','nav.testimonials':'Bewertungen','nav.cta':'Gespräch Buchen',
       'hero.badge':'🚀 Neue Projekte werden angenommen',
       'hero.h1':'Digitale Lösungen die Ihr Business <span class="blue">wachsen und automatisieren</span>',
       'hero.p':'Entfesseln Sie das Potenzial Ihres Unternehmens. Von der Idee zu Kunden — Wir bauen alles, was Sie brauchen.',
@@ -96,16 +90,13 @@ const i18n = {
       't1.p':'Die Wahl von DankeFlow war bahnbrechend. Ihr kreatives Team hat unsere Website neu gestaltet.',
       't2.p':'Das Fachwissen von DankeFlow war entscheidend für den Fortschritt unseres Tech-Startups.',
       't3.p':'Die Zusammenarbeit mit DankeFlow war eine transformative Erfahrung.',
-      'blog.badge':'Blog','blog.title':'Unsere neuesten Beiträge','blog.viewall':'Alle Beiträge →',
-      'blog1.cat':'Design & Marketing','blog1.title':'Die Kunst des Storytellings im digitalen Marketing',
-      'blog2.cat':'UI/UX Design','blog2.title':'Die Psychologie der Farbe im UI/UX-Design','readmore':'Mehr lesen →',
       'cta.title':'Bereit Ihre digitale Präsenz zu transformieren?','cta.p':'Lassen Sie uns gemeinsam eine Reise der Innovation beginnen.',
       'footer.brand':'Wir sind ein leidenschaftliches Team digitaler Visionäre das außergewöhnliche Online-Erlebnisse schafft.',
       'footer.col1':'Über Uns','footer.col2':'Kontakt','footer.col3':'Datenschutz','footer.copy':'© 2025 DankeFlow. Alle Rechte vorbehalten.',
       'spb.rating':'Bewertung 4.9/5','spb.projects':'80+ Projekte','spb.clients':'50+ Kunden','spb.delivery':'Lieferung in 14 Tagen',
     },
     it: {
-      'nav.services':'Servizi','nav.projects':'Progetti','nav.pricing':'Prezzi','nav.why':'Perché Noi','nav.testimonials':'Testimonianze','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
+      'nav.services':'Servizi','nav.projects':'Progetti','nav.pricing':'Prezzi','nav.why':'Perché Noi','nav.testimonials':'Testimonianze','nav.cta':'Prenota una Chiamata',
       'hero.badge':'🚀 Accettando nuovi progetti',
       'hero.h1':'Soluzioni Digitali che <span class="blue">Crescono e Automatizzano</span> il Tuo Business',
       'hero.p':"Sblocca il potenziale del tuo business. Dall'idea ai clienti — costruiamo tutto ciò di cui hai bisogno.",
@@ -131,16 +122,14 @@ const i18n = {
       't1.p':'Scegliere DankeFlow è stata una svolta. Il loro team ha ridisegnato il nostro sito portando eleganza moderna.',
       't2.p':"L'esperienza di DankeFlow è stata fondamentale per il progresso del nostro startup.",
       't3.p':"Lavorare con DankeFlow è stata un'esperienza trasformativa per il marketing.",
-      'blog.badge':'Blog','blog.title':'I Nostri Ultimi Articoli','blog.viewall':'Vedi Tutti →',
-      'blog1.cat':'Design & Marketing','blog1.title':"L'Arte dello Storytelling nel Marketing Digitale",
-      'blog2.cat':'Design UI/UX','blog2.title':'La Psicologia del Colore nel Design UI/UX','readmore':'Leggi di Più →',
+      'blog1.title':"L'Arte dello Storytelling nel Marketing Digitale",
       'cta.title':'Pronto a Trasformare la Tua Presenza Digitale?','cta.p':"Intraprendiamo insieme un viaggio di innovazione.",
       'footer.brand':"Siamo un team appassionato di visionari digitali, dedicati a creare esperienze online eccezionali.",
       'footer.col1':'Chi Siamo','footer.col2':'Contattaci','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. Tutti i diritti riservati.',
       'spb.rating':'Valutazione 4.9/5','spb.projects':'80+ Progetti','spb.clients':'50+ Clienti','spb.delivery':'Consegnato in 14 Giorni',
     },
     el: {
-      'nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.pricing':'Τιμές','nav.why':'Γιατί Εμείς','nav.testimonials':'Μαρτυρίες','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
+      'nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.pricing':'Τιμές','nav.why':'Γιατί Εμείς','nav.testimonials':'Μαρτυρίες','nav.cta':'Κλείστε Ραντεβού',
       'hero.badge':'🚀 Δεχόμαστε νέα έργα',
       'hero.h1':'Ψηφιακές Λύσεις που <span class="blue">Αναπτύσσουν & Αυτοματοποιούν</span> την Επιχείρησή σας',
       'hero.p':'Ξεκλειδώστε το δυναμικό της επιχείρησής σας. Από ιδέα σε πελάτες — χτίζουμε ό,τι χρειάζεστε.',
@@ -166,9 +155,6 @@ const i18n = {
       't1.p':'Η επιλογή της DankeFlow ήταν καταλυτική. Ανασχεδίασαν τον ιστοτόπο με μοντέρνα κομψότητα.',
       't2.p':'Η εμπειρία της DankeFlow ήταν καθοριστική για την πρόοδο του startup μας.',
       't3.p':'Η συνεργασία με τη DankeFlow ήταν μεταμορφωτική για τις πρωτοβουλίες marketing μας.',
-      'blog.badge':'Blog','blog.title':'Τελευταία Άρθρα μας','blog.viewall':'Δείτε Όλα →',
-      'blog1.cat':'Σχεδιασμός & Marketing','blog1.title':'Η Τέχνη της Αφήγησης στο Ψηφιακό Marketing',
-      'blog2.cat':'Σχεδιασμός UI/UX','blog2.title':'Η Ψυχολογία του Χρώματος στο UI/UX','readmore':'Διαβάστε Περισσότερα →',
       'cta.title':'Έτοιμοι να Μεταμορφώσετε την Ψηφιακή σας Παρουσία;','cta.p':'Ας ξεκινήσουμε μαζί ένα ταξίδι καινοτομίας.',
       'footer.brand':'Είμαστε μια παθιασμένη ομάδα ψηφιακών οραματιστών αφοσιωμένη στη. Με επιφύλαξη παντός δικαιώματος.',
       'footer.col1':'Σχετικά με Εμάς','footer.col2':'Επικοινωνία','footer.col3':'Απόρρητο','footer.copy':'© 2025 DankeFlow. Με επιφύλαξη παντός δικαιώματος.',
@@ -309,45 +295,7 @@ const i18n = {
   applyTranslations('en');
 
   // ── BLOG MODAL ──
-  const blogData = [
-    {
-      img: 'desing.png',
-      cat: 'Design & Marketing',
-      title: 'The Art Of Storytelling In Digital Marketing',
-      body: `<p style="margin-bottom:16px">In today's crowded digital landscape, facts and features alone are no longer enough to capture attention. The brands that truly stand out are the ones that tell compelling stories — stories that resonate, inspire, and build lasting emotional connections with their audience.</p>
-<p style="margin-bottom:16px">Effective storytelling in digital marketing starts with understanding your audience deeply: what they care about, what challenges they face, and what kind of transformation they're looking for. When you speak directly to those desires, your message becomes far more powerful than any promotional pitch.</p>
-<p style="margin-bottom:16px">From social media campaigns to landing pages and email sequences, every touchpoint is an opportunity to advance your brand's narrative. Great stories have a hero (your customer), a challenge, and a resolution — and your product or service plays the role of the guide that makes success possible.</p>
-<p>At DankeFlow, we help businesses craft authentic digital narratives that convert visitors into loyal clients. Because when people connect with your story, they don't just buy — they believe.</p>`
-    },
-    {
-      img: 'uiux.png',
-      cat: 'UI/UX Design',
-      title: 'The Psychology Of Color In UI/UX Design',
-      body: `<p style="margin-bottom:16px">Color is one of the most powerful — and most underestimated — tools in a designer's toolkit. Before a user reads a single word on your website, color has already communicated something: trust, urgency, calm, energy, or exclusivity. Understanding color psychology is essential for creating interfaces that feel right, not just look right.</p>
-<p style="margin-bottom:16px">Different colors trigger different emotional and psychological responses. Blue conveys reliability and professionalism — it's why so many fintech and SaaS brands use it. Orange signals energy and confidence, making it ideal for CTAs. Green suggests growth and health. Black communicates luxury and sophistication. Each choice shapes user perception before conscious thought kicks in.</p>
-<p style="margin-bottom:16px">Beyond individual colors, contrast ratios directly affect readability and accessibility. A beautiful design that's hard to read fails its users. The best UI decisions balance aesthetics with function — ensuring every color serves both an emotional and practical purpose.</p>
-<p>At DankeFlow, every interface we design goes through intentional color strategy — ensuring your brand not only looks stunning but communicates exactly the right feeling at every step of the user journey.</p>`
-    }
-  ];
 
-  function openBlog(i) {
-    const d = blogData[i];
-    const modal = document.getElementById('blogModal');
-    document.getElementById('blogModalImg').src   = d.img;
-    document.getElementById('blogModalImg').alt   = d.cat;
-    document.getElementById('blogModalCat').textContent = d.cat;
-    document.getElementById('blogModalTitle').textContent = d.title;
-    document.getElementById('blogModalBody').innerHTML = d.body;
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeBlog() {
-    document.getElementById('blogModal').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBlog(); });
 
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   applyTranslations('en');

@@ -36,7 +36,6 @@
 	<a href="/projects.html" onclick="toggleMenu()"><span data-i18n="nav.projects">Projects</span><span class="arrow">›</span></a>
     <a href="/pricing.html" onclick="toggleMenu()"><span data-i18n="nav.pricing">Pricing</span><span class="arrow">›</span></a>
     <a href="#why" onclick="toggleMenu()"><span data-i18n="nav.why">Why Us</span><span class="arrow">›</span></a>
-    <a href="#blog" onclick="toggleMenu()"><span data-i18n="nav.blog">Blog</span><span class="arrow">›</span></a>
     <a href="/contact.html" class="mob-cta" onclick="toggleMenu()"><span data-i18n="nav.cta">Book A Free Call</span></a>
   </div>
 
@@ -65,7 +64,6 @@
 	<li><a href="#pricing.html" data-i18n="nav.pricing">Pricing</a></li>
 	<li><a href="#why" data-i18n="nav.why">Why Us</a></li>
     <li><a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a></li>
-    <li><a href="#blog" data-i18n="nav.blog">Blog</a></li>
     <li><a href="/contact.html" class="nav-cta" data-i18n="nav.cta">Book A Free Call</a></li>
   </ul>
 
@@ -472,40 +470,6 @@
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- BLOG -->
-<section id="blog">
-  <div class="section-wrap">
-    <div class="blog-header reveal">
-      <div>
-        <div class="section-badge" data-i18n="blog.badge">Blog</div>
-        <h2 class="section-title" data-i18n="blog.title">Our Latest Blog Posts</h2>
-      </div>
-      <a href="#" class="view-all" data-i18n="blog.viewall">View All Posts →</a>
-    </div>
-
-    <div class="blog-grid">
-      <a href="#" class="blog-card reveal" onclick="openBlog(0);return false;">
-        <img src="image/desing.png" alt="Design & Marketing" style="width:100%;height:200px;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.3s;"/>
-        <div class="blog-info">
-          <div class="blog-cat" data-i18n="blog1.cat">Design & Marketing</div>
-          <h3 data-i18n="blog1.title">The Art Of Storytelling In Digital Marketing</h3>
-          <span class="read-more" data-i18n="readmore">Read More →</span>
-        </div>
-      </a>
-
-      <a href="#" class="blog-card reveal" onclick="openBlog(1);return false;">
-        <img src="image/uiux.png" alt="UI/UX Design" style="width:100%;height:200px;object-fit:cover;display:block;filter:brightness(0.88);transition:filter 0.3s;"/>
-        <div class="blog-info">
-          <div class="blog-cat" data-i18n="blog2.cat">UI/UX Design</div>
-          <h3 data-i18n="blog2.title">The Psychology Of Color In UI/UX Design</h3>
-          <span class="read-more">Read More →</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
 
 <!-- FAQ -->
 <section id="faq" class="faq-section">
@@ -557,8 +521,10 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-main">
+
+    <!-- Brand -->
     <div class="footer-brand">
-      <a href="#" class="logo">
+      <a href="/" class="logo">
         <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient></defs>
           <path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8 Z" fill="url(#lg2)" opacity="0.15"/>
@@ -567,36 +533,41 @@
         </svg>
         <span class="logo-text">Danke<span>Flow</span></span>
       </a>
-      <p>We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.</p>
+      <p data-i18n="footer.brand">We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences that drive real business results.</p>
+      <div class="footer-badge">🇦🇱 Based in Tiranë, Albania</div>
     </div>
 
+    <!-- About Us -->
     <div class="footer-col">
       <h4 data-i18n="footer.col1">About Us</h4>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="projects.html">Our Projects</a></li>
-        <li><a href="#blog">Blog</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/projects.html">Our Projects</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
       </ul>
     </div>
 
+    <!-- Contact Us -->
     <div class="footer-col footer-contact">
       <h4 data-i18n="footer.col2">Contact Us</h4>
       <ul>
-        <li>✉ <a href="malito:info@dankeflow.com">info@dankeflow.com</a></li>
-        <li>📞 +355693873740</li>
-        <li>📍 Tirane</li>
+        <li><span class="footer-icon">✉</span><a href="mailto:hello@dankeflow.com">hello@dankeflow.com</a></li>
+        <li><span class="footer-icon">📞</span><a href="tel:+355693873740">+355 69 387 3740</a></li>
+        <li><span class="footer-icon">📍</span>Tiranë, Albania</li>
       </ul>
     </div>
 
+    <!-- Privacy -->
     <div class="footer-col">
-      <h4 data-i18n="footer.col3">Privacy</h4>
+      <h4 data-i18n="footer.col3">Legal</h4>
       <ul>
-		<li><a href="faq.html">FAQ</a></li>
-		<li><a href="terms.html">Terms of Service</a></li>
-		<li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
       </ul>
-	</div>
+    </div>
+
   </div>
 
   <div class="footer-bottom">
@@ -626,18 +597,6 @@
   </div>
 </footer>
 
-<!-- BLOG MODAL -->
-<div id="blogModal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(2,6,23,0.85);backdrop-filter:blur(8px);overflow-y:auto;padding:24px;" onclick="if(event.target===this)closeBlog()">
-  <div style="max-width:720px;margin:60px auto;background:#0f172a;border:1px solid rgba(59,130,246,0.2);border-radius:20px;overflow:hidden;position:relative;">
-    <button onclick="closeBlog()" style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.08);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;z-index:10;">✕</button>
-    <img id="blogModalImg" src="" alt="" style="width:100%;height:260px;object-fit:cover;display:block;filter:brightness(0.85);">
-    <div style="padding:36px;">
-      <div id="blogModalCat" style="font-size:0.72rem;font-weight:600;color:#3b82f6;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;"></div>
-      <h2 id="blogModalTitle" style="font-family:Syne,sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.25;margin-bottom:20px;"></h2>
-      <div id="blogModalBody" style="font-size:0.95rem;color:#94a3b8;line-height:1.8;"></div>
-    </div>
-  </div>
-</div>
 <script>
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
