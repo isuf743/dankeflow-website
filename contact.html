@@ -1271,7 +1271,13 @@
       .form-row { grid-template-columns:1fr; }
       .contact-form { padding:28px 20px; }
     }
-
+	.mob-active {
+  background: rgba(59,130,246,0.12) !important;
+  color: var(--accent) !important;
+  border-left: 3px solid var(--primary);
+  padding-left: 21px !important;
+  font-weight: 600 !important;
+}
   </style>
 </head>
 <body>
@@ -1286,10 +1292,13 @@
     <button class="mob-close" onclick="toggleMenu()">&#10005;</button>
   </div>
   <div class="mobile-nav-links">
-    <a href="index.html" onclick="toggleMenu()"><span data-i18n="nav.home">Home</span><span class="arrow">&#8250;</span></a>
-    <a href="#" onclick="toggleMenu()"><span data-i18n="nav.services">Services</span><span class="arrow">&#8250;</span></a>
-    <a href="#" onclick="toggleMenu()"><span data-i18n="nav.projects">Projects</span><span class="arrow">&#8250;</span></a>
-    <a href="contact.html" class="mob-cta" onclick="toggleMenu()"><span data-i18n="nav.cta">Book A Free Call</span></a>
+   <a href="/" onclick="toggleMenu()"><span data-i18n="nav.home">Home</span><span class="arrow">›</span></a>
+   <a href="/services.html" onclick="toggleMenu()"><span data-i18n="nav.services">Services</span><span class="arrow">›</span></a>
+   <a href="/projects.html" onclick="toggleMenu()"><span data-i18n="nav.projects">Projects</span><span class="arrow">›</span></a>
+   <a href="/pricing.html" onclick="toggleMenu()"><span data-i18n="nav.pricing">Pricing</span><span class="arrow">›</span></a>
+   <a href="/#why" onclick="toggleMenu()"><span data-i18n="nav.why">Why Us</span><span class="arrow">›</span></a>
+   <a href="/#blog" onclick="toggleMenu()"><span data-i18n="nav.blog">Blog</span><span class="arrow">›</span></a>
+   <a href="/contact.html" class="mob-cta mob-active" onclick="toggleMenu()"><span data-i18n="nav.cta">Book A Free Call</span></a>
   </div>
   
 </div>

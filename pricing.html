@@ -506,6 +506,13 @@
       .footer-main { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; gap: 16px; }
     }
+	.mob-active {
+  background: rgba(59,130,246,0.12) !important;
+  color: var(--accent) !important;
+  border-left: 3px solid var(--primary);
+  padding-left: 21px !important;
+  font-weight: 600 !important;
+}
   </style>
 </head>
 <body>
@@ -528,13 +535,13 @@
     <button class="mob-close" onclick="toggleMenu()">✕</button>
   </div>
   <div class="mobile-nav-links">
-    <a href="services.html" onclick="toggleMenu()"><span>Services</span><span class="arrow">›</span></a>
-    <a href="projects.html" onclick="toggleMenu()"><span>Projects</span><span class="arrow">›</span></a>
-    <a href="index.html#why" onclick="toggleMenu()"><span>Why Us</span><span class="arrow">›</span></a>
-    <a href="index.html#testimonials" onclick="toggleMenu()"><span>Testimonials</span><span class="arrow">›</span></a>
-    <a href="index.html#blog" onclick="toggleMenu()"><span>Blog</span><span class="arrow">›</span></a>
-    <a href="pricing.html" class="active-mob" onclick="toggleMenu()"><span>Pricing</span><span class="arrow">›</span></a>
-    <a href="contact.html" class="mob-cta" onclick="toggleMenu()"><span>Book A Free Call</span></a>
+   <a href="/" onclick="toggleMenu()"><span>Home</span><span class="arrow">›</span></a>
+   <a href="/services.html" onclick="toggleMenu()"><span>Services</span><span class="arrow">›</span></a>
+   <a href="/projects.html" onclick="toggleMenu()"><span>Projects</span><span class="arrow">›</span></a>
+   <a href="/pricing.html" onclick="toggleMenu()" class="mob-active"><span>Pricing</span><span class="arrow">›</span></a>
+   <a href="/#why" onclick="toggleMenu()"><span>Why Us</span><span class="arrow">›</span></a>
+   <a href="/#blog" onclick="toggleMenu()"><span>Blog</span><span class="arrow">›</span></a>
+   <a href="/contact.html" class="mob-cta" onclick="toggleMenu()"><span>Book A Free Call</span></a>
   </div>
 
   </div>
@@ -737,8 +744,8 @@
       <h4 data-i18n="footer.col3">Privacy</h4>
       <ul>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="terms">Terms of Service</a></li>
-        <li><a href="privacy">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
       </ul>
     </div>
   </div>

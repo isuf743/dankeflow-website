@@ -1332,4 +1332,11 @@
     .faq-item.open .faq-a{max-height:400px;}
 
     /* SAFETY */ .hero-badge,.hero h1,.hero p,.hero-btns,.hero-left,.hero-right{opacity:1!important;}
+	.mob-active {
+  background: rgba(59,130,246,0.12) !important;
+  color: var(--accent) !important;
+  border-left: 3px solid var(--primary);
+  padding-left: 21px !important;
+  font-weight: 600 !important;
+}
   </style>
