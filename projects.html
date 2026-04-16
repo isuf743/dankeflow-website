@@ -1208,6 +1208,36 @@
       .pv-grid{grid-template-columns:1fr;gap:20px;}
     }
 
+    /* ── PROJECT MODAL ── */
+    .proj-modal-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(2,6,23,0.88);backdrop-filter:blur(10px);overflow-y:auto;padding:24px;}
+    .proj-modal-overlay.open{display:block;}
+    .proj-modal{max-width:780px;margin:48px auto;background:#0b1628;border:1px solid rgba(59,130,246,0.2);border-radius:24px;overflow:hidden;position:relative;animation:modalIn 0.35s cubic-bezier(.22,1,.36,1);}
+    @keyframes modalIn{from{opacity:0;transform:translateY(32px) scale(0.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+    .proj-modal-close{position:absolute;top:16px;right:16px;z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
+    .proj-modal-close:hover{background:rgba(255,255,255,0.18);}
+    .proj-modal-img{width:100%;height:260px;object-fit:cover;display:block;filter:brightness(0.9);}
+    .proj-modal-body{padding:36px;}
+    .proj-modal-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+    .proj-modal-tag{padding:4px 12px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:999px;font-size:0.72rem;color:var(--accent);font-weight:500;}
+    .proj-modal-title{font-family:'Syne',sans-serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:#fff;margin-bottom:6px;line-height:1.2;}
+    .proj-modal-subtitle{font-size:0.8rem;color:var(--accent);font-weight:600;margin-bottom:22px;text-transform:uppercase;letter-spacing:0.06em;}
+    .proj-modal-divider{height:1px;background:var(--border);margin:22px 0;}
+    .proj-modal-section-title{font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
+    .proj-modal-desc{font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:20px;}
+    .proj-modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+    .proj-stat{background:rgba(59,130,246,0.05);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+    .proj-stat .val{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .proj-stat .lbl{font-size:0.72rem;color:var(--muted);margin-top:4px;}
+    .proj-modal-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;}
+    .proj-modal-list li{display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:var(--muted);line-height:1.5;}
+    .proj-modal-list li::before{content:'';display:inline-block;width:6px;height:6px;background:var(--primary);border-radius:50%;flex-shrink:0;margin-top:6px;}
+    .proj-modal-footer{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;}
+    .proj-modal-cta{display:inline-flex;align-items:center;gap:8px;background:var(--grad);color:#fff;padding:12px 24px;border-radius:10px;font-size:0.875rem;font-weight:600;text-decoration:none;transition:opacity 0.2s,transform 0.2s;}
+    .proj-modal-cta:hover{opacity:0.85;transform:translateY(-1px);}
+    .proj-modal-btn2{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--accent);padding:12px 24px;border-radius:10px;border:1px solid rgba(59,130,246,0.35);font-size:0.875rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color 0.2s,background 0.2s;}
+    .proj-modal-btn2:hover{border-color:var(--primary);background:rgba(59,130,246,0.08);}
+    @media(max-width:520px){.proj-modal-stats{grid-template-columns:1fr 1fr;}.proj-modal-body{padding:20px;}.proj-modal-img{height:180px;}}
+
   </style>
 </head>
 <body>
@@ -1294,7 +1324,7 @@
       </div>
       <h3 data-i18n="pv.p1.title">EventSpark — Conference Website</h3>
       <p data-i18n="pv.p1.desc">A modern event platform with ticketing, live schedules and speaker profiles. Fully responsive and optimized for conversion.</p>
-      <a href="contact.html" class="pv-link" data-i18n="pv.details">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="pv-link" data-i18n="pv.details" onclick="openProject(0);return false;">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
@@ -1313,7 +1343,7 @@
       </div>
       <h3 data-i18n="pv.p2.title">FitFlow — Fitness Training App</h3>
       <p data-i18n="pv.p2.desc">Health & fitness platform with personalized workout plans, progress tracking and nutrition guidance. Built for scale.</p>
-      <a href="contact.html" class="pv-link" data-i18n="pv.details">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="pv-link" data-i18n="pv.details" onclick="openProject(1);return false;">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
@@ -1333,7 +1363,7 @@
       </div>
       <h3 data-i18n="pv.p3.title">Miracle — Online Banking App</h3>
       <p data-i18n="pv.p3.desc">Clean and secure mobile banking UI with biometric login, instant transfers and real-time spending analytics.</p>
-      <a href="contact.html" class="pv-link" data-i18n="pv.details">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="pv-link" data-i18n="pv.details" onclick="openProject(2);return false;">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
@@ -1352,7 +1382,7 @@
       </div>
       <h3 data-i18n="pv.p4.title">MuPark — Music Player App</h3>
       <p data-i18n="pv.p4.desc">Immersive music streaming experience with visualizer, playlist management and social sharing features.</p>
-      <a href="contact.html" class="pv-link" data-i18n="pv.details">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="pv-link" data-i18n="pv.details" onclick="openProject(3);return false;">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
@@ -1371,7 +1401,7 @@
       </div>
       <h3 data-i18n="pv.p5.title">Emedical — Medical Clinic Website</h3>
       <p data-i18n="pv.p5.desc">Trustworthy medical platform with appointment booking, doctor profiles and patient portal. WCAG compliant.</p>
-      <a href="contact.html" class="pv-link" data-i18n="pv.details">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="pv-link" data-i18n="pv.details" onclick="openProject(4);return false;">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
@@ -1390,7 +1420,7 @@
       </div>
       <h3 data-i18n="pv.p6.title">Finplum — Fintech Website</h3>
       <p data-i18n="pv.p6.desc">Modern financial services platform with investment dashboard, account management and real-time market data.</p>
-      <a href="contact.html" class="pv-link" data-i18n="pv.details">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="pv-link" data-i18n="pv.details" onclick="openProject(5);return false;">View Project Details <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
@@ -1590,6 +1620,180 @@ window.addEventListener('load',()=>{
     if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),300);
   }
 });
+</script>
+<!-- PROJECT MODAL -->
+<div class="proj-modal-overlay" id="projModal" onclick="if(event.target===this)closeProject()">
+  <div class="proj-modal">
+    <button class="proj-modal-close" onclick="closeProject()">✕</button>
+    <img class="proj-modal-img" id="pmImg" src="" alt=""/>
+    <div class="proj-modal-body">
+      <div class="proj-modal-tags" id="pmTags"></div>
+      <div class="proj-modal-title" id="pmTitle"></div>
+      <div class="proj-modal-subtitle" id="pmSubtitle"></div>
+
+      <div class="proj-modal-section-title">About the Project</div>
+      <div class="proj-modal-desc" id="pmDesc"></div>
+
+      <div class="proj-modal-stats" id="pmStats"></div>
+
+      <div class="proj-modal-divider"></div>
+      <div class="proj-modal-section-title">What We Did</div>
+      <ul class="proj-modal-list" id="pmList"></ul>
+
+      <div class="proj-modal-divider"></div>
+      <div class="proj-modal-section-title">Result</div>
+      <div class="proj-modal-desc" id="pmResult"></div>
+
+      <div class="proj-modal-footer">
+        <a href="contact.html" class="proj-modal-cta">Start a Similar Project →</a>
+        <button class="proj-modal-btn2" onclick="closeProject()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const projects = [
+  {
+    title: 'EventSpark — Conference Website',
+    subtitle: 'Web Design & Branding',
+    img: 'image/eventspark.png',
+    tags: ['Web Design','Branding'],
+    desc: 'EventSpark needed a high-impact digital presence to support their international conference series. We designed and built a fully responsive event platform that streamlined the entire attendee journey — from discovery to registration.',
+    stats: [{val:'3 wks',lbl:'Delivery Time'},{val:'98',lbl:'PageSpeed Score'},{val:'+40%',lbl:'Registrations'}],
+    list: [
+      'Custom UI/UX design with modern conference aesthetics',
+      'Ticketing system with real-time availability and seat selection',
+      'Dynamic speaker profile pages with schedule integration',
+      'Live countdown and session reminders via email',
+      'SEO optimization targeting event-specific keywords',
+      'Mobile-first development with cross-browser testing'
+    ],
+    result: 'The new platform launched 3 weeks ahead of the conference and drove a 40% increase in online registrations compared to the previous year. The client reported overwhelmingly positive feedback from attendees on the booking experience.'
+  },
+  {
+    title: 'FitFlow — Fitness Training App',
+    subtitle: 'App Design & Web Development',
+    img: 'image/fitnessapp.png',
+    tags: ['App Design','Web Design','Branding'],
+    desc: 'FitFlow is a health and fitness startup that needed a complete digital product — a branded app UI and marketing website — to launch their personalized workout and nutrition platform to the market.',
+    stats: [{val:'4 wks',lbl:'Delivery Time'},{val:'50K+',lbl:'App Downloads'},{val:'4.8★',lbl:'App Store Rating'}],
+    list: [
+      'Full app UI/UX design for iOS and Android',
+      'Personalized workout plan interface with progress tracking',
+      'Nutrition dashboard with macro tracking and meal logging',
+      'Marketing website with conversion-optimized landing page',
+      'Brand identity including logo, color system, and typography',
+      'Onboarding flow designed to reduce churn in first 7 days'
+    ],
+    result: 'FitFlow launched to strong market reception, achieving over 50,000 downloads in the first quarter and maintaining a 4.8-star rating on the App Store. The marketing website converted at 3.2%, well above industry average.'
+  },
+  {
+    title: 'Miracle — Online Banking App',
+    subtitle: 'App Design & Branding',
+    img: 'image/miracle.png',
+    tags: ['App Design','Branding'],
+    desc: 'Miracle required a clean, trustworthy, and secure-feeling mobile banking UI that would instill confidence in users while delivering a frictionless experience. Security and simplicity had to coexist.',
+    stats: [{val:'5 wks',lbl:'Delivery Time'},{val:'99%',lbl:'User Satisfaction'},{val:'2.1s',lbl:'Avg. Load Time'}],
+    list: [
+      'End-to-end app UI/UX for mobile banking flows',
+      'Biometric login screen with multi-factor authentication design',
+      'Instant transfer interface with real-time balance updates',
+      'Spending analytics dashboard with visual breakdowns',
+      'Notification and security alert system design',
+      'Accessibility-first design compliant with WCAG 2.1 AA'
+    ],
+    result: 'The Miracle banking app launched to a 99% user satisfaction rate in beta testing. The streamlined onboarding reduced drop-off by 35% compared to the previous interface, and average session time increased by 2 minutes.'
+  },
+  {
+    title: 'MuPark — Music Player App',
+    subtitle: 'App Design & Branding',
+    img: 'image/music.png',
+    tags: ['App Design','Branding'],
+    desc: 'MuPark wanted to create an immersive music streaming experience that went beyond a standard player — one that felt alive, expressive, and socially connected. The challenge was balancing visual richness with usability.',
+    stats: [{val:'3 wks',lbl:'Delivery Time'},{val:'20K+',lbl:'Beta Users'},{val:'+60%',lbl:'Session Length'}],
+    list: [
+      'Immersive player UI with dynamic album art visualizer',
+      'Playlist management with drag-and-drop and smart sorting',
+      'Social sharing features with clip creation tools',
+      'Offline mode interface with download queue management',
+      'Artist profile pages with discography and tour dates',
+      'Dark and light theme system with smooth transitions'
+    ],
+    result: 'The MuPark beta attracted over 20,000 users within the first month. Average listening session length increased by 60% compared to user research benchmarks. The app received recognition in two independent design awards shortlists.'
+  },
+  {
+    title: 'Emedical — Medical Clinic Website',
+    subtitle: 'Web Design & Branding',
+    img: 'image/emedical.png',
+    tags: ['Web Design','Branding'],
+    desc: 'Emedical needed a trustworthy, professional website for their network of medical clinics — one that would reassure patients, streamline appointment booking, and reflect the high standard of care they provide.',
+    stats: [{val:'4 wks',lbl:'Delivery Time'},{val:'+55%',lbl:'Appointments'},{val:'WCAG',lbl:'AA Compliant'}],
+    list: [
+      'Patient-centered UX design with accessibility at its core',
+      'Online appointment booking system with specialty and doctor filters',
+      'Doctor profile pages with credentials, reviews, and availability',
+      'Patient portal with test results and appointment history',
+      'WCAG 2.1 AA compliance for all interactive elements',
+      'Multilingual support for the clinic\'s diverse patient base'
+    ],
+    result: 'Online appointment bookings increased by 55% within 60 days of launch. Patient satisfaction scores improved, with 89% rating the booking experience as "very easy." The site achieved full WCAG AA compliance on launch day.'
+  },
+  {
+    title: 'Finplum — Fintech Website',
+    subtitle: 'Web Design, E-Commerce & Branding',
+    img: 'image/fineplum.png',
+    tags: ['Web Design','Branding','E-Commerce'],
+    desc: 'Finplum is a modern fintech platform requiring a sophisticated digital presence that conveyed authority, innovation, and clarity in a complex financial services space. The site needed to convert informed decision-makers.',
+    stats: [{val:'5 wks',lbl:'Delivery Time'},{val:'+80%',lbl:'Lead Conversions'},{val:'A+',lbl:'Security Score'}],
+    list: [
+      'Premium financial services website with data-driven layout',
+      'Interactive investment dashboard prototype for demo purposes',
+      'Account management UI with portfolio visualization',
+      'Real-time market data integration and display design',
+      'Trust-building elements: security badges, compliance statements',
+      'Lead capture funnels optimized for B2B decision-makers'
+    ],
+    result: 'Finplum\'s new website increased qualified lead conversions by 80% in the first two months. The site achieved an A+ security rating and the average time-on-page increased by 2.4 minutes, indicating strong content engagement.'
+  }
+];
+
+function openProject(i) {
+  const p = projects[i];
+  const overlay = document.getElementById('projModal');
+
+  document.getElementById('pmImg').src = p.img;
+  document.getElementById('pmImg').alt = p.title;
+  document.getElementById('pmTitle').textContent = p.title;
+  document.getElementById('pmSubtitle').textContent = p.subtitle;
+  document.getElementById('pmDesc').textContent = p.desc;
+  document.getElementById('pmResult').textContent = p.result;
+
+  // Tags
+  document.getElementById('pmTags').innerHTML = p.tags.map(t =>
+    `<span class="proj-modal-tag">${t}</span>`
+  ).join('');
+
+  // Stats
+  document.getElementById('pmStats').innerHTML = p.stats.map(s =>
+    `<div class="proj-stat"><div class="val">${s.val}</div><div class="lbl">${s.lbl}</div></div>`
+  ).join('');
+
+  // List
+  document.getElementById('pmList').innerHTML = p.list.map(l =>
+    `<li>${l}</li>`
+  ).join('');
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProject() {
+  document.getElementById('projModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProject(); });
 </script>
 </body>
 </html>
