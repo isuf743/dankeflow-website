@@ -761,85 +761,8 @@
       color: var(--muted);
     }
 
-    /* ── BLOG ── */
-    .blog-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 48px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
 
-    .blog-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .blog-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      text-decoration: none;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .blog-card:hover {
-      border-color: rgba(59,130,246,0.4);
-      transform: translateY(-4px);
-    }
-
-    .blog-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      filter: brightness(0.8);
-      transition: filter 0.3s;
-    }
-    .blog-img-wrap {
-      width: 100%;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      transition: opacity 0.3s;
-    }
-    .blog-card:hover .blog-img-wrap { opacity: 0.9; }
-    .blog-card:hover .blog-img { filter: brightness(1); }
-
-    .blog-info {
-      padding: 24px;
-    }
-
-    .blog-cat {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--primary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 10px;
-    }
-
-    .blog-info h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.4;
-      margin-bottom: 16px;
-    }
-
-    .read-more {
-      font-size: 0.82rem;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 500;
-      transition: gap 0.2s;
-    }
-    .blog-card:hover .read-more { gap: 10px; }
-
-    /* ── CTA ── */
+        /* ── CTA ── */
     .cta-section {
       padding: 0 24px 100px;
     }
@@ -1105,9 +1028,7 @@
       .services-grid { grid-template-columns: 1fr 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
       .why-wrap { grid-template-columns: 1fr; gap: 48px; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .blog-grid { grid-template-columns: 1fr; }
-      .footer-main { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }      .footer-main { grid-template-columns: 1fr 1fr; }
       .cta-inner { flex-direction: column; text-align: center; padding: 48px 32px; }
     }
 
@@ -1224,11 +1145,12 @@
     .contact-hero p { font-size:1rem; color:var(--muted); animation:fadeUp .6s .1s ease forwards; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-    .info-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1100px; margin:0 auto; padding:0 24px 80px; }
-    .info-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px 24px; text-align:center; transition:border-color .3s,transform .3s,box-shadow .3s; }
+    .info-cards { display:flex; flex-direction:column; gap:16px; max-width:600px; margin:0 auto; padding:0 24px 80px; }
+    .info-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px 28px; text-align:left; display:flex; align-items:center; gap:20px; transition:border-color .3s,transform .3s,box-shadow .3s; }
     .info-card:hover { border-color:rgba(59,130,246,.5); transform:translateY(-4px); box-shadow:0 20px 50px rgba(59,130,246,.1); }
-    .info-icon { width:48px; height:48px; background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.2); border-radius:14px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:1.3rem; }
-    .info-card h3 { font-family:'Inter',sans-serif; font-size:.95rem; font-weight:700; color:#fff; margin-bottom:8px; }
+    .info-icon { font-size:1.4rem; width:52px; height:52px; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); border-radius:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .info-card-text { flex:1; }
+    .info-card h3 { font-family:'Syne',sans-serif; font-size:.95rem; font-weight:700; color:#fff; margin-bottom:4px; }
     .info-card p,.info-card a { font-size:.85rem; color:var(--muted); text-decoration:none; line-height:1.6; transition:color .2s; }
     .info-card a:hover { color:var(--accent); }
 
@@ -1306,7 +1228,7 @@
   <div class="info-card reveal">
     <div class="info-icon">&#9993;</div>
     <h3 data-i18n="contact.email.title">Email Us At</h3>
-    <a href="mailto:info@dankeflow.com">info@dankeflow.com</a>
+    <a href="mailto:hello@dankeflow.com">hello@dankeflow.com</a>
   </div>
   <div class="info-card reveal">
     <div class="info-icon">&#128205;</div>
@@ -1329,7 +1251,7 @@
       <h2 data-i18n="cta.title">Ready To Transform Your Digital Presence?</h2>
       <p data-i18n="cta.p">Let's embark on a journey of innovation and creativity together.</p>
     </div>
-    <a href="mailto:info@dankeflow.com" class="cta-btn" title="Get In Touch">&#8599;</a>
+    <a href="mailto:hello@dankeflow.com" class="cta-btn" title="Get In Touch">&#8599;</a>
   </div>
 </section>
 
@@ -1345,12 +1267,12 @@
     </div>
     <div class="footer-col">
       <h4 data-i18n="footer.col1">About Us</h4>
-      <ul><li><a href="index.html">Home</a></li><li><a href="#">About Us</a></li><li><a href="projects.html">Projects</a></li><li><a href="#">Blog</a></li></ul>
+      <ul><li><a href="index.html">Home</a></li><li><a href="#">About Us</a></li><li><a href="projects.html">Projects</a></li></ul>
     </div>
     <div class="footer-col footer-contact">
       <h4 data-i18n="footer.col2">Contact Us</h4>
       <ul>
-  <li>📧 <a href="mailto:info@dankeflow.com">info@dankeflow.com</a></li><li>📞 +355693873740</li><li>📍 Kosovo</li></ul>
+  <li>📧 <a href="mailto:hello@dankeflow.com">hello@dankeflow.com</a></li><li>📞 +355693873740</li><li>📍 Kosovo</li></ul>
     </div>
     <div class="footer-col">
 	   <h4 data-i18n="footer.col3">Privacy</h4>
@@ -1390,7 +1312,7 @@
 <script>
 const i18n = {
   en: {
-    'nav.home':'Home','nav.services':'Services','nav.projects':'Projects','nav.blog':'Blog','nav.cta':'Book A Free Call',
+    'nav.home':'Home','nav.services':'Services','nav.projects':'Projects','nav.cta':'Book A Free Call',
     'contact.badge':'Contact Us','contact.sub':'Reach out through any of these channels or fill in the form below.',
     'contact.email.title':'Email Us At','contact.location.title':'Our Location','contact.location.val':'Kosovo, Balkans','contact.phone.title':'Call Us At',
     'contact.form.sub':"Let's have a chat — tell us about your project.",
@@ -1400,7 +1322,7 @@ const i18n = {
     'footer.brand':"We're a passionate team of digital visionaries, dedicated to crafting exceptional online experiences.",'footer.col1':'About Us','footer.col2':'Contact Us','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. All Rights Reserved.',
   },
   sq: {
-    'nav.home':'Kryefaqja','nav.services':'Shërbime','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Rezervo një Takim',
+    'nav.home':'Kryefaqja','nav.services':'Shërbime','nav.projects':'Projekte','nav.cta':'Rezervo një Takim',
     'contact.badge':'Na Kontaktoni','contact.sub':'Na kontaktoni nëpërmjet kanaleve tona ose plotësoni formularin.',
     'contact.email.title':'Na Shkruani','contact.location.title':'Lokacioni Ynë','contact.location.val':'Kosovë, Ballkan','contact.phone.title':'Na Telefononi',
     'contact.success':"Mesazhi u dërgua! Do t'ju përgjigjemi brenda 24 orëve.",
@@ -1409,7 +1331,7 @@ const i18n = {
     'footer.brand':'Jemi një ekip i apasionuar vizionarësh dixhitalë.','footer.col1':'Rreth Nesh','footer.col2':'Na Kontaktoni','footer.col3':'Privatësia','footer.copy':'© 2025 DankeFlow. Të Gjitha të Drejtat të Rezervuara.',
   },
   de: {
-    'nav.home':'Startseite','nav.services':'Leistungen','nav.projects':'Projekte','nav.blog':'Blog','nav.cta':'Gespräch Buchen',
+    'nav.home':'Startseite','nav.services':'Leistungen','nav.projects':'Projekte','nav.cta':'Gespräch Buchen',
     'contact.badge':'Kontakt','contact.sub':'Erreichen Sie uns über einen dieser Kanäle oder füllen Sie das Formular aus.',
     'contact.email.title':'E-Mail an uns','contact.location.title':'Unser Standort','contact.location.val':'Kosovo, Balkan','contact.phone.title':'Rufen Sie uns an',
     'trusted.label':'Vertraut von +50 Unternehmen und Firmen',
@@ -1417,7 +1339,7 @@ const i18n = {
     'footer.brand':'Wir sind ein leidenschaftliches Team digitaler Visionäre.','footer.col1':'Über Uns','footer.col2':'Kontakt','footer.col3':'Datenschutz','footer.copy':'© 2025 DankeFlow. Alle Rechte vorbehalten.',
   },
   it: {
-    'nav.home':'Home','nav.services':'Servizi','nav.projects':'Progetti','nav.blog':'Blog','nav.cta':'Prenota una Chiamata',
+    'nav.home':'Home','nav.services':'Servizi','nav.projects':'Progetti','nav.cta':'Prenota una Chiamata',
     'contact.badge':'Contattaci','contact.sub':'Contattaci attraverso uno di questi canali o compila il modulo.',
     'contact.email.title':'Scrivici','contact.location.title':'La Nostra Sede','contact.location.val':'Kosovo, Balcani','contact.phone.title':'Chiamaci',
     'trusted.label':'Scelti da +50 Aziende e Imprese',
@@ -1425,7 +1347,7 @@ const i18n = {
     'footer.brand':'Siamo un team appassionato di visionari digitali.','footer.col1':'Chi Siamo','footer.col2':'Contattaci','footer.col3':'Privacy','footer.copy':'© 2025 DankeFlow. Tutti i diritti riservati.',
   },
   el: {
-    'nav.home':'Αρχική','nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.blog':'Blog','nav.cta':'Κλείστε Ραντεβού',
+    'nav.home':'Αρχική','nav.services':'Υπηρεσίες','nav.projects':'Έργα','nav.cta':'Κλείστε Ραντεβού',
     'contact.badge':'Επικοινωνία','contact.sub':'Επικοινωνήστε μαζί μας μέσω οποιουδήποτε καναλιού ή συμπληρώστε τη φόρμα.',
     'contact.email.title':'Στείλτε μας Email','contact.location.title':'Η Τοποθεσία μας','contact.location.val':'Κόσοβο, Βαλκάνια','contact.phone.title':'Καλέστε μας',
     'trusted.label':'Εμπιστεύονται +50 Εταιρείες και Επιχειρήσεις',
