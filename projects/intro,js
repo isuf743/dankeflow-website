@@ -32,16 +32,20 @@
   drawParticles();
 
   setTimeout(() => {
-    document.getElementById('introProgress').style.width = '100%';
+    const bar = document.getElementById('introProgress');
+    if (bar) bar.style.width = '100%';
   }, 100);
 
   setTimeout(() => {
     cancelAnimationFrame(animFrame);
     const intro = document.getElementById('introScreen');
-    intro.classList.add('intro-exit');
+    if (!intro) return;
+    intro.style.transition = 'opacity 0.6s ease';
+    intro.style.opacity = '0';
     setTimeout(() => {
       intro.style.display = 'none';
       document.body.style.overflow = '';
     }, 600);
   }, 2400);
+
 })();
