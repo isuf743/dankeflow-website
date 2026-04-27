@@ -1261,6 +1261,66 @@
   </style>
 </head>
 <body>
+<!-- INTRO ANIMATION -->
+<div id="introScreen" style="
+  position:fixed; inset:0; z-index:9999;
+  background:#020617;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:20px;
+">
+  <div id="introLogo" style="
+    animation: spin3d 1.2s cubic-bezier(.22,1,.36,1) forwards;
+    transform-style: preserve-3d;
+  ">
+    <svg width="72" height="72" viewBox="0 0 40 40" fill="none">
+      <defs>
+        <linearGradient id="igl" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#2563eb"/>
+          <stop offset="100%" stop-color="#60a5fa"/>
+        </linearGradient>
+      </defs>
+      <path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8 Z" fill="url(#igl)" opacity="0.15"/>
+      <path d="M8 6 H18 C28 6 34 12 34 20 C34 28 28 34 18 34 H8" stroke="url(#igl)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 28 L22 12" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+    </svg>
+  </div>
+  <div style="
+    font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800;
+    color:#fff; letter-spacing:0.02em;
+    animation: fadeInText 0.6s 0.5s ease forwards; opacity:0;
+  ">Danke<span style="color:#3b82f6">Flow</span></div>
+</div>
+
+<style>
+  @keyframes spin3d {
+    0%   { transform: rotateY(-180deg) scale(0.4); opacity:0; }
+    60%  { transform: rotateY(20deg) scale(1.1); opacity:1; }
+    100% { transform: rotateY(0deg) scale(1); opacity:1; }
+  }
+  @keyframes fadeInText {
+    from { opacity:0; transform:translateY(8px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes introFadeOut {
+    from { opacity:1; }
+    to   { opacity:0; pointer-events:none; }
+  }
+  .intro-out {
+    animation: introFadeOut 0.5s ease forwards !important;
+  }
+</style>
+
+<script>
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    const intro = document.getElementById('introScreen');
+    intro.classList.add('intro-out');
+    setTimeout(() => {
+      intro.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 500);
+  }, 2000);
+</script>
 
 <div class="mobile-nav-overlay" id="navOverlay" onclick="toggleMenu()"></div>
 <div class="mobile-nav" id="mobileNav">
