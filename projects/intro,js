@@ -1,4 +1,4 @@
-(function() {
+window.addEventListener('load', function() {
   document.body.style.overflow = 'hidden';
 
   const canvas = document.getElementById('introCanvas');
@@ -40,12 +40,12 @@
     cancelAnimationFrame(animFrame);
     const intro = document.getElementById('introScreen');
     if (!intro) return;
-    intro.style.transition = 'opacity 0.6s ease';
+    intro.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     intro.style.opacity = '0';
+    intro.style.transform = 'scale(1.04)';
     setTimeout(() => {
       intro.style.display = 'none';
       document.body.style.overflow = '';
-    }, 600);
+    }, 650);
   }, 2400);
-
-})();
+});
